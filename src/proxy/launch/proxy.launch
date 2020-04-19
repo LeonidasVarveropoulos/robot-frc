@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="proxy" type="proxy.py" name="proxy"  output="screen"/>
+</launch>

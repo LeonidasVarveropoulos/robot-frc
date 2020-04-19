@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="vision_targeting" type="vision_targeting.py" name="vision_targeting"  output="screen"/>
+</launch>

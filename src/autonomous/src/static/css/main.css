@@ -1,0 +1,124 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+body
+{
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-image:linear-gradient(rgba(0, 0, 0, 0.657),rgba(0,0,0,0.5)), url(robot_home_dark.jpg);
+    
+}
+
+.container
+{
+    position: absolute;
+    left: 200px;
+    top: 0px;
+
+}
+
+.container span
+{
+    display: block;
+}
+
+.text1
+{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 120px;
+    font-weight: 700;
+    background: -webkit-linear-gradient(rgb(32, 211, 0), rgb(232, 252, 223));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    letter-spacing: 5px;
+    margin-bottom: 0px;
+}
+
+.text2
+{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 50px;
+    font-weight: 500;
+    position: absolute;
+    left: 210px;
+    top: 130px;
+    color:rgb(255, 255, 255);
+
+    letter-spacing: 2px;
+    margin-top: -5px;
+
+    animation: animate_text2 3.5s 1;
+}
+
+@keyframes animate_text2{
+    0%{
+        opacity: 0;
+
+    }
+
+    30%{
+        opacity: 0;
+        position: absolute;
+        left: 210px;
+        top: 100px;
+    }
+
+}
+
+.logo img
+{
+    width: 300px;
+    height: auto;
+    position: absolute;
+    left: 1550px;
+    top: -25px;
+    border-radius: 50%;
+}
+
+.button
+{
+    position: absolute;
+        left: 180px;
+        top: 700px;
+}
+
+.btn
+{
+    border: 2px solid white;
+    padding: 10px 30px;
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 17px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.btn:hover
+{
+    border: 2px solid rgb(0, 255, 55);
+    color: rgb(141, 255, 155);
+    background:rgb(1, 39, 0) ;
+    padding: 15px 35px;
+    margin-right: 10px;
+    box-shadow: 0 0 10px rgb(0, 255, 55),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
+    
+}
+
+h3
+{
+    color: rgb(0, 255, 55);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 30px;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    position: absolute;
+    left: 87px;
+    top: -70px;
+}

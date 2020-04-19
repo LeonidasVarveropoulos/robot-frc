@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/create_auto.css') }}">
+<title>Path Editor</title>
+{% endblock %}
+
+{% block body %}
+    <header>
+        <div class="logo">
+            <img src="/static/images/logo.jpg" />
+        </div>
+        
+        <div class="container">
+            <span class="text1">CRyptonite</span>
+            <span class="text2">Path Editor</span>
+        </div>
+    </header>
+
+    <div class="button">
+        <a href="" class="btn btn-one"> Create New </a>
+        <a href="" class="btn btn-two"> Select Other </a>
+        <h3>Autonomous</h3>
+    </div>
+
+    <div class="selector_box">
+            <img src="/static/images/logo.jpg" class="small_logo" />
+            <div class="button2">
+                <a href="/" class="back_btn btn-one"> Go Back </a>
+            </div>
+            <div class="create_content">
+                <h1> Create New </h1>
+
+                <form action="/create/submit" method="POST">
+                    <h2 class="title"> Title </h2>
+                    <input type="text" name="title_content" id="title_content" placeholder="Enter Title" >
+                    <br>
+                    <h2 class="num"> Number of Balls </h2>
+                    <input type="text" name="num_ball_content" id="num_ball_content" placeholder="Enter Number of Balls">
+                    <br>
+                    <h2 class="start"> Starting Position </h2>
+                    <input type="text" name="start_pose_content" id="start_pose_content" placeholder="Enter Starting Position">
+                    <br>
+                    <h2 class="description"> Description </h2>
+                    <input type="text" name="description_content" id="description_content" placeholder="Enter Description">
+                    <br>
+                    <input type="submit" value="Create" class="create_btn">
+                </form>
+            </div>
+
+    </div>
+{% endblock %}

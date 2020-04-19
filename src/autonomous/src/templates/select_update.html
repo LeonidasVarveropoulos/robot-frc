@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/create_auto.css') }}">
+<title>Path Editor</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <div class="selector_box">
+        <img src="/static/images/logo.jpg" class="small_logo" />
+        <div class="button2">
+            <a href="/select" class="back_btn btn-one"> Go Back </a>
+        </div>
+        <div class="create_content">
+            <h1> Update </h1>
+
+            <form action="/select/update/{{auton.id}}" method="POST">
+                <h2 class="title"> Title </h2>
+                <input type="text" name="title_content" id="title_content" placeholder="Enter Title" value="{{auton.title}}" >
+                <br>
+                <h2 class="num"> Number of Balls </h2>
+                <input type="text" name="num_ball_content" id="num_ball_content" placeholder="Enter Number of Balls" value="{{auton.num_balls}}">
+                <br>
+                <h2 class="start"> Starting Position </h2>
+                <input type="text" name="start_pose_content" id="start_pose_content" placeholder="Enter Starting Position" value="{{auton.start_pose}}">
+                <br>
+                <h2 class="description"> Description </h2>
+                <input type="text" name="description_content" id="description_content" placeholder="Enter Description" value="{{auton.description}}">
+                <br>
+                <input type="submit" value="Update" class="create_btn">
+            </form>
+        </div>
+
+</div>
+</div>
+{% endblock %}

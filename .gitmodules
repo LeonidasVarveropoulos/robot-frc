@@ -1,0 +1,6 @@
+[submodule "src/diff_drive"]
+	path = src/diff_drive
+	url = https://github.com/LeonidasVarveropoulos/diff_drive.git
+[submodule "src/realsense-ros"]
+	path = src/realsense-ros
+	url = https://github.com/IntelRealSense/realsense-ros.git

@@ -1,0 +1,345 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+body
+{
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-image:linear-gradient(rgba(0, 0, 0, 0.657),rgba(0,0,0,0.5)), url(robot_home_dark.jpg);
+    
+}
+
+
+.container span
+{
+    display: block;
+}
+
+.text1
+{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 120px;
+    font-weight: 700;
+    background: -webkit-linear-gradient(rgb(32, 211, 0), rgb(232, 252, 223));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    letter-spacing: 5px;
+    margin-bottom: 0px;
+
+    position: absolute;
+    left: 200px;
+    top: -260px;
+
+    animation: animate_text1 0.5s 1;
+}
+
+.text2
+{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 50px;
+    font-weight: 500;
+    position: absolute;
+    left: 410px;
+    top: -130px;
+    color:rgb(255, 255, 255);
+
+    letter-spacing: 2px;
+    margin-top: -5px;
+
+    animation: animate_text2 0.5s 1;
+}
+
+@keyframes animate_text2{
+    0%{
+        opacity: 1;
+        position: absolute;
+        left: 410px;
+        top: 130px;
+
+    }
+
+    40%{
+        opacity: 0;
+    }
+
+}
+
+@keyframes animate_text1{
+    0%{
+        opacity: 1;
+        position: absolute;
+        left: 200px;
+        top: 0px;
+
+    }
+
+    100%{
+        opacity: 0;
+    }
+
+}
+
+.logo img
+{
+    width: 300px;
+    height: auto;
+    position: absolute;
+    left: 1550px;
+    top: -285px;
+
+    animation: animate_logo 0.5s 1;
+}
+
+@keyframes animate_logo{
+    0%{
+        opacity: 1;
+        position: absolute;
+        left: 1550px;
+        top: -25px;
+
+    }
+
+    100%{
+        opacity: 0;
+    }
+
+}
+
+.button
+{
+    position: absolute;
+        left: 180px;
+        top: -100px;
+    
+        animation: animate_button 0.5s 1;
+    
+}
+
+@keyframes animate_button{
+    0%{
+        opacity: 1;
+        position: absolute;
+        left: 180px;
+        top: 700px;
+
+    }
+    
+
+    100%{
+        opacity: 0;
+    }
+
+}
+
+.btn
+{
+    border: 2px solid white;
+    padding: 10px 30px;
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 17px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.btn:hover
+{
+    border: 2px solid rgb(0, 255, 55);
+    color: rgb(141, 255, 155);
+    background:rgb(1, 39, 0) ;
+    padding: 15px 35px;
+    margin-right: 10px;
+    box-shadow: 0 0 10px rgb(0, 255, 55),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
+    
+}
+
+h3
+{
+    color: rgb(0, 255, 55);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 30px;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    position: absolute;
+    left: 87px;
+    top: -70px;
+}
+
+
+/* New Elements */
+
+.selector_box
+{
+    width: 820px;
+    height: 820px;
+    background: rgb(190, 190, 190);
+    color: rgb(0, 0, 0);
+    top: 55%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+    box-shadow: 0 0 10px rgb(0, 255, 55),0 0 30px rgb(0, 255, 55),0 0 50px rgb(0, 255, 55);
+    border-radius: 5%;
+
+    animation: animate_selector_box 1.0s 1;
+}
+
+@keyframes animate_selector_box{
+    0%{
+        opacity: 0;
+
+    }
+
+    50%{
+        opacity: 0;
+
+    }
+    
+
+    100%{
+        opacity: 1;
+    }
+
+}
+
+.small_logo
+{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    position: absolute;
+    top: -100px;
+    left: calc(50% - 100px);
+    border: 2px solid rgb(255, 255, 255);
+}
+
+.back_btn
+{
+    border: 2px solid white;
+    padding: 10px 30px;
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 17px;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    position: absolute;
+    left: -450px;
+    top: -70px;
+}
+
+.back_btn:hover
+{
+    border: 2px solid rgb(0, 255, 55);
+    color: rgb(141, 255, 155);
+    background:rgb(1, 39, 0) ;
+    padding: 15px 35px;
+    margin-right: 10px;
+    box-shadow: 0 0 10px rgb(0, 255, 55),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
+    
+}
+
+.create_content
+{
+    width: 800px;
+    height: 800px;
+    top: 55%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+
+}
+
+h1
+{
+    font-size: 50px;
+    top: 10%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+}
+
+h2
+{
+    font-size: 25px;
+    top: 20%;
+    left: 18%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    width: 270px;
+    height: 20px;
+    text-align: left;
+}
+
+.num
+{
+    position: absolute;
+    top: 290px;
+}
+
+.start
+{
+    position: absolute;
+    top: 410px;
+}
+
+.description
+{
+    position: absolute;
+    top: 530px;
+}
+
+.create_btn
+{
+    width: 145px;
+    height: 47px;
+    border: 2px solid white;
+    padding: 10px 30px;
+    color: white;
+    background: black;
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    position: absolute;
+    left: 1075px;
+    top: 620px;
+}
+
+.create_btn:hover
+{
+    width: 150px;
+    height: 52px;
+    border: 2px solid rgb(0, 255, 55);
+    color: rgb(141, 255, 155);
+    background:rgb(1, 39, 0) ;
+    margin-right: 10px;
+    box-shadow: 0 0 10px rgb(0, 255, 55),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
+}
+
+input
+{
+    width: 760px;
+    height: 30px;
+    font-size: 18px;
+    position: relative;
+    top: 120px;
+    left: 5px;
+    margin-top: 80px;
+}
+
+input:hover
+{
+    box-shadow: 0 0 10px rgb(0, 255, 55),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
+}

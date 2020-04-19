@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="autonomous" type="path_editor.py" name="path_editor"  output="screen"/>
+</launch>

@@ -1,0 +1,3 @@
+<launch>
+<node pkg="cmd_vel_to_rpm" type="cmd_vel_to_rpm.py" name="cmd_vel_to_rpm"  output="screen"/>
+</launch>

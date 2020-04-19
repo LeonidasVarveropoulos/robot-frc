@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/planner.css') }}">
+<title>Path Editor</title>
+{% endblock %}
+
+{% block body %}
+<div class="field">
+    <img class="field_img" id="field" src="/static/images/2020-field.png" />
+    <div class="robot" id="robot">
+        <img id="robot_img" src="/static/images/robot.png" />
+    </div>
+</div>
+
+<div id="left_sidebar">
+    <div class="left_toggle_btn" onclick="left_show(); displayPathTable();"></div>
+    <!-- Tab links -->
+    <div class="left_tab">
+        <button id="left_default_tab" class="left_tablinks" onclick="openLeft(event, 'left_Info')">Info</button>
+        <button class="left_tablinks" onclick="openLeft(event, 'left_Autonomous')">Autonomous</button>
+        <button class="left_tablinks" onclick="openLeft(event, 'left_Paths'); displayPathTable();">Paths</button>
+    </div>
+  
+    <!-- Tab content -->
+    <div id="left_Autonomous" class="left_tabcontent">
+        <h3>Autonomous</h3>
+        <p>London is the capital city of England.</p>
+    </div>
+    
+    <div id="left_Paths" class="left_tabcontent">
+        <h3>Paths</h3>
+        <div class="add_path_btn">
+            <h1 onclick="addPath();" >+</h1>
+        </div>
+        <p> SELECT A PATH TO USE </p>
+
+        <div id="left_Path_Table" class="left_Path_Table"></div>
+    </div>
+    
+    <div id="left_Info" class="left_tabcontent">
+        <h3>Info</h3>
+        <p>Tokyo is the capital of Japan.</p>
+    </div> 
+</div>
+
+<div id="right_sidebar">
+    <div class="right_toggle_btn" onclick="right_show()"></div>
+
+    <!-- Tab links -->
+    <div class="right_tab">
+        <button class="right_tablinks" onclick="addGoal()">+</button>
+        <!-- For loop through all the goals -->
+        <div class="dropdown">
+            <button class="right_goal_tablinks" id="drop_btn" onmouseover="onHover()">Goal Editor</button>
+            <div class="dropdown-content" id="dropdown-content">
+                <!-- Content -->
+            </div>
+        </div> 
+
+        <!-- <button class="right_tablinks" onclick="openRight(event, 'right_SampleGoal')">SampleGoal</button>
+        <button class="right_tablinks" onclick="openRight(event, 'right_SampleGoal2')">SampleGoal2</button> -->
+
+        <button id="right_default_tab" class="right_tablinks" onclick="openRight(event, 'right_Info')">Info</button>
+
+    </div>
+
+    <!-- This will be dynamicly generated -->
+    <!-- Content -->
+
+    <div id="right_Info" class="right_tabcontent">
+        <h3>Info</h3>
+        <p>Tokyo is the capital of Japan.</p>
+    </div> 
+</div>
+
+<div class="nav-bar">
+    
+    <div class="container">
+        <span class="text1">CRyptonite</span>
+        <span class="text2">Path Editor</span>
+    </div>
+
+    <div class="logo">
+        <img src="/static/images/logo.jpg" />
+    </div>
+
+</div>
+<a href="/" class="back_btn" onclick="postJSON()"> Home </a>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/planner.js') }}"></script>
+{% endblock %}

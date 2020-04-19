@@ -1,0 +1,550 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+body
+{
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    background-image:linear-gradient(rgba(0, 0, 0, 0.657),rgba(0,0,0,0.5)), url(robot_home_dark.jpg);
+    
+}
+
+
+.container span
+{
+    display: block;
+}
+
+.text1
+{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 120px;
+    font-weight: 700;
+    background: -webkit-linear-gradient(rgb(32, 211, 0), rgb(232, 252, 223));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    letter-spacing: 5px;
+    margin-bottom: 0px;
+
+    position: absolute;
+    left: 200px;
+    top: -260px;
+
+    animation: animate_text1 0.5s 1;
+}
+
+.text2
+{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 50px;
+    font-weight: 500;
+    position: absolute;
+    left: 410px;
+    top: -130px;
+    color:rgb(255, 255, 255);
+
+    letter-spacing: 2px;
+    margin-top: -5px;
+
+    animation: animate_text2 0.5s 1;
+}
+
+@keyframes animate_text2{
+    0%{
+        opacity: 1;
+        position: absolute;
+        left: 410px;
+        top: 130px;
+
+    }
+
+    40%{
+        opacity: 0;
+    }
+
+}
+
+@keyframes animate_text1{
+    0%{
+        opacity: 1;
+        position: absolute;
+        left: 200px;
+        top: 0px;
+
+    }
+
+    100%{
+        opacity: 0;
+    }
+
+}
+
+.logo img
+{
+    width: 300px;
+    height: auto;
+    position: absolute;
+    left: 1550px;
+    top: -285px;
+    border-radius: 50%;
+
+    animation: animate_logo 0.5s 1;
+}
+
+@keyframes animate_logo{
+    0%{
+        opacity: 1;
+        position: absolute;
+        left: 1550px;
+        top: -25px;
+
+    }
+
+    100%{
+        opacity: 0;
+    }
+
+}
+
+.button
+{
+    position: absolute;
+        left: 180px;
+        top: -100px;
+    
+        animation: animate_button 0.5s 1;
+    
+}
+
+@keyframes animate_button{
+    0%{
+        opacity: 1;
+        position: absolute;
+        left: 180px;
+        top: 700px;
+
+    }
+    
+
+    100%{
+        opacity: 0;
+    }
+
+}
+
+.btn
+{
+    border: 2px solid white;
+    padding: 10px 30px;
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 17px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.btn:hover
+{
+    border: 2px solid rgb(0, 255, 55);
+    color: rgb(141, 255, 155);
+    background:rgb(1, 39, 0) ;
+    padding: 15px 35px;
+    margin-right: 10px;
+    box-shadow: 0 0 10px rgb(0, 255, 55),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
+    
+}
+
+h3
+{
+    color: rgb(0, 255, 55);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 30px;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    position: absolute;
+    left: 87px;
+    top: -70px;
+}
+
+
+/* New Elements */
+
+.selector_box
+{
+    width: 1100px;
+    height: 820px;
+    background: rgb(190, 190, 190);
+    color: rgb(0, 0, 0);
+    top: 55%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    box-sizing: border-box;
+    box-shadow: 0 0 10px rgb(0, 255, 55),0 0 30px rgb(0, 255, 55),0 0 50px rgb(0, 255, 55);
+    border-radius: 5%;
+    overflow: auto;
+
+    animation: animate_selector_box 1.0s 1;
+}
+
+@keyframes animate_selector_box{
+    0%{
+        opacity: 0;
+
+    }
+
+    50%{
+        opacity: 0;
+
+    }
+    
+
+    100%{
+        opacity: 1;
+    }
+
+}
+
+.small_logo
+{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    position: absolute;
+    top: 25px;
+    left: calc(50% - 100px);
+    border: 2px solid rgb(255, 255, 255);
+    animation: animate_selector_box 1.0s 1;
+}
+
+.back_btn
+{
+    border: 2px solid white;
+    padding: 10px 30px;
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 17px;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    position: absolute;
+    left: 90px;
+    top: 85px;
+    animation: animate_selector_box 1.0s 1;
+}
+
+.back_btn:hover
+{
+    border: 2px solid rgb(0, 255, 55);
+    color: rgb(141, 255, 155);
+    background:rgb(1, 39, 0) ;
+    padding: 15px 35px;
+    margin-right: 10px;
+    box-shadow: 0 0 10px rgb(0, 255, 55),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
+    
+}
+
+table
+{
+    width: 1050px;
+    height: 550px;
+    top: 55%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    overflow: auto;
+    table-layout: fixed;
+}
+
+h1
+{
+    font-size: 50px;
+    top: 16%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+}
+
+tr
+{
+    font-size: 20px;
+}
+
+.table_header
+{
+    position: absolute;
+    left: 38px;
+    top: 170px;
+}
+
+.table_row
+{
+    border: 4px solid rgb(0, 0, 0);
+    height: 178px;
+    width: 1050px;
+    position: relative;
+    left: 15px;
+    top: 230px;
+    margin-bottom: 20px;
+}
+
+.table_row:hover
+{
+    box-shadow: 0 0 10px rgb(0, 0, 0),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
+    border: 4px solid rgb(0, 255, 55);
+}
+
+
+.tr_title
+{
+    position: absolute;
+    left: 10px;
+    top: 0px;
+
+    font-size: 25px;
+    text-align: center;
+
+    width: 10%;
+}
+
+.tr_balls
+{
+    position: absolute;
+    left: 95px;
+    top: 0px;
+
+    font-size: 25px;
+    
+    text-align: center;
+
+    width: 9%;
+}
+.tr_position
+{
+    position: absolute;
+    left: 180px;
+    top: 0px;
+    font-size: 25px;
+
+    text-align: center;
+
+    width: 15%;
+}
+.tr_description
+{
+    position: absolute;
+    left: 367px;
+    top: 0px;
+    font-size: 25px;
+
+    text-align: center;
+
+    width: 27%;
+}
+.tr_date
+{
+    position: absolute;
+    left: 615px;
+    top: 0px;
+    font-size: 25px;
+
+    text-align: center;
+
+    width: 14%;
+}
+.tr_actions
+{
+    position: absolute;
+    left: 750px;
+    top: 0px;
+    font-size: 25px;
+
+    text-align: center;
+
+    width: 14%;
+}
+.tr_select
+{
+    position: absolute;
+    left: 900px;
+    top: 0px;
+    font-size: 25px;
+
+    text-align: center;
+
+    width: 14%;
+}
+
+.td_title
+{
+    position: absolute;
+    left: 10px;
+    top: 77px;
+
+    font-size: 20px;
+    text-align: center;
+
+    width: 10%;
+    height: 32.5%;
+}
+
+.td_balls
+{
+    position: absolute;
+    left: 120px;
+    top: 77px;
+
+    font-size: 20px;
+    
+    text-align: center;
+
+    width: 5%;
+    height: 32.5%;
+}
+.td_position
+{
+    position: absolute;
+    left: 180px;
+    top: 77px;
+    font-size: 20px;
+
+    text-align: center;
+
+    width: 15%;
+    height: 32.5%;
+}
+.td_description
+{
+    position: absolute;
+    left: 316px;
+    top: 77px;
+
+    text-align: center;
+
+    font-size: 20px;
+
+    width: 27%;
+    height: 32.5%;
+    overflow: auto;
+}
+.td_date
+{
+    position: absolute;
+    left: 600px;
+    top: 77px;
+
+    text-align: center;
+    font-size: 20px;
+
+    width: 14%;
+    height: 32.5%;
+}
+.td_actions
+{
+    position: absolute;
+    left: 750px;
+
+    text-align: left;
+
+    width: 14%;
+    height: 32.5%;
+}
+.td_select
+{
+    position: absolute;
+    left: 900px;
+
+    text-align: left;
+
+    width: 14%;
+    height: 32.5%;
+}
+
+.select_btn
+{
+    border: 2px solid rgb(0, 0, 0);
+    padding: 10px 30px;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 17px;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    position: relative;
+    left: 740px;
+    top: 60px;
+}
+.select_btn:hover
+{
+    border: 2px solid rgb(0, 255, 55);
+    color: rgb(141, 255, 155);
+    background:rgb(1, 39, 0) ;
+    box-shadow: 0 0 10px rgb(0, 255, 55),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
+}
+.delete_btn
+{
+    border: 2px solid rgb(0, 0, 0);
+    padding: 10px 30px;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    position: relative;
+    left: 755px;
+    top: 100px;
+}
+.delete_btn:hover
+{
+    border: 2px solid rgb(0, 255, 55);
+    color: rgb(141, 255, 155);
+    background:rgb(1, 39, 0) ;
+    box-shadow: 0 0 10px rgb(0, 255, 55),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
+}
+
+.update_btn
+{
+    border: 2px solid rgb(0, 0, 0);
+    padding: 10px 30px;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    position: relative;
+    left: 755px;
+    top: 35px;
+}
+.update_btn:hover
+{
+    border: 2px solid rgb(0, 255, 55);
+    color: rgb(141, 255, 155);
+    background:rgb(1, 39, 0) ;
+    box-shadow: 0 0 10px rgb(0, 255, 55),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
+}
+
+h4
+{
+    position: absolute;
+    left: 16%;
+    top: 50%;
+    text-align: center;
+    box-shadow: 0 0 10px rgb(0, 0, 0),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
+    border: 2px solid rgb(0, 255, 55);
+    background:rgb(109, 218, 133) ;
+
+    font-size: 35px;
+}

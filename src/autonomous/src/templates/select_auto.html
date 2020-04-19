@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/select_auto.css') }}">
+<title>Path Editor</title>
+{% endblock %}
+
+{% block body %}
+    <header>
+        <div class="logo">
+            <img src="/static/images/logo.jpg" />
+        </div>
+        
+        <div class="container">
+            <span class="text1">CRyptonite</span>
+            <span class="text2">Path Editor</span>
+        </div>
+    </header>
+
+    <div class="button">
+        <a href="" class="btn btn-one"> Create New </a>
+        <a href="" class="btn btn-two"> Select Other </a>
+        <h3>Autonomous</h3>
+    </div>
+
+    <div class="selector_box">
+
+            <div class="select_content">
+                <h1> Select Other </h1>
+                {% if autons|length < 1 %}
+                <h4>There are no autons please create one!</h4>
+                {% else %}
+                
+                <div class="table_header">
+                    <h5 class="tr_title">Title</h5>
+                    <h5 class="tr_balls">Balls</h5>
+                    <h5 class="tr_position">Position</h5>
+                    <h5 class="tr_description">Description</h5>
+                    <h5 class="tr_date">Date</h5>
+                    <h5 class="tr_actions"></h5>
+                    <h5 class="tr_select"></h5>
+                </div>
+
+                {% for auton in autons %}
+                    <div class="table_row">
+                        <h5 class="td_title">{{ auton.title }}</h5>
+                        <h5 class="td_balls">{{ auton.num_balls }}</h5>
+                        <h5 class="td_position">{{ auton.start_pose }}</h5>
+                        <h5 class="td_description">{{ auton.description }}</h5>
+                        <h5 class="td_date">{{ auton.date_created }}</h5>
+                        <a class="update_btn" href="/select/update/{{auton.id}}">Update</a>
+                        <br>
+                        <a class="delete_btn" href="/select/delete/{{auton.id}}">Delete</a>
+                        <a class="select_btn" href="/select/auto/{{auton.id}}">Select</a>
+                    </div>
+                {% endfor %}
+                {% endif %}
+
+                
+            </div>
+
+    </div>
+
+    <img src="/static/images/logo.jpg" class="small_logo" />
+    <div class="button2">
+        <a href="/" class="back_btn btn-one"> Go Back </a>
+    </div>
+{% endblock %}

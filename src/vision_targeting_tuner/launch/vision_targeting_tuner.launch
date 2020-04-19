@@ -1,0 +1,3 @@
+<launch>
+  <node pkg="vision_targeting_tuner" type="vision_targeting_tuner.py" name="vision_targeting_tuner"  output="screen"/>
+</launch>

@@ -1,0 +1,6 @@
+<launch>
+
+    <!-- This transforms the odom topic to the base link frame -->
+    <node pkg="sim_robot" type="sim_robot.py" name="sim_robot"  output="screen"/>
+    
+</launch>

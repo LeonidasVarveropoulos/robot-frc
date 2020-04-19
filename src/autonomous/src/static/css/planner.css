@@ -1,0 +1,780 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+.nav-bar
+{
+    width: 100%;
+    height: 67px;
+    background: black;
+    position: fixed;
+}
+
+.back_btn
+{
+    border: 2px solid white;
+    padding: 7px 20px;
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    position: fixed;
+    left: 28px;
+    top: 15px;
+}
+
+.back_btn:hover
+{
+    border: 2px solid rgb(0, 255, 55);
+    color: rgb(141, 255, 155);
+    background:rgb(1, 39, 0) ;
+    box-shadow: 0 0 10px rgb(0, 0, 0),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
+    
+}
+
+.logo img
+{
+    width: 70px;
+    height: auto;
+    position: absolute;
+    left: 1750px;
+    top: -8px;
+    border-radius: 50%;
+    border: 2px solid rgb(0, 0, 0);
+}
+
+.text1
+{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 55px;
+    font-weight: 700;
+    background: -webkit-linear-gradient(rgb(32, 211, 0), rgb(232, 252, 223));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    position: absolute;
+    left: 250px;
+    
+    letter-spacing: 5px;
+    margin-bottom: 0px;
+}
+
+.text2
+{
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 35px;
+    font-weight: 500;
+    position: absolute;
+    left: 650px;
+    top: 20px;
+    color:rgb(255, 255, 255);
+
+    letter-spacing: 2px;
+    margin-top: -5px;
+
+    animation: animate_text2 3s 1;
+}
+
+@keyframes animate_text2{
+    0%{
+        opacity: 0;
+        position: absolute;
+        left: 500px;
+        top: 20px;
+
+    }
+
+    60%{
+        opacity: 1;
+        position: absolute;
+        left: 650px;
+        top: 20px;
+    }
+
+}
+
+#left_sidebar
+{
+    position: fixed;
+    left: -26%;
+    width: 26%;
+    height: 100%;
+    background: black;
+    margin-top: 60px;
+    border-right: 5px solid rgb(19, 247, 19);
+    opacity: 0.8;
+    transition: 0.4s;
+}
+
+#left_sidebar.active
+{
+    left: 0%;
+}
+
+#left_sidebar .left_toggle_btn
+{
+    width: 7%;
+    height: 20%;
+    position: absolute;
+    top: 40%;
+    left:100%;
+    background: black;
+    border-right: 5px solid rgb(19, 247, 19);
+    border-top: 5px solid rgb(19, 247, 19);
+    border-bottom: 5px solid rgb(19, 247, 19);
+    border-bottom-right-radius: 50px;
+    border-top-right-radius: 50px;
+}
+
+#left_sidebar .left_toggle_btn:hover
+{
+    border: 2px solid rgb(0, 255, 55);
+    color: rgb(141, 255, 155);
+    background:rgb(1, 39, 0) ;
+    box-shadow: 0 0 10px rgb(0, 0, 0),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
+}
+
+#right_sidebar
+{
+    position: fixed;
+    left: 99.7%;
+    width: 26%;
+    height: 100%;
+    background: black;
+    margin-top: 60px;
+    border-left: 5px solid rgb(19, 247, 19);
+    opacity: 0.8;
+    transition: 0.4s;
+}
+
+#right_sidebar.active
+{
+    left: 74%;
+}
+
+#right_sidebar .right_toggle_btn
+{
+    width: 7%;
+    height: 20%;
+    position: absolute;
+    top: 40%;
+    left:-8.05%;
+    background: black;
+    border-left: 5px solid rgb(19, 247, 19);
+    border-top: 5px solid rgb(19, 247, 19);
+    border-bottom: 5px solid rgb(19, 247, 19);
+    border-bottom-left-radius: 50px;
+    border-top-left-radius: 50px;
+}
+
+#right_sidebar .right_toggle_btn:hover
+{
+    border: 2px solid rgb(0, 255, 55);
+    color: rgb(141, 255, 155);
+    background:rgb(1, 39, 0) ;
+    box-shadow: 0 0 10px rgb(0, 0, 0),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
+}
+
+.field_img
+{
+    width: auto;
+    height: 93%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -46.35%);
+    border: 15px solid rgb(87, 87, 87);;
+}
+/* Style the tab */
+.left_tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+  
+  /* Style the buttons inside the tab */
+.left_tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+  
+  /* Change background color of buttons on hover */
+.left_tab button:hover {
+    background-color: rgb(202, 202, 202);
+}
+  
+  /* Create an active/current tablink class */
+.left_tab button.active {
+    background-color: rgb(190, 190, 190);
+}
+  
+/* Style the tab */
+.right_tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+  
+  /* Style the buttons inside the tab */
+.right_tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+  
+  /* Change background color of buttons on hover */
+.right_tab button:hover {
+    background-color: rgb(202, 202, 202);
+}
+  
+  /* Create an active/current tablink class */
+.right_tab button.active {
+    background-color: rgb(190, 190, 190);
+}
+
+  /* Style the tab content */
+.left_tabcontent {
+    display: none;
+    padding: 6px 12px;
+    /* border: 3px solid rgb(223, 223, 223); */
+    border-top: none;
+    color: white;
+}
+
+.right_tabcontent {
+    display: none;
+    padding: 6px 12px;
+    /* border: 3px solid rgb(223, 223, 223); */
+    border-top: none;
+    color: white;
+}
+
+.left_tabcontent h3 {
+    color: rgb(60, 221, 32);
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.left_tabcontent p{
+    text-align: center;
+}
+
+.right_tabcontent h3 {
+    color: rgb(60, 221, 32);
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.right_tabcontent p{
+    text-align: center;
+}
+
+.add_path_btn h1{
+    text-align: center;
+}
+.add_path_btn
+{
+    width: 50px;
+    height: 50px;
+    position: relative;
+    top: -60px;
+    left:400px;
+}
+
+.add_path_btn h1:hover
+{
+    font-weight: bold;
+    color: rgb(24, 238, 24);
+    cursor: pointer;
+}
+.left_Path_Table{
+    width:462px ;
+    height: 700px;
+    overflow: auto;
+    border-bottom: 4px solid rgb(19, 247, 19);
+    border-top: 4px solid rgb(19, 247, 19);
+}
+
+.PathOption
+{
+    width: 87%;
+    height: 8%;
+    border: 3px solid white;
+    margin-bottom: 20px;
+    margin-top: 7px;
+}
+
+.PathOption:hover
+{
+    border: 3px solid rgb(49, 235, 16);
+    cursor: pointer;
+}
+
+.PathOption.active{
+    border: 3px solid rgb(49, 235, 16);
+    box-shadow: 0 0 10px rgb(0, 0, 0),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
+}
+
+.PathOption h2
+{
+    margin-top: -24px;
+    margin-left: 10px;
+}
+
+.PathOption h6
+{
+    font-size: 15px;
+    margin-top: 19px;
+    margin-left: 260px;
+}
+
+#left_Paths h4
+{
+    color: white;
+    font-size: 25px;
+}
+
+#left_Paths h4:hover
+{
+    color: rgb(255, 0, 0);
+    cursor: pointer;
+}
+
+#left_Paths p{
+    position: relative;
+    top: -50px;
+    font-size: 18px;
+}
+
+.PathTrash{
+    position: relative;
+    top: -9.4%;
+    left: 91%;
+    font-size: 18px;
+    width: 0px;
+    height: 0px;
+}
+
+#myPathInput{
+    width: 300px;
+    position: relative;
+    top: -750px;
+    left: 55px;
+}
+
+#myPathButton{
+    position: relative;
+    margin-left: 10px;
+    top: -750px;
+    left: 55px;
+}
+
+.right_tab{
+    overflow: visible;
+    height: 50px;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    height: 50px;
+  }
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #e4e4e4;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    overflow: auto;
+    cursor: pointer; /* Pointer/hand icon */
+    width: 200px; /* Set a width if needed */
+    height: 150px;
+    top:50px;
+    border-bottom-left-radius: 5%;
+  }
+
+  .dropdown-content .GoalOption{
+    width: 100%;
+    height: 32%;
+  }
+
+/* Change color of dropdown links on hover */
+.dropdown-content .GoalOption :hover {background-color: #ddd;}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+
+.GoalContent {
+    display: none;
+    padding: 6px 12px;
+    /* border: 3px solid rgb(223, 223, 223); */
+    border-top: none;
+    color: white;
+    height: 100%;
+}
+
+.GoalContent h1 {
+    color: rgb(60, 221, 32);
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.GoalContent p{
+    text-align: center;
+}
+
+.GoalContentData{
+    position: absolute;
+    left: 20px;
+    height: 78%;
+    width: 95%;
+    border-top: 4px solid rgb(18, 224, 18);
+    border-bottom: 4px solid rgb(18, 224, 18);
+    overflow: auto;
+}
+
+/* Goal Data Stuff */
+
+.GoalDataDropDown{
+    color: white;
+    transition: 0.5s;
+    width: 47%;
+    height: 5%;
+    font-size: 30px;
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid white;
+
+}
+
+.GoalDataDropDown:hover{
+    cursor: pointer;
+    color: rgb(219, 219, 219);
+    transition: 0.5s;
+    width: 100%;
+}
+
+#Angle{
+    color: white;
+    transition: 0.5s;
+    width: 54%;
+
+}
+
+#Angle:hover{
+    cursor: pointer;
+    color: rgb(219, 219, 219);
+    transition: 0.5s;
+    width: 100%;
+
+}
+
+#Pose{
+    color: white;
+    transition: 0.5s;
+    width: 40%;
+
+}
+
+#Pose:hover{
+    cursor: pointer;
+    color: rgb(219, 219, 219);
+    transition: 0.5s;
+    width: 100%;
+
+}
+
+#Constants{
+    color: white;
+    transition: 0.5s;
+    width: 60%;
+
+}
+
+#Constants:hover{
+    cursor: pointer;
+    color: rgb(219, 219, 219);
+    transition: 0.5s;
+    width: 100%;
+
+}
+
+.LinearGoalDataContent{
+    width: 100%;
+}
+
+.AngularGoalDataContent{
+    width: 100%;
+}
+
+.PoseGoalDataContent{
+    width: 100%;
+}
+
+.PoseGoalDataName{
+    margin-top: 32px;
+    font-size: 24px;
+    letter-spacing: 4px;
+    /* color: rgb(38, 247, 38); */
+}
+
+.ConstantsGoalDataContent{
+    width: 100%;
+}
+
+.ConstantsGoalDataName{
+    margin-top: 32px;
+    font-size: 24px;
+    letter-spacing: 4px;
+    /* color: rgb(38, 247, 38); */
+}
+
+.PoseGoalDataXInput{
+    position: relative;
+    left: 250px;
+    top: -31px;
+    height: 25px;
+    width: 150px;
+    font-size: 20px;
+    box-shadow: 0 0 5px rgb(0, 0, 0),0 0 20px rgb(0, 255, 55),0 0 25px rgb(0, 255, 55);
+    text-align: center;
+}
+
+.PoseGoalDataYInput{
+    position: relative;
+    left: 250px;
+    top: -31px;
+    height: 25px;
+    width: 150px;
+    font-size: 20px;
+    box-shadow: 0 0 5px rgb(0, 0, 0),0 0 20px rgb(0, 255, 55),0 0 25px rgb(0, 255, 55);
+    text-align: center;
+}
+
+.PoseGoalDataThInput{
+    position: relative;
+    left: 250px;
+    top: -31px;
+    height: 25px;
+    width: 150px;
+    font-size: 20px;
+    box-shadow: 0 0 5px rgb(0, 0, 0),0 0 20px rgb(0, 255, 55),0 0 25px rgb(0, 255, 55);
+    text-align: center;
+}
+
+.ConstantsGoalDataKpInput{
+    position: relative;
+    left: 250px;
+    top: -31px;
+    height: 25px;
+    width: 150px;
+    font-size: 20px;
+    box-shadow: 0 0 5px rgb(0, 0, 0),0 0 20px rgb(0, 255, 55),0 0 25px rgb(0, 255, 55);
+    text-align: center;
+}
+
+.ConstantsGoalDataKaInput{
+    position: relative;
+    left: 250px;
+    top: -31px;
+    height: 25px;
+    width: 150px;
+    font-size: 20px;
+    box-shadow: 0 0 5px rgb(0, 0, 0),0 0 20px rgb(0, 255, 55),0 0 25px rgb(0, 255, 55);
+    text-align: center;
+}
+
+.ConstantsGoalDataKbInput{
+    position: relative;
+    left: 250px;
+    top: -31px;
+    height: 25px;
+    width: 150px;
+    font-size: 20px;
+    box-shadow: 0 0 5px rgb(0, 0, 0),0 0 20px rgb(0, 255, 55),0 0 25px rgb(0, 255, 55);
+    text-align: center;
+}
+
+.LinearGoalDataName{
+    margin-top: 32px;
+    font-size: 24px;
+    letter-spacing: 4px;
+    /* color: rgb(38, 247, 38); */
+}
+
+.AngularGoalDataName{
+    margin-top: 32px;
+    font-size: 24px;
+    letter-spacing: 4px;
+    /* color: rgb(38, 247, 38); */
+}
+
+.LinearGoalDataMaxSpeedInput{
+    position: relative;
+    left: 250px;
+    top: -31px;
+    height: 25px;
+    width: 150px;
+    font-size: 20px;
+    box-shadow: 0 0 5px rgb(0, 0, 0),0 0 20px rgb(0, 255, 55),0 0 25px rgb(0, 255, 55);
+    text-align: center;
+}
+
+.LinearGoalDataMinSpeedInput{
+    position: relative;
+    left: 250px;
+    top: -31px;
+    height: 25px;
+    width: 150px;
+    font-size: 20px;
+    box-shadow: 0 0 5px rgb(0, 0, 0),0 0 20px rgb(0, 255, 55),0 0 25px rgb(0, 255, 55);
+    text-align: center;
+}
+
+.LinearGoalDataMaxAccelInput{
+    position: relative;
+    left: 250px;
+    top: -31px;
+    height: 25px;
+    width: 150px;
+    font-size: 20px;
+    box-shadow: 0 0 5px rgb(0, 0, 0),0 0 20px rgb(0, 255, 55),0 0 25px rgb(0, 255, 55);
+    text-align: center;
+}
+
+.LinearGoalDataTolOuterInput{
+    position: relative;
+    left: 250px;
+    top: -31px;
+    height: 25px;
+    width: 150px;
+    font-size: 20px;
+    box-shadow: 0 0 5px rgb(0, 0, 0),0 0 20px rgb(0, 255, 55),0 0 25px rgb(0, 255, 55);
+    text-align: center;
+}
+
+.LinearGoalDataTolInnerInput{
+    position: relative;
+    left: 250px;
+    top: -31px;
+    height: 25px;
+    width: 150px;
+    font-size: 20px;
+    box-shadow: 0 0 5px rgb(0, 0, 0),0 0 20px rgb(0, 255, 55),0 0 25px rgb(0, 255, 55);
+    text-align: center;
+}
+
+.LinearGoalDataForMoveOnlyInput{
+    position: relative;
+    left: 375px;
+    top: -25px;
+    width: 25px;
+    height: 25px;
+    box-shadow: 0 0 5px rgb(0, 0, 0),0 0 20px rgb(0, 255, 55),0 0 25px rgb(0, 255, 55);
+}
+
+.AngularGoalDataMaxSpeedInput{
+    position: relative;
+    left: 250px;
+    top: -31px;
+    height: 25px;
+    width: 150px;
+    font-size: 20px;
+    box-shadow: 0 0 5px rgb(0, 0, 0),0 0 20px rgb(0, 255, 55),0 0 25px rgb(0, 255, 55);
+    text-align: center;
+}
+
+.AngularGoalDataMinSpeedInput{
+    position: relative;
+    left: 250px;
+    top: -31px;
+    height: 25px;
+    width: 150px;
+    font-size: 20px;
+    box-shadow: 0 0 5px rgb(0, 0, 0),0 0 20px rgb(0, 255, 55),0 0 25px rgb(0, 255, 55);
+    text-align: center;
+}
+
+.AngularGoalDataMaxAccelInput{
+    position: relative;
+    left: 250px;
+    top: -31px;
+    height: 25px;
+    width: 150px;
+    font-size: 20px;
+    box-shadow: 0 0 5px rgb(0, 0, 0),0 0 20px rgb(0, 255, 55),0 0 25px rgb(0, 255, 55);
+    text-align: center;
+}
+
+.AngularGoalDataTolOuterInput{
+    position: relative;
+    left: 250px;
+    top: -31px;
+    height: 25px;
+    width: 150px;
+    font-size: 20px;
+    box-shadow: 0 0 5px rgb(0, 0, 0),0 0 20px rgb(0, 255, 55),0 0 25px rgb(0, 255, 55);
+    text-align: center;
+}
+
+.AngularGoalDataTolInnerInput{
+    position: relative;
+    left: 250px;
+    top: -31px;
+    height: 25px;
+    width: 150px;
+    font-size: 20px;
+    box-shadow: 0 0 5px rgb(0, 0, 0),0 0 20px rgb(0, 255, 55),0 0 25px rgb(0, 255, 55);
+    text-align: center;
+}
+
+.AngularGoalDataIgnoreAngleInput{
+    position: relative;
+    left: 375px;
+    top: -25px;
+    width: 25px;
+    height: 25px;
+    box-shadow: 0 0 5px rgb(0, 0, 0),0 0 20px rgb(0, 255, 55),0 0 25px rgb(0, 255, 55);
+}
+
+.GoalTrash{
+    position: relative;
+    top: 0%;
+    left: 95%;
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    color: white;
+}
+
+.GoalTrash:hover{
+    color: red;
+    cursor: pointer;
+}
+
+#robot_img{
+    width: 185px;
+    height: auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -46.35%);
+}

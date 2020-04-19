@@ -1,0 +1,10 @@
+<launch>
+  <node pkg="autonomous" type="ros_node.py" name="autonomous"  output="screen">
+    <param name="auto_state_topic" value="/auto/state" />
+    <param name="auto_selector_topic" value="/auto/select" />
+
+    <param name="file_root" value="auton_" />
+
+    <param name="rate" value="50" />
+  </node>
+</launch>

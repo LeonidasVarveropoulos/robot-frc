@@ -1,0 +1,33 @@
+<launch>
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="false"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+  <arg name="rvizconfig" default="$(find robot_urdf)/rviz/urdf.rviz" />
+  <arg name="model" default="$(find robot_urdf)/urdf/robot.urdf.xacro"/>
+
+<!--include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="debug" value="$(arg debug)" />
+    <arg name="gui" value="$(arg gui)" />
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="headless" value="$(arg headless)"/>
+  </include-->
+
+  <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)" />
+  <param name="use_gui" value="$(arg gui)"/>
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+  <node pkg="tf" type="static_transform_publisher" name="base_link_t265_odom" args="0 0 0 0 0 0 /base_link /t265_odom_frame 100" />
+  <node pkg="tf" type="static_transform_publisher" name="pose_odom_fake_base_link" args="-0.42545 0 -0.33 0 0 0 /t265_pose_frame /fake_base_link 100" />
+  <node pkg="tf" type="static_transform_publisher" name="foot_to_base" args="0 0 0 0 0 0 /base_footprint /base_link 100" />
+  <!--node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" /-->
+
+  <!--node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
+        args="-z 1.0 -unpause -urdf -model robot -param robot_description" respawn="false" output="screen" /-->
+  
+  <!--node pkg="tf" type="static_transform_publisher" name="base_to_foot" args="0 0 0 0 0 0 1  /base_footprint /base_link  100"/-->
+</launch>
