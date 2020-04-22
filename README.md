@@ -18,7 +18,7 @@ The goal for this repository is to provide a working example and framework of an
 * `path_editor` -- Provides a web app for changing and creating paths of waypoints for autonomous.
 
 ## Getting Started
-This was made to run on Ubuntu 16 with ROS Kinetic already installed, for instructions on how to get this set up go to the repo's wiki.
+This was made to run on Ubuntu 16 with ROS Kinetic already installed, for instructions on how to get this set up go to the repo's [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki).
 
 In order to run a simple simulation of the robot code first clone this workspace into your home folder.
 
