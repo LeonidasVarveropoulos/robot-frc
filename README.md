@@ -42,7 +42,7 @@ git submodule update
 
 #### realsense-ros
 
-First, **only if you have the physical cameras** install the nessesary dependancies by following the instructions on the repo's [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki). Afterwards change directory to the sub-repo then init and update instaed of cloning the repo into the directory as the normal instruction specify .
+First, **only if you have the physical cameras** install the nessesary dependancies by following the instructions on the repo's [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki). Afterwards change directory to the sub-repo then init and update instead of cloning the repo into the directory as the normal instruction specify .
 
 ```
 cd robot-frc/src/realsense-ros
