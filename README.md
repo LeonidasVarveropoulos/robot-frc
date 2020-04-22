@@ -80,7 +80,9 @@ Launches a useful tool for managing the ros system while running.
 
 In order to start the ros state machine managing autonomous we need to publish two topics, `auto/state` and `auto/select`. We could do this through the command line with `rostopic pub` but it is much easier to use the tool rqt that you launched above. To load the pre-made dashboard go to the perspectives tab of the app and choose to load in a configuration file with the path of `robot-frc/rqt/Default.perspective`. 
 
-Once loaded in you will see an option to publish to these two topics simply by checking the box with the topic name. To start the auton set `auto/state` to True and `auto/select` to 1. This will start the auton and you should be able to see the ros logging of what the state machine is doing on the left side of rqt. If you switch over to rviz you should see the robot following the paths given.
+Once loaded in you will see an option to publish to these two topics simply by checking the box with the topic name. To start the auton set `auto/state` to True and `auto/select` to 1. This will start the auton and you should be able to see the ros logging of what the state machine is doing on the left side of rqt. If you switch over to rviz you should see the robot following the paths given. 
+
+To stop and reset the auton state machine set the `auto/state` to false. On a non simulated robot this would be changed by disabling the bot.
 
 ### More Info
 For more information on how to configure this for you own physical robot vist the repo's [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) and paper
