@@ -9,11 +9,5 @@ sleep 5
 roslaunch robot_urdf rviz_model_sim.launch &
 roslaunch localization localization_sim.launch &
 roslaunch diff_drive demo.launch &
-roslaunch sim_robot sim_robot.launch
-
-# # Launching the autonomous
-# python /2020-LattePandaROS/src/autonomous/src/ros_node.py &
-
-# # For viz
-# rosrun rviz rviz &
-# rqt
+roslaunch sim_robot sim_robot.launch &
+roslaunch autonomous autonomous.launch
