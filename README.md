@@ -1,6 +1,10 @@
 # robot-frc
 
-The goal for this repository is to provide a working example and framework of an FRC robot using ROS to other teams, so that they too can explore the advantages of ROS. This repository is the code from the 2020 FRC season and is configured for the game with certain sensors, but it is **not** hard to implement your own sensors and game specific content. If you're intrested in quickly getting this setup and trying it out for yourself with a simulator on a virtual machine or are looking for a more detailed documentation check out the ROS [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) of this repo. For more information about how our team went around this task and how you could structure your robot code read this "paper".
+The goal for this repository is to provide a working example and framework of an FRC robot using ROS to other teams, so that they too can explore the advantages of ROS. This repository is the code from the 2020 FRC season and is configured for the game with certain sensors, but it is **not** hard to implement your own sensors and game specific content. If you're intrested in learning how to get this setup and running for yourself with a simulator and the physical robot or are looking for a more detailed documentation check out the ROS [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) of this repo. For more information about how our team went around this task and how you could structure your robot code read this [paper]().
+
+## Demo
+
+This will be a video of a demo
 
 ## Used Packages
 
