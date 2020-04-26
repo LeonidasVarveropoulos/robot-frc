@@ -24,13 +24,13 @@ This will be a video of a demo
 ## Getting Started
 This was made to run on Ubuntu 16 with ROS Kinetic already installed, for instructions on how to get this set up go to the repo's [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki).
 
-In order to run a simple simulation of the robot code first clone this workspace into your home folder.
-
-`git clone https://github.com/LeonidasVarveropoulos/robot-frc.git`
-
 Also make sure to install this ROS package that the repo depends on.
 
 `sudo apt-get install ros-kinetic-robot-pose-ekf`
+
+In order to run a simple simulation of the robot code first clone this workspace into your home folder.
+
+`git clone https://github.com/LeonidasVarveropoulos/robot-frc.git`
 
 
 ### Subrepositories
