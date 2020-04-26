@@ -89,7 +89,7 @@ Once loaded in you will see an option to publish to these two topics simply by c
 To stop and reset the auton state machine set the `auto/state` to false. On a non simulated robot this would be changed by disabling the bot.
 
 ### More Info
-For more information on how to configure this for you own physical robot vist the repo's [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) and paper
+For more information on how to configure this for your own physical robot and learn how to create your own autonomous, vist the repo's [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki).
 
 # ROS API
 
