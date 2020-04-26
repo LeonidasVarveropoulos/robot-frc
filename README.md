@@ -28,6 +28,11 @@ In order to run a simple simulation of the robot code first clone this workspace
 
 `git clone https://github.com/LeonidasVarveropoulos/robot-frc.git`
 
+Also make sure to install this ROS package that the repo depends on.
+
+`sudo apt-get install ros-kinetic-robot-pose-ekf`
+
+
 ### Subrepositories
 
 There are two subrepositories within this main one, `diff_drive` and `realsense-ros`. In order to use this you must first initialize them and then update. For more information on how to use [submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules). 
