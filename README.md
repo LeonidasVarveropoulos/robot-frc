@@ -1,6 +1,10 @@
 # robot-frc
 
-The goal for this repository is to provide a working example and framework of an frc robot using ROS to other teams, so that they too can explore the advantages of ROS. This repository is the code from the 2020 frc season and is configured for the game with certain sensors, but it is **not** hard to implement your own sensors and game specific content. If you're intrested in quickly getting this setup and trying it out for yourself with a simulator on a virtual machine or are looking for a more detailed documentation check out the ROS [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) of this repo. For more information about how our team went around this task and how you could structure your robot code read this "paper".
+The goal for this repository is to provide a working example and framework of an FRC robot using ROS to other teams, so that they too can explore the advantages of ROS. This repository is the code from the 2020 FRC season and is configured for the game with certain sensors, but it is **not** hard to implement your own sensors and game specific content. If you're intrested in learning how to get this setup and running for yourself with a simulator and the physical robot or are looking for a more detailed documentation check out the ROS [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) of this repo. For more information about how our team went around this task and how you could structure your robot code read this [paper]().
+
+## Demo
+
+This will be a video of a demo
 
 ## Used Packages
 
@@ -20,9 +24,14 @@ The goal for this repository is to provide a working example and framework of an
 ## Getting Started
 This was made to run on Ubuntu 16 with ROS Kinetic already installed, for instructions on how to get this set up go to the repo's [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki).
 
+Also make sure to install this ROS package that the repo depends on.
+
+`sudo apt-get install ros-kinetic-robot-pose-ekf`
+
 In order to run a simple simulation of the robot code first clone this workspace into your home folder.
 
 `git clone https://github.com/LeonidasVarveropoulos/robot-frc.git`
+
 
 ### Subrepositories
 
@@ -85,7 +94,7 @@ Once loaded in you will see an option to publish to these two topics simply by c
 To stop and reset the auton state machine set the `auto/state` to false. On a non simulated robot this would be changed by disabling the bot.
 
 ### More Info
-For more information on how to configure this for you own physical robot vist the repo's [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) and paper
+For more information on how to configure this for your own physical robot and learn how to create your own autonomous, vist the repo's [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki).
 
 # ROS API
 
