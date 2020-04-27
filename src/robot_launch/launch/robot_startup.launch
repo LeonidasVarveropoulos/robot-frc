@@ -1,0 +1,11 @@
+<launch>
+    <include file="$(find rs_launcher)/launch/rs_latte_panda.launch" />
+    <include file="$(find robot_urdf)/launch/rviz_model.launch" />
+    <include file="$(find localization)/launch/localization_sim.launch" />
+    <include file="$(find diff_drive)/launch/demo.launch" />
+    <include file="$(find sim_robot)/launch/sim_robot.launch" />
+    <include file="$(find autonomous)/launch/autonomous.launch" />
+</launch>
+    
+    
+</launch>

@@ -6,4 +6,4 @@ source ~/robot-frc/devel/setup.bash
 roscore -p 11311 &
 sleep 5
 
-roslaunch robot_launch sim_startup.launch
+roslaunch robot_launch robot_startup.launch
