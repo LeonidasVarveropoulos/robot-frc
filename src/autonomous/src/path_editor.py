@@ -9,7 +9,8 @@ import tf
 from std_msgs.msg import Float32, Float64, Bool
 from geometry_msgs.msg import Pose, PoseWithCovarianceStamped
 from diff_drive.msg import Goal, GoalPath, Constants, Linear, Angular
-from path import AutoGoal, AutoPath, Autons
+from auton_scripts.auton_modules.path import AutoGoal, AutoPath, Autons
+import rospkg
 
 app = Flask(__name__)
 
@@ -28,6 +29,9 @@ is_alert = False
 x = None
 y = None
 th = None
+
+rospack = rospkg.RosPack()
+file_path = rospack.get_path('autonomous') + "/src/data.txt"
 
 # Home Page
 @app.route('/')
@@ -173,7 +177,7 @@ def api_robot_pose():
 def write_json():
     global data
 
-    with open('data.txt', 'w') as outfile:
+    with open(file_path, 'w') as outfile:
         a = []
         for auto in data:
             b = auto.serialize_json()
@@ -182,7 +186,7 @@ def write_json():
 
 def read_json():
     global data
-    with open('data.txt') as json_file:
+    with open(file_path) as json_file:
         json_data = json.load(json_file)
         
         for d in json_data:
