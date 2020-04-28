@@ -95,7 +95,6 @@ class Shutdown(State):
     def tick(self):
         return self
 
-# End of our states.
 def start(ros_node):
     # Pick which topics to subscribe to
     ros_node.subscribe("/diff_drive_go_to_goal/distance_to_goal", Float32)
