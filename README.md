@@ -1,6 +1,6 @@
 # robot-frc
 
-The goal for this repository is to provide a working example and framework of an FRC robot using ROS to other teams, so that they too can explore the advantages of ROS. This repository is the code from the 2020 FRC season and is configured for the game with certain sensors, but it is **not** hard to implement your own sensors and game specific content. If you're intrested in learning how to get this setup and running for yourself with a simulator and the physical robot or are looking for a more detailed documentation check out the ROS [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) of this repo. For more information about how our team went around this task and how you could structure your robot code read this [paper]().
+The goal for this repository is to provide a working example and framework of an FRC robot using ROS to other teams, so that they too can explore the advantages of ROS. This repository is the code from the 2020 FRC season and is configured for the game with certain sensors, but it is **not** hard to implement your own sensors and game specific content. Even if testing on a non frc robot the proxy node can be replaced to interface with your hardware. If you're intrested in learning how to get this setup and running for yourself with a simulator and the physical robot or are looking for a more detailed documentation check out the ROS [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) of this repo. For more information about how our team went around this task and how you could structure your robot code read this [paper]().
 
 ## Demo
 
@@ -9,9 +9,11 @@ This will be a video of a demo
 ## Used Packages
 
 * `diff_drive` -- Provides the nodes and msgs nessesary for moving along a given path of waypoints.
-* `autonomous` -- Provides a state machine for easily creating an autonomous.
+* `autonomous` -- Provides a state machine for easily creating an autonomous and a path editor for editing.
+* `robot_launch` -- Contains the launch files for running the code in different modes
 * `localization` -- This provides the nodes needed for taking in sensor data and getting the robot's pose.
 * `rs_launcher` -- Launches the realsense cameras in their own node.
+* `realsense-ros` -- Contains the code for running the realsense cameras
 * `cmd_vel_to_rpm` -- Converts the ROS cmd_vel msg into an rpm sent to the RoboRio.
 * `proxy` -- Listens to all relavant topics and communicates with the RoboRio through ethernet/networktables.
 * `robot_urdf` -- Sets up the nodes needed for creating the tf tree of the robot.
@@ -19,7 +21,6 @@ This will be a video of a demo
 * `turret_rotation` -- This is the PID for the turret's rotation.
 * `vision_targeting` -- Does the vision processing for the 2020 game target.
 * `vision_targeting_tuner` -- Provides a simple UI for changing the hsv values of the color filter.
-* `path_editor` -- Provides a web app for changing and creating paths of waypoints for autonomous.
 
 ## Getting Started
 This was made to run on Ubuntu 16 with ROS Kinetic already installed, for instructions on how to get this set up go to the repo's [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki).
