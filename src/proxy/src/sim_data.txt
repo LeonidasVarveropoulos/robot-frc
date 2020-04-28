@@ -1,0 +1,10 @@
+{
+    "/cmd_vel/left": 0.0, 
+    "/turret/cmd_vel": 0.0, 
+    "/auto/intake/state": "", 
+    "/auto/state": true, 
+    "/cmd_vel/right": 0.0, 
+    "/turret/distance": 0.0, 
+    "/auto/turret/state": "", 
+    "/auto/select": 0.0
+}

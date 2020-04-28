@@ -1,10 +1,16 @@
 #! /usr/bin/env python
 
 import rospy
-from std_msgs.msg import Float32, Float64, Bool
+from std_msgs.msg import Float32, Bool, String
 import threading
-from networktables import NetworkTables
 from geometry_msgs.msg import Twist
+
+# For simulating the robot's server
+if not rospy.get_param("sim_server", False):
+    from networktables import NetworkTables
+else:
+    from sim_server import SimServer
+    NetworkTables = SimServer()
 
 # Creates proxy node
 rospy.init_node('proxy')
@@ -19,223 +25,125 @@ def connectionListener(connected, info):
         notified[0] = True
         cond.notify()
 
-NetworkTables.initialize(server='10.06.24.2')
-NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
+if not rospy.get_param("sim_server", False):
+    server_ip = rospy.get_param('server_ip', "10.06.24.2")
 
-with cond:
-    print("Waiting")
-    if not notified[0]:
-        cond.wait()
+    NetworkTables.initialize(server=server_ip)
+    NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
+
+    with cond:
+        print("Waiting")
+        if not notified[0]:
+            cond.wait()
+else:
+    rospy.loginfo("Simulation Server Started!")
 
 class Proxy:
 
     def __init__(self):
         # Runs code below if connected to the server
-        print("Connected!")
-        self.table = NetworkTables.getTable('SmartDashboard')
+        rospy.loginfo("NetworkTables Connected!")
 
-        self.update_rate = 15
-        
-        # AUTON from roboRIO
-        self.auto_enabled_pub = rospy.Publisher("auto/state", Bool, queue_size=50)
-        self.auto_selector_pub = rospy.Publisher("auto/select", Float32, queue_size=50)
+        table_name = rospy.get_param('table_name', "SmartDashboard")
+        self.table = NetworkTables.getTable(table_name)
 
-        # AUTON to roboRIO
-        self.left_vel = 0.0
-        self.right_vel = 0.0
+        self.update_rate = rospy.get_param('rate', 15)
 
-        # AUTON and TELEOP to roboRIO
-        self.turret_vel = 0.0
-        self.turret_distance = 0.0
-        #self.turret_tar_loc = False
-        #self.turret_rot_ready = False
+        # A Dictionary of wanted topic name and data type
+        self.input_data = rospy.get_param('input_data', [])
+        self.output_data = rospy.get_param('output_data', [])
 
-        # AUTON to roboRIO
-        self.turret_state = 0.0
-        self.intake_state = 0.0
+        # Collection of ROS subscribers and actual data
+        self._data = {}
 
-        self.move_state = 0
+        # List of ROS publishers and subscribers to avoid calling one twice
+        self._publishers = {}
+        self._subscribers = []
 
-    def left_vel_callback(self,msg): 
-        self.left_vel = msg.data
+    def subscribe(self, topic_name, data_type):
+        """ This sets up the ros subscribers for incoming data """
+        # Checks if subscriber exists, if not create one
+        if topic_name in self._subscribers:
+            return
+        rospy.Subscriber(topic_name, data_type, self._on_new_data)
+        self._subscribers.append(topic_name)
 
-    def right_vel_callback(self,msg): 
-        self.right_vel = msg.data
+    def publish(self, topic_name, data_type, data, queue = 10, latching = False):
+        """ This publishes ros data """
+        # Check if publisher exists, if not create and publish data
+        if not topic_name in self._publishers:
+            self._publishers[topic_name] = rospy.Publisher(topic_name, data_type, queue_size=queue, latch=latching)
+        self._publishers[topic_name].publish(data)
 
-    def turret_vel_callback(self,msg): 
-        self.turret_vel = msg.data
-    
-    def turret_distance_callback(self,msg): 
-        self.turret_distance = msg.data
+    def get_data(self, topic_name, simple_data = True):
+        """ This gets the subscribed ros data """
 
-    def turret_state_callback(self,msg): 
-        self.turret_state = msg.data
-    
-    def intake_state_callback(self,msg): 
-        self.intake_state = msg.data
-	
-    def move_state_callback(self,msg):
-        self.move_state = msg.data
-    """
-    def turret_tar_loc_callback(self,msg): 
-            self.turret_tar_loc.data = msg.data
-        
-    def turret_rot_ready_callback(self,msg): 
-        self.turret_rot_ready.data = msg.data
-    """
+        if topic_name in self._data:
+            if simple_data:
+                return self._data[topic_name].data
+            else:
+                return self._data[topic_name]
+        return None
+
+    def _on_new_data(self, msg):
+        """ This is the callback function for the subscribers """
+        self._data[str(msg._connection_header["topic"])] = msg
 
     def main(self):
-         # Done under pathfinding
-        left_vel_sub = rospy.Subscriber('cmd_vel/left', Float64, self.left_vel_callback)
-        right_vel_sub = rospy.Subscriber('cmd_vel/right', Float64, self.right_vel_callback)
-
-        # Done by turret rotation
-        turret_vel_sub = rospy.Subscriber('turret/cmd_vel', Float32, self.turret_vel_callback)
-        turret_distance_sub = rospy.Subscriber('turret/distance', Float32, self.turret_distance_callback)
-
-        # Done by turret rotation
-        #turret_tar_loc_sub = rospy.Subscriber('turret/target_loc', Bool, self.turret_tar_loc_callback)
-        #turret_rot_ready_sub = rospy.Subscriber('turret/rot_ready', Bool, self.turret_rot_ready_callback)
-
-        # Done by autonomous
-        turret_state_sub = rospy.Subscriber('auto/turret/state', Float32, self.turret_state_callback)
-        intake_state_sub = rospy.Subscriber('auto/intake/state', Float32, self.intake_state_callback)
-        move_base_sub = rospy.Subscriber("auto/move/state", Float32, self.move_state_callback)
         # Set how many times this should run per second
         r = rospy.Rate(self.update_rate)
 
         while not rospy.is_shutdown():
+
+            # Input
+            for data in self.input_data:
+                if data["type"] == "number":
+                    input_data = self.table.getNumber(data["name"], data["default"])
+                    self.publish(data["name"], Float32, input_data)
+
+                elif data["type"] == "boolean":
+                    input_data = self.table.getBoolean(data["name"], data["default"])
+                    self.publish(data["name"], Bool, input_data)
+                    
+                elif data["type"] == "string":
+                    input_data = self.table.getString(data["name"], data["default"])
+                    self.publish(data["name"], String, input_data)
+
+                else:
+                    rospy.logerr("Proxy could not find data type of " + data["type"])
+
             # Output
+            for data in self.output_data:
+                # Data from the subscribers
+                new_data = self.get_data(data["name"])
 
-            # Sends Turret aiming info to the roboRio (rpm and meters)
+                if data["type"] == "number":
+                    self.subscribe(data["name"], Float32)
+                    if new_data != None:
+                        self.table.putNumber(data["name"], new_data)
+                    else:
+                        self.table.putNumber(data["name"], data["default"])
 
-            # Sends Turret state booleans
-            #self.table.putBoolean('Target Locked?', self.turret_tar_loc.data)
-            #self.table.putBoolean('Rotation Ready?', self.turret_rot_ready.data)
-		
-	    # Input
-            auto_enabled = Bool()
-            auto_selector = Float32()
+                elif data["type"] == "boolean":
+                    self.subscribe(data["name"], Bool)
+                    if new_data != None:
+                        self.table.putBoolean(data["name"], new_data)
+                    else:
+                        self.table.putBoolean(data["name"], data["default"])
 
-            # Autonomous modes
-            auto_enabled.data = self.table.getBoolean('Autonomous Enabled?', False)
-            auto_selector.data = self.table.getNumber('Auton Selector', 0)
+                elif data["type"] == "string":
+                    self.subscribe(data["name"], String)
+                    if new_data != None:
+                        self.table.putBoolean(data["name"], new_data)
+                    else:
+                        self.table.putBoolean(data["name"], data["default"])
 
-            # Sends State modes for autonomous
-            if (self.turret_state == 0 and auto_enabled.data):
-                print("Sending Turret Idle")
-                self.table.putBoolean('Shoot Prime Close?', False)
-                self.table.putBoolean('Shoot Prime Far?', False)
-                self.table.putBoolean('Shoot Shoot?', False)
-                self.table.putBoolean("Spin Up?", False)
-                #self.table.putBoolean('Frame Rotation?', False)
-                self.table.putNumber('Shooter Turn Velocity',self.turret_vel)
-                self.table.putNumber('Dist From Target', self.turret_distance)
-            elif (self.turret_state == 1 and auto_enabled.data):
-                print("Sending Turret Prime Close")
-                self.table.putBoolean('Shoot Prime Close?', True)
-                self.table.putBoolean('Shoot Prime Far?', False)
-                self.table.putBoolean('Shoot Shoot?', False)
-                self.table.putBoolean("Spin Up?", False)
-                #self.table.putBoolean('Frame Rotation?', False)
-                self.table.putNumber('Shooter Turn Velocity',self.turret_vel)
-                self.table.putNumber('Dist From Target', self.turret_distance)
-            elif (self.turret_state == 2 and auto_enabled.data):
-                print("Sending Turret Prime Far")
-                self.table.putBoolean('Shoot Prime Close?', False)
-                self.table.putBoolean('Shoot Prime Far?', True)
-                self.table.putBoolean('Shoot Shoot?', False)
-                self.table.putBoolean("Spin Up?", False)
-                #self.table.putBoolean('Frame Rotation?', False)
-                self.table.putNumber('Shooter Turn Velocity',self.turret_vel)
-                self.table.putNumber('Dist From Target', self.turret_distance)
-            elif (self.turret_state == 3 and auto_enabled.data):
-                print("Sending Turret Shoot Close")
-                self.table.putBoolean('Shoot Prime Close?', True)
-                self.table.putBoolean('Shoot Prime Far?', False)
-                self.table.putBoolean('Shoot Shoot?', True)
-                self.table.putBoolean("Spin Up?", False)
-                #self.table.putBoolean('Frame Rotation?', False)
-                self.table.putNumber('Shooter Turn Velocity',self.turret_vel)
-                self.table.putNumber('Dist From Target', self.turret_distance)
-            elif (self.turret_state == 4 and auto_enabled.data):
-                print("Sending Turret Shoot Far")
-                self.table.putBoolean('Shoot Prime Close?', False)
-                self.table.putBoolean('Shoot Prime Far?', True)
-                self.table.putBoolean('Shoot Shoot?', True)
-                self.table.putBoolean("Spin Up?", False)
-                #self.table.putBoolean('Frame Rotation?', False)
-                self.table.putNumber('Shooter Turn Velocity',self.turret_vel)
-                self.table.putNumber('Dist From Target', self.turret_distance)
-            elif (self.turret_state == 5 and auto_enabled.data):
-                print("Sending Turret rot out of frame")
-                self.table.putBoolean('Shoot Prime Close?', True)
-                self.table.putBoolean('Shoot Prime Far?', False)
-                self.table.putBoolean('Shoot Shoot?', False)
-                self.table.putBoolean("Spin Up?", False)
-                #self.table.putBoolean('Frame Rotation?', False)
-                self.table.putNumber('Shooter Turn Velocity',-10)
-                self.table.putNumber('Dist From Target', 10)
-            elif (self.turret_state == 5.5 and auto_enabled.data):
-                print("Sending Turret Spin Up and out of frame")
-                self.table.putBoolean('Shoot Prime Close?', False)
-                self.table.putBoolean('Shoot Prime Far?', False)
-                self.table.putBoolean('Shoot Shoot?', False)
-                self.table.putBoolean("Spin Up?", True)
-                #self.table.putBoolean('Frame Rotation?', False)
-                self.table.putNumber('Shooter Turn Velocity',-10)
-                self.table.putNumber('Dist From Target', 10)
-            elif (self.turret_state == 10 and auto_enabled.data):
-                print("Sending Turret spin up ignore")
-                self.table.putBoolean('Shoot Prime Close?', False)
-                self.table.putBoolean('Shoot Prime Far?', False)
-                self.table.putBoolean('Shoot Shoot?', False)
-                self.table.putBoolean("Spin Up?", True)
-                #self.table.putBoolean('Frame Rotation?', True)
-                self.table.putNumber('Shooter Turn Velocity', 0)
-                self.table.putNumber('Dist From Target', 10)
-            elif (self.turret_state == 12 and auto_enabled.data):
-                print("Sending Turret rot out of frame")
-                self.table.putBoolean('Shoot Prime Close?', True)
-                self.table.putBoolean('Shoot Prime Far?', False)
-                self.table.putBoolean('Shoot Shoot?', False)
-                self.table.putBoolean("Spin Up?", False)
-                #self.table.putBoolean('Frame Rotation?', False)
-                self.table.putNumber('Shooter Turn Velocity',10)
-                self.table.putNumber('Dist From Target', 10)
-            else:
-                self.table.putNumber('Shooter Turn Velocity',self.turret_vel)
-                self.table.putNumber('Dist From Target', self.turret_distance)
+                else:
+                    rospy.logerr("Proxy could not find data type of " + data["type"])
 
-            if (self.intake_state == 0):
-                print("Sending Intake Idle")
-                self.table.putBoolean('Intake Action?', False)
-            elif (self.intake_state == 1):
-                print("Sending Intake Action")
-                self.table.putBoolean('Intake Action?', True)
-
-            print("Getting Data: ",auto_enabled.data,auto_selector.data)
-
-            if (auto_selector.data == 0):
-                self.table.putNumber('Left DT Setpoint', 0)
-                self.table.putNumber('Right DT Setpoint', 0)
-                self.table.putBoolean('Intake Action?', False)
-                self.table.putNumber('Shooter Turn Velocity', 0)
-                self.table.putNumber('Dist From Target', 0)
-                self.table.putBoolean('Shoot Prime Far?', False)
-                self.table.putBoolean('Shoot Prime Close?', False)
-                self.table.putBoolean("Spin Up?", False)
-                self.table.putBoolean('Shoot Shoot?', False)
-            elif (self.move_state == 0):
-                self.table.putNumber('Left DT Setpoint', 0)
-                self.table.putNumber('Right DT Setpoint', 0)
-            else:
-                self.table.putNumber('Left DT Setpoint', self.left_vel)
-                self.table.putNumber('Right DT Setpoint', self.right_vel)
-
-            # Publish data to ROS
-            self.auto_enabled_pub.publish(auto_enabled)
-            self.auto_selector_pub.publish(auto_selector)
+            # Displays simulated networktables data in sim_data.txt
+            if rospy.get_param("sim_server", False):
+                self.table.display_data()
 
             # Sleeps to meet specified rate
             r.sleep()
