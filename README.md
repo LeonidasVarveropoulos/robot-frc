@@ -84,7 +84,7 @@ Launches a useful vizualization tool for viewing the robots odom and other topic
 
 Launches a useful tool for managing the ros system while running.
 
-`rqt`
+`rqt --perspective-file ./rqt/DefaultDash.perspective`
 
 ### Starting Autonomous
 
