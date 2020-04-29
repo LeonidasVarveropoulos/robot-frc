@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-#import roslib; roslib.load_manifest('package_name')
 import rospy
 import tf
 from nav_msgs.msg import Odometry
@@ -8,7 +7,6 @@ from geometry_msgs.msg import PoseWithCovarianceStamped
 from std_msgs.msg import Float32, Float64, Bool
 from geometry_msgs.msg import Twist
 import math
-#import time
 
 class SimRobot:
     def __init__(self):
@@ -16,11 +14,11 @@ class SimRobot:
         self.y = 0
         self.th = 0
 
+        self.actual_th = 0
+
         self.vx = 0
         self.vy = 0
         self.vth = 0
-
-        self.move_state = 1
 
         self.rate = 20
 
@@ -28,21 +26,24 @@ class SimRobot:
         self.vx = msg.linear.x 
         self.vth = msg.angular.z
 
-    def move_state_callback(self,msg):
-        self.move_state = msg.data
+
+    def actual_odom_callback(self, msg):
+        quat = (msg.pose.pose.orientation.x, msg.pose.pose.orientation.y, msg.pose.pose.orientation.z, msg.pose.pose.orientation.w)
+        euler = tf.transformations.euler_from_quaternion(quat)
+        self.actual_th = euler[2]
 
     def main(self):
         print("starting node")
         rospy.init_node('sim_robot')
         
-        cmd_vel_sub = rospy.Subscriber("cmd_vel", Twist, self.cmd_vel_callback)
-        move_state_sub = rospy.Subscriber("auto/move/state", Float32, self.move_state_callback)
+        rospy.Subscriber("cmd_vel", Twist, self.cmd_vel_callback)
+        rospy.Subscriber("robot_pose_ekf/odom_combined", PoseWithCovarianceStamped, self.actual_odom_callback)
 
         auto_state_pub = rospy.Publisher("/auto/state", Bool , queue_size=10)
         auto_state_data = Bool()
         auto_state_data.data = True
 
-        odom_pub = rospy.Publisher("/base_pose_ground_truth", Odometry , queue_size=10)
+        odom_pub = rospy.Publisher("/sim_odom", Odometry , queue_size=10)
         odom_msg = Odometry()
         
         odom_msg.header.frame_id = "odom"
@@ -61,24 +62,14 @@ class SimRobot:
                                     0.0, 0.0, 0.0, 0.0001, 0.0, 0.0,
                                     0.0, 0.0, 0.0, 0.0, 0.0001, 0.0,
                                     0.0, 0.0, 0.0, 0.0, 0.0, 0.0001]
-        
-        #lx, ly, lz, ax, ay, az = (0,0,0,0,0,0)
-                                    
-        #time.sleep(0.1) # allows listener buffer to load + callback variables
+
         rate = rospy.Rate(self.rate)
 
         while not rospy.is_shutdown():
             
-            # Used for always publishing true for auto state also handled by rqt
-            # auto_state_pub.publish(auto_state_data)
-
-            if (self.move_state == 0):
-                self.vx = 0
-                self.vth = 0
-            
-            delta_x = (self.vx * math.cos(self.th) - self.vy * math.sin(self.th)) /20
-            delta_y = (self.vx * math.sin(self.th) + self.vy * math.cos(self.th)) /20
-            delta_th = self.vth/20
+            delta_x = (self.vx * math.cos(self.actual_th) - self.vy * math.sin(self.actual_th)) /self.rate
+            delta_y = (self.vx * math.sin(self.actual_th) + self.vy * math.cos(self.actual_th)) /self.rate
+            delta_th = self.vth/self.rate
 
             self.x += delta_x
             self.y += delta_y
@@ -96,8 +87,6 @@ class SimRobot:
             odom_msg.pose.pose.orientation.w = quaternion[3]
                             
             odom_msg.twist.twist.linear.x = self.vx
-            #odom_msg.twist.twist.linear.y = ly
-            #odom_msg.twist.twist.linear.z = lz
             odom_msg.twist.twist.angular.x = 0
             odom_msg.twist.twist.angular.y = 0
             odom_msg.twist.twist.angular.z = self.vth
