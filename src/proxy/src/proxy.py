@@ -5,15 +5,15 @@ from std_msgs.msg import Float32, Bool, String
 import threading
 from geometry_msgs.msg import Twist
 
+# Creates proxy node
+rospy.init_node('proxy')
+
 # For simulating the robot's server
-if not rospy.get_param("sim_server", False):
+if not rospy.get_param("~sim_server", False):
     from networktables import NetworkTables
 else:
     from sim_server import SimServer
     NetworkTables = SimServer()
-
-# Creates proxy node
-rospy.init_node('proxy')
 
 cond = threading.Condition()
 notified = [False]
@@ -25,8 +25,8 @@ def connectionListener(connected, info):
         notified[0] = True
         cond.notify()
 
-if not rospy.get_param("sim_server", False):
-    server_ip = rospy.get_param('server_ip', "10.06.24.2")
+if not rospy.get_param("~sim_server", False):
+    server_ip = rospy.get_param('~server_ip', "10.06.24.2")
 
     NetworkTables.initialize(server=server_ip)
     NetworkTables.addConnectionListener(connectionListener, immediateNotify=True)
@@ -44,14 +44,14 @@ class Proxy:
         # Runs code below if connected to the server
         rospy.loginfo("NetworkTables Connected!")
 
-        table_name = rospy.get_param('table_name', "SmartDashboard")
+        table_name = rospy.get_param('~table_name', "SmartDashboard")
         self.table = NetworkTables.getTable(table_name)
 
-        self.update_rate = rospy.get_param('rate', 15)
+        self.update_rate = rospy.get_param('~rate', 15)
 
         # A Dictionary of wanted topic name and data type
-        self.input_data = rospy.get_param('input_data', [])
-        self.output_data = rospy.get_param('output_data', [])
+        self.input_data = rospy.get_param('~input_data', [])
+        self.output_data = rospy.get_param('~output_data', [])
 
         # Collection of ROS subscribers and actual data
         self._data = {}
@@ -142,7 +142,7 @@ class Proxy:
                     rospy.logerr("Proxy could not find data type of " + data["type"])
 
             # Displays simulated networktables data in sim_data.txt
-            if rospy.get_param("sim_server", False):
+            if rospy.get_param("~sim_server", False):
                 self.table.display_data()
 
             # Sleeps to meet specified rate

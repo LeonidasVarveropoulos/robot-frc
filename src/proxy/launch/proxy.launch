@@ -1,8 +1,8 @@
 <launch>
   <arg name="sim_server" default="False"/>
 
-  <rosparam command="load" file="$(find proxy)/config/proxy.yaml"/>
-  <param name="sim_server" type="bool" value="$(arg sim_server)"/>
-
-  <node pkg="proxy" type="proxy.py" name="proxy"  output="screen"/>
+  <node pkg="proxy" type="proxy.py" name="proxy"  output="screen">
+    <rosparam command="load" file="$(find proxy)/config/proxy.yaml"/>
+    <param name="sim_server" type="bool" value="$(arg sim_server)"/>
+  </node>
 </launch>
