@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="reset_pose" type="reset_pose.py" name="reset_pose"  output="screen">
+    <rosparam command="load" file="$(find reset_pose)/config/sim_reset_pose.yaml"/>
+  </node>
+</launch>
