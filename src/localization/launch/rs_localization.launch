@@ -1,7 +1,12 @@
 <launch>
 
     <!-- This transforms the odom topic of the realsense to the base link frame -->
-    <node pkg="localization" type="rs_to_odom.py" name="rs_to_odom"  output="screen"/>
+    <node pkg="localization" type="rs_to_odom.py" name="rs_to_odom"  output="screen">
+        <param name="t265_odom_frame" value="/t265_odom_frame"/>
+        <param name="fake_base_link" value="/fake_base_link"/>
+        <param name="input_odom" value="/t265/odom/sample"/>
+        <param name="output_odom" value="/rs_odom"/>
+    </node>
     
     <remap from="odom" to="/rs_odom_reset"/>
 

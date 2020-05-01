@@ -1,4 +1,3 @@
-
 import rospy
 from std_msgs.msg import Float32, Float64, Bool
 from geometry_msgs.msg import Twist
@@ -100,6 +99,10 @@ def start(ros_node):
     ros_node.subscribe("/diff_drive_go_to_goal/distance_to_goal", Float32)
     ros_node.subscribe("/diff_drive/waypoints_achieved", BoolArray)
     ros_node.subscribe("/diff_drive/path_achieved", Bool)
+
+    ros_node.subscribe("/auto/turret/current/angle", Float32)
+    ros_node.subscribe("/auto/flywheel/current/rpm", Float32)
+    ros_node.subscribe("/auto/hood/current/angle", Float32)
 
     # Return the wanted Start and Shutdown state
     return Idle, Shutdown

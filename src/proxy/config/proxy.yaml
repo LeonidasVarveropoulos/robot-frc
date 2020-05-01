@@ -1,15 +1,27 @@
+# The rate for the proxy to run at
 rate: 15
+# The ip of the roborio/networktables server (should be static)
 server_ip: "10.06.24.2"
+# The networktables table name
 table_name: "SmartDashboard"
 
 # Wanted Output Data ("number", "string", "boolean")
 output_data: [{name: "/cmd_vel/left", type: "number", default: 0.0},
               {name: "/cmd_vel/right", type: "number", default: 0.0}, 
               {name: "/turret/cmd_vel", type: "number", default: 0.0}, 
-              {name: "/turret/distance", type: "number", default: 0.0}, 
-              {name: "/auto/turret/state", type: "string", default: ""}, 
-              {name: "/auto/intake/state", type: "string", default: ""}]
+              {name: "/turret/distance", type: "number", default: 0.0},
+              {name: "/auto/shooter/state", type: "string", default: "idle"},
+              {name: "/auto/flywheel/state", type: "string", default: "idle"},
+              {name: "/auto/turret/state", type: "string", default: "idle"},
+              {name: "/auto/hood/state", type: "string", default: "idle"},
+              {name: "/auto/flywheel/wanted/rpm", type: "number", default: 0.0},
+              {name: "/auto/hood/wanted/angle", type: "number", default: 0.0},
+              {name: "/auto/turret/wanted/angle", type: "number", default: 0.0}, 
+              {name: "/auto/intake/state", type: "string", default: "retract"}]
 
 # Wanted Input Data ("number", "string", "boolean")
 input_data: [{name: "/auto/state", type: "boolean", default: false}, 
-             {name: "/auto/select", type: "number", default: 2}]
+             {name: "/auto/select", type: "number", default: 0.0},
+             {name: "/auto/flywheel/current/rpm", type: "number", default: 0.0},
+             {name: "/auto/hood/current/angle", type: "number", default: 0.0},
+             {name: "/auto/turret/current/angle", type: "number", default: 0.0}]

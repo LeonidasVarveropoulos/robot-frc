@@ -24,9 +24,9 @@ class RsToOdom:
         rospy.init_node('rs_to_odom')
         
         listener = tf.TransformListener()
-        rospy.Subscriber("/t265/odom/sample", Odometry, self.odom_callback)
+        rospy.Subscriber(rospy.get_param("input_odom", "/t265/odom/sample"), Odometry, self.odom_callback)
 
-        odom_pub = rospy.Publisher("/rs_odom", Odometry , queue_size=10)
+        odom_pub = rospy.Publisher(rospy.get_param("output_odom", "/rs_odom"), Odometry , queue_size=10)
             
         odom_msg = Odometry()
         
@@ -60,7 +60,9 @@ class RsToOdom:
         try:
             while not rospy.is_shutdown():
                 try:
-                    (trans,rot) = listener.lookupTransform('/t265_odom_frame', '/fake_base_link', rospy.Time(0))
+                    odom_frame = rospy.get_param('t265_odom_frame', '/t265_odom_frame')
+                    fake_frame = rospy.get_param('fake_base_link', '/fake_base_link')
+                    (trans,rot) = listener.lookupTransform(odom_frame, fake_frame, rospy.Time(0))
                 except (tf.LookupException, tf.ConnectivityException, tf.ExtrapolationException):
                     continue
                 

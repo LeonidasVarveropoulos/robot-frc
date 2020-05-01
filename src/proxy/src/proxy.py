@@ -90,6 +90,7 @@ class Proxy:
         self._data[str(msg._connection_header["topic"])] = msg
 
     def main(self):
+        """ This is the main loop """
         # Set how many times this should run per second
         r = rospy.Rate(self.update_rate)
 

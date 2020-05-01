@@ -1,5 +1,6 @@
 <launch>
     <node pkg="cmd_vel_to_rpm" type="cmd_vel_to_rpm.py" name="cmd_vel_to_rpm" output="screen">
-        <rosparam command="load" file="$(find cmd_vel_to_rpm)/config/cmd_vel_to_rpm.yaml"/>
+        <param name="body_width" value="0.5969"/>
+        <param name="wheel_diameter" value="0.1524"/>
     </node>
 </launch>

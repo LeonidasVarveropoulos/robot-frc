@@ -8,6 +8,7 @@ from std_msgs.msg import Float32, Float64, Bool
 from geometry_msgs.msg import Twist
 import math
 
+# Creates the node
 rospy.init_node('reset_pose')
 
 class ResetPose:
@@ -16,6 +17,7 @@ class ResetPose:
         self.reset_y = 0
         self.reset_th = 0
 
+        # Does not matter because code is run in callback
         self.rate = 10
 
         # A Dictionary of wanted topic name and data type
@@ -63,6 +65,7 @@ class ResetPose:
         euler = tf.transformations.euler_from_quaternion(quat)
         th = euler[2]
 
+        # If true resets robot pose to 0,0,0
         if self.get_data("/reset_robot_pose") == True:
             rospy.logwarn_throttle(15, "Robot Resetting Pose")
             self.reset_x = new_msg.pose.pose.position.x
@@ -70,6 +73,8 @@ class ResetPose:
             self.reset_th = th
         new_msg.pose.pose.position.x -= self.reset_x
         new_msg.pose.pose.position.y -= self.reset_y
+
+        # Wrapping of the orientation
         if th - self.reset_th < -math.pi:
             th = (2 * math.pi) + (th - self.reset_th)
         elif th - self.reset_th > math.pi:
@@ -81,6 +86,7 @@ class ResetPose:
         new_msg.pose.pose.orientation.z = quaternion[2] 
         new_msg.pose.pose.orientation.w = quaternion[3]
         
+        # Publishes to new topic that goes to the robot_pose_ekf
         self.publish(str(msg._connection_header["topic"]) + "_reset", Odometry, new_msg)
     
     def _on_new_data(self, msg):
@@ -89,12 +95,14 @@ class ResetPose:
 
     def main(self):
 
+        # Sets up the subscribers
         for odom in self.input_odom:
             self.subscribe(odom["topic"], Odometry)
         self.subscribe("reset_robot_pose", Bool)
 
         rate = rospy.Rate(self.rate)
 
+        # Required for node
         while not rospy.is_shutdown():         
             rate.sleep()
 

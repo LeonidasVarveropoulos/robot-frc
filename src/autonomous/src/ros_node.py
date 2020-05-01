@@ -43,14 +43,17 @@ class ROSNode:
         self.subscribe(self.auto_state_topic, Bool)
         self.subscribe(self.auto_select_topic, Float32)
 
+        # Used for timing events
         self.start_time = time.time()
         self.over_time = False
     
     # Counts the amount of time since the beginning of autonomous
     def start_timer(self):
+        """ Starts the timer, called at the beginning of auton """
         self.start_time = time.time()
 
     def get_time(self):
+        """ Return the amount of time passed since the start of auton """
         passed_time = time.time() - self.start_time
         if passed_time >= 15 and not self.over_time:
             rospy.logwarn("15 seconds have passed since the start of auton")
@@ -74,7 +77,7 @@ class ROSNode:
 
     def get_data(self, topic_name, simple_data = True):
         """ This gets the subscribed ros data """
-
+        # Get the data from the dict if it exists
         if topic_name in self._data:
             if simple_data:
                 return self._data[topic_name].data

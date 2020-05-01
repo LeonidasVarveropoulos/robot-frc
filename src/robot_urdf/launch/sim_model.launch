@@ -26,6 +26,4 @@
 
   <!--node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model"
         args="-z 1.0 -unpause -urdf -model robot -param robot_description" respawn="false" output="screen" /-->
-  
-  <!--node pkg="tf" type="static_transform_publisher" name="base_to_foot" args="0 0 0 0 0 0 1  /base_footprint /base_link  100"/-->
 </launch>

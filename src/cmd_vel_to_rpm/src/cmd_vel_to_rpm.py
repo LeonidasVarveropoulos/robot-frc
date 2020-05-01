@@ -23,9 +23,9 @@ class CmdVelToRpm:
         self.left_rpm_pub = rospy.Publisher("cmd_vel/left", Float64, queue_size=50)
         self.right_rpm_pub = rospy.Publisher("cmd_vel/right", Float64, queue_size=50)
 
-        self.body_width = rospy.get_param("~body_width", 0.5969)
+        self.body_width = rospy.get_param("body_width", 0.5969)
 
-        self.wheel_circum = rospy.get_param("~wheel_diameter", 0.1524) * math.pi
+        self.wheel_circum = rospy.get_param("wheel_diameter", 0.1524) * math.pi
     
     def main(self):
         # Needed for ros node
