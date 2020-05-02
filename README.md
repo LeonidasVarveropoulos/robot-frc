@@ -75,7 +75,7 @@ catkin_make
 
 ### Running
 
-In order to run a simple example of an autonomous executing in simulation run the following commands in **different terminals**.
+In order to run a simple example of an autonomous executing in simulation run the following commands in different terminals.
 
 In the repo's base directory, launches the launch file to start all nodes in simualtion
 
