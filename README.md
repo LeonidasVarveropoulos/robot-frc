@@ -79,7 +79,7 @@ In order to run a simple example of an autonomous executing in simulation run th
 
 In the repo's base directory, launches the launch file to start all nodes in simualtion
 
-`sudo ./scripts/sim_startup.sh`
+`source ./scripts/sim_startup.sh`
 
 Launches a useful vizualization tool for viewing the robots odom and other topics.
 
