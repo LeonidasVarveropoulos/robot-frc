@@ -49,9 +49,9 @@ class State(object):
         """ Used to start a timer that counts time within a state """
         self.start_time = time.time()
 
-    def check_timer(self, time):
+    def check_timer(self, wanted_time):
         """ Checks if the amount of time given has passed """
-        if time.time() - self.start_time >= time:
+        if time.time() - self.start_time >= wanted_time:
             return True
         return False
     
@@ -130,6 +130,7 @@ class Intake(State):
         intake_state.data = "deploy"
 
         self.ros_node.publish("/auto/intake/state", String, intake_state, latching = True)
+        rospy.loginfo("Deployed Intake")
 
     def retract_intake(self):
         """ This publishes a msg to retract the intake """
@@ -137,6 +138,7 @@ class Intake(State):
         intake_state.data = "retract"
 
         self.ros_node.publish("/auto/intake/state", String, intake_state, latching = True)
+        rospy.loginfo("Retracted Intake")
 
 class Shooter(State):
 
@@ -147,6 +149,7 @@ class Shooter(State):
         shooter_state.data = "idle"
 
         self.ros_node.publish("/auto/shooter/state", String, shooter_state, latching = True)
+        rospy.loginfo("Shooter Idle")
     
     # Overrides the other states because it needs to control all three subsystems 
     def start_prime(self):
@@ -155,6 +158,7 @@ class Shooter(State):
         shooter_state.data = "prime"
 
         self.ros_node.publish("/auto/shooter/state", String, shooter_state, latching = True)
+        rospy.loginfo("Shooter Prime")
 
     def start_shoot(self):
         """ This makes the turret begin to shoot """
@@ -162,6 +166,7 @@ class Shooter(State):
         shooter_state.data = "shoot"
 
         self.ros_node.publish("/auto/shooter/state", String, shooter_state, latching = True)
+        rospy.loginfo("Shooter Shooting")
 
 class Turret(Shooter):
 
@@ -179,6 +184,7 @@ class Turret(Shooter):
         turret_state.data = "idle"
 
         self.ros_node.publish("/auto/turret/state", String, turret_state, latching = True)
+        rospy.loginfo("Turret Idle")
 
     def rotate_turret(self, angle):
         """ This rotates the turret to a specified angle """
@@ -190,6 +196,7 @@ class Turret(Shooter):
 
         self.ros_node.publish("/auto/turret/state", String, turret_state, latching = True)
         self.ros_node.publish("/auto/turret/wanted/angle", Float32, turret_angle, latching = True)
+        rospy.loginfo("Turret Rotate")
 
 class Flywheel(Shooter):
 
@@ -207,6 +214,7 @@ class Flywheel(Shooter):
         flywheel_state.data = "idle"
 
         self.ros_node.publish("/auto/flywheel/state", String, flywheel_state, latching = True)
+        rospy.loginfo("Flywheel Idle")
 
     def start_spin_up(self, rpm):
         """ This starts the robot's spin up to a specific rpm """
@@ -218,6 +226,7 @@ class Flywheel(Shooter):
 
         self.ros_node.publish("/auto/flywheel/state", String, flywheel_state, latching = True)
         self.ros_node.publish("/auto/flywheel/wanted/rpm", Float32, flywheel_rpm, latching = True)
+        rospy.loginfo("Flywheel Spinup")
 
 class Hood(Shooter):
 
@@ -235,6 +244,7 @@ class Hood(Shooter):
         hood_state.data = "idle"
 
         self.ros_node.publish("/auto/hood/state", String, hood_state, latching = True)
+        rospy.loginfo("Hood Idle")
 
     def rotate_hood(self, angle):
         """ This adjusts the hood to the given angle """
@@ -246,3 +256,4 @@ class Hood(Shooter):
 
         self.ros_node.publish("/auto/hood/state", String, hood_state, latching = True)
         self.ros_node.publish("/auto/hood/wanted/angle", Float32, hood_angle, latching = True)
+        rospy.loginfo("Hood Rotate")

@@ -8,14 +8,14 @@ import time
 from auton_modules.path import AutoPath, AutoGoal
 from diff_drive.msg import Goal, GoalPath, Constants, Linear, Angular, BoolArray
 
-from auton_modules.state import State, StartAuton, StartPath
+from auton_modules.state import State, StartPath, Intake, Shooter, Turret, Hood, Flywheel
 
 # The id of the auton, used for picking auton
-auton_id = 2
-auton_title = "Auton 1"
+auton_id = 1
+auton_title = "Demo Auton"
 
 # Start of our states
-class Idle(StartAuton):
+class Idle(State):
     """
     The state which waits for autonomous to start
     """
@@ -39,15 +39,15 @@ class StartFirstPath(StartPath):
         self.log_state()
 
     def execute_action(self):
-        self.publish_path("First Path")
+        self.publish_path("Path1")
 
     def tick(self):
         if self.started_path():
-            return PassedSecondWaypoint(self.ros_node)
+            return DeployIntake(self.ros_node)
 
         return self
 
-class PassedSecondWaypoint(State):
+class DeployIntake(Intake):
     """
     The state which waits for the second waypoint of the path.
     """
@@ -56,10 +56,78 @@ class PassedSecondWaypoint(State):
         self.log_state()
 
     def execute_action(self):
-        pass
+        self.deploy_intake()
 
     def tick(self):
         if self.passed_waypoint(2):
+            return Prime(self.ros_node)
+
+        return self
+
+class Prime(Shooter):
+    """
+    The state which indicates that there are no limitations on device
+    capabilities.
+    """
+
+    def initialize(self):
+        self.log_state()
+
+    def execute_action(self):
+        self.start_prime()
+
+    def tick(self):
+        if self.ros_node.get_data("/diff_drive/path_achieved"):
+            return StartShoot(self.ros_node)
+        return self
+
+class StartShoot(Shooter):
+    """
+    The state which indicates that there are no limitations on device
+    capabilities.
+    """
+
+    def initialize(self):
+        self.log_state()
+
+    def execute_action(self):
+        self.start_shoot()
+        self.start_timer()
+
+    def tick(self):
+        if self.check_timer(3.0):
+            return StopShoot(self.ros_node)
+        return self
+
+class StopShoot(Shooter):
+    """
+    The state which indicates that there are no limitations on device
+    capabilities.
+    """
+
+    def initialize(self):
+        self.log_state()
+
+    def execute_action(self):
+        self.idle()
+
+    def tick(self):
+        return StartSecondPath(self.ros_node)
+
+class StartSecondPath(StartPath):
+    """
+    The state which indicates that there are no limitations on device
+    capabilities.
+    """
+
+    def initialize(self):
+        self.log_state()
+
+    def execute_action(self):
+        self.publish_path("Path2")
+
+    def tick(self):
+        if self.started_path():
             return Final(self.ros_node)
 
         return self

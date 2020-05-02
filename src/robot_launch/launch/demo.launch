@@ -1,6 +1,7 @@
 <launch>
-    <include file="$(find robot_urdf)/launch/rviz_model_sim.launch" />
-    <include file="$(find localization)/launch/localization_sim.launch" />
+    <include file="$(find robot_urdf)/launch/sim_model.launch" />
+    <include file="$(find localization)/launch/sim_localization.launch" />
+    <include file="$(find reset_pose)/launch/sim_reset_pose.launch" />
     <include file="$(find diff_drive)/launch/demo.launch" />
     <include file="$(find sim_robot)/launch/sim_robot.launch" />
     <include file="$(find autonomous)/launch/autonomous.launch" />
