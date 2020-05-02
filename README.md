@@ -26,7 +26,7 @@ This will be a video of a demo
 ## Getting Started
 This was made to run on Ubuntu 16 with ROS Kinetic already installed. If you don't have this set up there are many ways to do this which are outlined within the [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) of this repo.
 
-If you want to quickly get set up with no installation required and try this out for yourself on the web by running a demo of an autonomous look at these [quick start](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/Quick-Start:--ROS-Development-Studio) instructions.
+If you want to quickly get set up with no installation required and try this out for yourself on the web by running a demo of an autonomous look at these quick start instructions for [ROS Development Studio](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/Quick-Start:--ROS-Development-Studio).
 
 Before starting make sure to install this ROS package that the repo depends on.
 
