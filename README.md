@@ -1,6 +1,6 @@
 # robot-frc
 
-The goal for this repository is to provide a working example and framework of an FRC robot using ROS to other teams, so that they too can explore the advantages of ROS. This repository is the code from the 2020 FRC season and is configured for the game with certain sensors, but it is **not** hard to implement your own sensors and game specific content. Even if testing on a non frc robot the proxy node can be replaced to interface with your hardware. If you're intrested in learning how to get this setup and running for yourself with a simulator and the physical robot or are looking for a more detailed documentation check out the ROS [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) of this repo. For more information about how our team went around this task and how you could structure your robot code read this [paper]().
+The goal for this repository is to provide a working example and framework of an FRC robot using ROS to other teams, so that they too can explore the advantages of ROS. This repository is the code from the 2020 FRC season and is configured for the game with certain sensors, but it is **not** hard to implement your own sensors and game specific content. Even if testing on a non frc robot the proxy node can be replaced to interface with your hardware. If you're intrested in learning how to get this setup and running for yourself with a simulator and the physical robot or are looking for a more detailed documentation check out the ROS [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) of this repo.
 
 ## Demo
 
@@ -10,7 +10,8 @@ This will be a video of a demo
 
 * `diff_drive` -- Provides the nodes and msgs nessesary for moving along a given path of waypoints.
 * `autonomous` -- Provides a state machine for easily creating an autonomous and a path editor for editing.
-* `robot_launch` -- Contains the launch files for running the code in different modes
+* `robot_launch` -- Contains the launch files for running the code in different modes.
+* `reset_pose` -- This provides a way to re-zero the robot's sensors without restarting the robot.
 * `localization` -- This provides the nodes needed for taking in sensor data and getting the robot's pose.
 * `rs_launcher` -- Launches the realsense cameras in their own node.
 * `realsense-ros` -- Contains the code for running the realsense cameras
@@ -23,9 +24,11 @@ This will be a video of a demo
 * `vision_targeting_tuner` -- Provides a simple UI for changing the hsv values of the color filter.
 
 ## Getting Started
-This was made to run on Ubuntu 16 with ROS Kinetic already installed, for instructions on how to get this set up go to the repo's [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki).
+This was made to run on Ubuntu 16 with ROS Kinetic already installed. If you don't have this set up there are many ways to do this which are outlined within the [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) of this repo.
 
-Also make sure to install this ROS package that the repo depends on.
+If you want to quickly get set up with no installation required and try this out for yourself on the web by running a demo of an autonomous look at these quick start instructions for [ROS Development Studio](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/Quick-Start:--ROS-Development-Studio).
+
+Before starting make sure to install this ROS package that the repo depends on.
 
 `sudo apt-get install ros-kinetic-robot-pose-ekf`
 
@@ -38,7 +41,7 @@ In order to run a simple simulation of the robot code first clone this workspace
 
 There are two subrepositories within this main one, `diff_drive` and `realsense-ros`. In order to use this you must first initialize them and then update. For more information on how to use [submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules). 
 
-**NOTE: If you do not plan to use or physically don't have the realsense cameras do not initialize the sub-repo beacuase there are other things you need to install first.**
+**NOTE: If you do not plan to use or physically don't have the realsense cameras do not initialize the sub-repo beacuase there are other things you need to install first. Instead just remove the directory**
 
 #### diff_drive
 
@@ -52,7 +55,7 @@ git submodule update
 
 #### realsense-ros
 
-First, **only if you have the physical cameras** install the nessesary dependancies by following the instructions on the repo's [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki). Afterwards change directory to the sub-repo then init and update instead of cloning the repo into the directory as the normal instruction specify .
+First, **only if you have the physical cameras** install the nessesary dependancies by following the instructions on the realsense [repository](https://github.com/IntelRealSense/realsense-ros). Afterwards change directory to the sub-repo then init and update instead of cloning the repo into the directory as the normal instruction specify .
 
 ```
 cd robot-frc/src/realsense-ros
@@ -72,11 +75,11 @@ catkin_make
 
 ### Running
 
-In order to run a simple example of an autonomous executing in simulation run the following commands in **different terminals**.
+In order to run a simple example of an autonomous executing in simulation run the following commands in different terminals.
 
 In the repo's base directory, launches the launch file to start all nodes in simualtion
 
-`sudo ./scripts/sim_startup.sh`
+`source ./scripts/demo.sh`
 
 Launches a useful vizualization tool for viewing the robots odom and other topics.
 
