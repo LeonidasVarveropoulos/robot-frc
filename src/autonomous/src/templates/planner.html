@@ -8,7 +8,10 @@
 {% block body %}
 <div class="field">
     <div id="field_border"></div>
-    <img class="field_img" id="field" src="/static/images/2020-field.png" onclick="setGoal(event)" />
+    <img class="field_img" id="field" src="/static/images/2020-field.png" onmousedown="setGoal(event)" onmouseup="getFinalPose()" onmousemove="drag(event)" />
+    <div id="field_outline">
+        <div id="robot"></div>
+    </div>
 </div>
 
 <div id="left_sidebar">
@@ -16,14 +19,21 @@
     <!-- Tab links -->
     <div class="left_tab">
         <button id="left_default_tab" class="left_tablinks" onclick="openLeft(event, 'left_Info')">Info</button>
-        <button class="left_tablinks" onclick="openLeft(event, 'left_Autonomous')">Autonomous</button>
+        <button class="left_tablinks" onclick="openLeft(event, 'left_tools')">Tools</button>
         <button class="left_tablinks" onclick="openLeft(event, 'left_Paths'); displayPathTable();">Paths</button>
     </div>
   
     <!-- Tab content -->
-    <div id="left_Autonomous" class="left_tabcontent">
-        <h3>Autonomous</h3>
-        <p>London is the capital city of England.</p>
+    <div id="left_tools" class="left_tabcontent">
+        <h3>Tools</h3>
+        <p>This tools sets the starting pose of the robot, which is the origin of all measurements. To select a pose click the button below and drag a position and orientation on the field.</p>
+        <div id="RobotPose" class="RobotPose" onclick="selectMode(this.id)">
+            <h4>SET ROBOT POSE</h4>
+        </div>
+        <p class="p_waypoint">This tools sets the x, y and th values for a goal. Make sure that the goal you would like to edit is selected first then click the button and drag a pose on the field.</p>
+        <div id="WaypointPose" class="WaypointPose" onclick="selectMode(this.id)">
+            <h4>SET GOAL POSE</h4>
+        </div>
     </div>
     
     <div id="left_Paths" class="left_tabcontent">
@@ -38,7 +48,7 @@
     
     <div id="left_Info" class="left_tabcontent">
         <h3>Info</h3>
-        <p>Tokyo is the capital of Japan.</p>
+        <p>This is a path editor with the goal of making the editing of waypoints and the given parameters for each goal easier in order to create an autonomous. All measurements are in meters and radians. The changes made here are saved to the "data.txt" file in the autonomous package.</p>
     </div> 
 </div>
 
