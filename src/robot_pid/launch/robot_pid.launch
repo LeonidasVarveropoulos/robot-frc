@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="robot_pid" type="robot_pid.py" name="robot_pid"  output="screen">
+    <rosparam command="load" file="$(find robot_pid)/config/robot_pid.yaml"/>
+  </node>
+</launch>
