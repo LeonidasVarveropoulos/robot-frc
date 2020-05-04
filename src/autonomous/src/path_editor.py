@@ -25,11 +25,6 @@ selected_auto_index = None
 # This checks if you are in the planner url with no auton selected
 is_alert = False
 
-# For the robot pose
-x = None
-y = None
-th = None
-
 rospack = rospkg.RosPack()
 file_path = rospack.get_path('autonomous') + "/src/data.txt"
 
@@ -156,23 +151,6 @@ def api_auton():
             selected_auto_data.deserialize_json(request.get_json())
             write_json()
         return ('', 204)
-
-# API Json communication with JavaScript
-@app.route('/planner/api/robot_pose', methods=['POST', 'GET'])
-def api_robot_pose():
-    global x
-    global y
-    global th
-
-    # Updates the robot pose
-    if request.method == 'GET':
-        d = {"x":x, "y":y, "th":th}
-        return d
-    
-    # New Robot Pose
-    if request.method == 'POST':
-        new_pose = request.get_json()
-        return ('', 204)
     
 def write_json():
     global data
@@ -194,24 +172,8 @@ def read_json():
             a.deserialize_json(d)
             data.append(a)
 
-def robot_pose_callback(msg):
-    global x
-    global y
-    global th
-
-    x = msg.pose.pose.position.x
-    y = msg.pose.pose.position.y
-
-    z = msg.pose.pose.orientation.z
-    w = msg.pose.pose.orientation.w
-
-    quat = [0,0,z,w]
-    euler = tf.transformations.euler_from_quaternion(quat)
-
-    th = euler[2]
 
 if __name__ == "__main__":
     threading.Thread(target=lambda: rospy.init_node('path_editor', disable_signals=True)).start()
-    rospy.Subscriber('/robot_pose_ekf/odom_combined', PoseWithCovarianceStamped, robot_pose_callback)
     read_json()
     app.run(debug=True)

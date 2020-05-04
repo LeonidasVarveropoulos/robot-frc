@@ -180,6 +180,10 @@
     box-shadow: 0 0 10px rgb(0, 0, 0),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
 }
 
+.field_img:hover {
+    cursor: crosshair;
+}
+
 .field_img
 {
     width: auto;
@@ -188,7 +192,16 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -46.35%);
-    border: 15px solid rgb(87, 87, 87);;
+}
+
+#field_border {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -46.35%);
+
+    border: 50px solid rgb(0, 0, 0);
+    color: rgb(0, 0, 0);
 }
 /* Style the tab */
 .left_tab {
