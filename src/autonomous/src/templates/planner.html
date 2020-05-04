@@ -7,10 +7,8 @@
 
 {% block body %}
 <div class="field">
-    <img class="field_img" id="field" src="/static/images/2020-field.png" />
-    <div class="robot" id="robot">
-        <img id="robot_img" src="/static/images/robot.png" />
-    </div>
+    <div id="field_border"></div>
+    <img class="field_img" id="field" src="/static/images/2020-field.png" onclick="setGoal(event)" />
 </div>
 
 <div id="left_sidebar">
@@ -88,5 +86,14 @@
 </div>
 <a href="/" class="back_btn" onclick="postJSON()"> Home </a>
 
+<script type="text/javascript" src="{{ url_for('static', filename='js/planner_json.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/planner_tabs.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/planner_goal_pose.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/planner_goal_constant.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/planner_goal_linear.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/planner_goal_angular.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/planner_paths.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/planner_goals.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/planner_set_goal.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/planner.js') }}"></script>
 {% endblock %}
