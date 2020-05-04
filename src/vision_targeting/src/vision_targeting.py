@@ -19,63 +19,58 @@ class VisionTargeting:
 
   def __init__(self):
     self.bridge = CvBridge()
-    self.image_sub = rospy.Subscriber("d435/color/image_raw",Image,self.callback)
-    self.prime_sub = rospy.Subscriber("turret/primed", Bool,self.prime_callback)
 
+    # ROS img msg
+    self.image_sub = rospy.Subscriber("d435/color/image_raw",Image,self.callback)
+
+    self.prime_sub = rospy.Subscriber("turret/primed", Bool,self.prime_callback)
+    
+    # Rotation PID values
     self.feedback_pub = rospy.Publisher("turret/feedback", Float32, queue_size=1)
     self.setpoint_pub = rospy.Publisher("turret/setpoint", Float32, queue_size=1)
 
-    self.distance_pub = rospy.Publisher("turret/distance", Float32, queue_size=1)
-
-    self.target_locked_pub = rospy.Publisher("turret/target_loc", Bool, queue_size=1)
+    # This will be used to calculate hood angle and flywheel rpm
+    self.y_offset_pub = rospy.Publisher("turret/y_offset", Float32, queue_size=1)
 
     self.cf = ColorFilter()
-    self.cd = ContourDetect()
+    self.cd = ContourDetect(rospy.get_param("~rotation_setpoint", 20))
 
     # Subscribe to ros topic to tell if it should track
     self.is_tracking = True
 
   def prime_callback(self,data):
+    """ This lets the node know if it should be tracking """
     self.is_tracking = data
 
   def callback(self,data):
+    """ This runs when a new img frame is detected """
     try:
       cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
     except CvBridgeError as e:
       print(e)
 
-    #(rows,cols,channels) = cv_image.shape
-
     # Color Filter the Video Stream (For Green)
-    mask = self.cf.color_filter(cv_image,[52.1685761047 , 72.1198754541 , 96.1428685482],[95.5321144864 , 255 , 255],"mask")
+    mask = self.cf.color_filter(cv_image, rospy.get_param("~low_hsv", [0,0,0]), rospy.get_param("~high_hsv", [0,0,0]))
 
-    # Prev [50, 125,125],[90, 255,255]
-    #Low Values: ( 52.1685761047 , 72.1198754541 , 96.1428685482
-    #High Values: ( 95.5321144864 , 255 , 255
-    
-    #cv2.imshow('Image window', mask)
-    #cv2.imshow('Image', cv_image)
-
+    # Passes the mask to contour detector
     self.cd.contour_detect(mask.copy(), self.is_tracking)
 
-    target_locked_data = Bool()
-
+    # Pid values for rotation
     r_feedback = Float32()
     r_setpoint = Float32()
 
-    distance = Float32()
+    # This will be used to calculate hood angle and flywheel rpm
+    y_offset = Float32()
 
-    target_locked_data.data = self.cd.is_target_locked()
+    r_feedback.data = self.cd.get_rotation_pid()
+    r_setpoint.data = rospy.get_param("~rotation_setpoint", 0)
 
-    r_feedback.data = self.cd.get_rotation_pid().feedback
-    r_setpoint.data = 20.0#self.cd.get_rotation_pid().setpoint
-
-    distance.data = self.cd.distance
+    y_offset.data = self.cd.y_offset
 
     self.feedback_pub.publish(r_feedback)
     self.setpoint_pub.publish(r_setpoint)
 
-    self.distance_pub.publish(distance)
+    self.y_offset_pub.publish(y_offset)
 
     cv2.waitKey(3)
 

@@ -7,8 +7,9 @@ class DetectShape:
         pass
     
     def detect(self,contour,perimeter):
-        # get the shape name
-        shape = "None"
+        """ Returns true if the given contour has a certain number of sides """
+        
+        # Values for the filter
         peri = perimeter
         approx = cv2.approxPolyDP(contour,0.04 * peri, True)
 

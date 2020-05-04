@@ -12,6 +12,7 @@ from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 
+# Setting up the sliders
 axcolor = 'lightgoldenrodyellow'
 ax1 = plt.axes([0.25, 0.1, 0.65, 0.03])
 ax2 = plt.axes([0.25, 0.15, 0.65, 0.03])
@@ -32,8 +33,11 @@ class VisionTargetingTuner:
 
   def __init__(self):
     self.bridge = CvBridge()
+    
+    # Subscribes to img
     self.image_sub = rospy.Subscriber("camera/color/image_raw",Image,self.callback)
-
+    
+    # Default values
     self.low_h_val = 0
     self.low_s_val = 0
     self.low_v_val = 0
@@ -43,6 +47,7 @@ class VisionTargetingTuner:
     self.high_v_val = 0
 
   def callback(self,data):
+    # Converts to opencv image
     try:
       cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
     except CvBridgeError as e:
@@ -51,30 +56,25 @@ class VisionTargetingTuner:
     frame = cv2.GaussianBlur(cv_image, (5,5),0)
 
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    #kernel = np.ones((60,60),np.uint8)
-    #kernel2 = np.ones((10,10),np.uint8)
 
+    # HSV color range filter
     color_low = [self.low_h_val, self.low_s_val, self.low_v_val]
     color_high = [self.high_h_val, self.high_s_val, self.high_v_val]
 
     lower_color = np.array(color_low)
     upper_color = np.array(color_high)
 
+    # Filtered out img
     mask = cv2.inRange(hsv,lower_color,upper_color)
-    #res = cv2.bitwise_and(frame,frame, mask= mask)
 
-    #opening = cv2.morphologyEx(res, cv2.MORPH_OPEN, kernel2)
-    #closing = cv2.morphologyEx(res, cv2.MORPH_CLOSE, kernel)
-
-    #norm_img = cv2.cvtColor(res,cv2.COLOR_HSV2BGR)
-    #final_gray = cv2.cvtColor(norm_img,cv2.COLOR_BGR2GRAY)
-
+    # Shows img
     cv2.imshow("Mask",mask)
 
     cv2.waitKey(3)
 
   def update(self,val):
 
+      # Gets the new values
       self.low_h_val = low_h.val
       self.low_s_val = low_s.val
       self.low_v_val = low_v.val
@@ -83,13 +83,15 @@ class VisionTargetingTuner:
       self.high_s_val = high_s.val
       self.high_v_val = high_v.val
 
-      print("Low Values: (",self.low_h_val,",",self.low_s_val,",",self.low_v_val)
-      print("High Values: (",self.high_h_val,",",self.high_s_val,",",self.high_v_val)
+      # Logs HSV values for use in vision targeting
+      rospy.loginfo("Low Values: (%s, %s, %s)" %(self.low_h_val, self.low_s_val, self.low_v_val))
+      rospy.loginfo("High Values: (%s, %s, %s)" %(self.high_h_val, self.high_s_val, self.high_v_val))
 
 def main(args):
-  dvt = VisionTargetingTuner()
   rospy.init_node('vision_targeting_tuner', anonymous=True)
+  dvt = VisionTargetingTuner()
 
+  # Updates the values
   low_h.on_changed(dvt.update)
   low_s.on_changed(dvt.update)
   low_v.on_changed(dvt.update)
