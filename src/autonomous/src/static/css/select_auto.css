@@ -154,8 +154,6 @@ body
     border: 2px solid rgb(0, 255, 55);
     color: rgb(141, 255, 155);
     background:rgb(1, 39, 0) ;
-    padding: 15px 35px;
-    margin-right: 10px;
     box-shadow: 0 0 10px rgb(0, 255, 55),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
     
 }
@@ -246,8 +244,6 @@ h3
     border: 2px solid rgb(0, 255, 55);
     color: rgb(141, 255, 155);
     background:rgb(1, 39, 0) ;
-    padding: 15px 35px;
-    margin-right: 10px;
     box-shadow: 0 0 10px rgb(0, 255, 55),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
     
 }

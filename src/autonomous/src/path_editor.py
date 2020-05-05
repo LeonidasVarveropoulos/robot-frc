@@ -76,9 +76,24 @@ def select_update(id):
         data[id].num_balls = request.form['num_ball_content']
         if data[id].num_balls == "":
             data[id].num_balls = "N/A"
-        data[id].start_pose = request.form['start_pose_content']
-        if data[id].start_pose == "":
-            data[id].start_pose = "N/A"
+
+        start_pose_content_x = request.form['start_pose_content_x']
+        if start_pose_content_x == "":
+            start_pose_content_x = 0
+        start_pose_content_x = int(start_pose_content_x)
+
+        start_pose_content_y = request.form['start_pose_content_y']
+        if start_pose_content_y == "":
+            start_pose_content_y = 0
+        start_pose_content_y = int(start_pose_content_y)
+
+        start_pose_content_th = request.form['start_pose_content_th']
+        if start_pose_content_th == "":
+            start_pose_content_th = 0
+        start_pose_content_th = int(start_pose_content_th)
+
+        data[id].start_pose = [start_pose_content_x, start_pose_content_y, start_pose_content_th]
+
         data[id].description = request.form['description_content']
         if data[id].description == "":
             data[id].description = "N/A"
@@ -104,9 +119,24 @@ def create_submit():
     num_ball_content = request.form['num_ball_content']
     if num_ball_content == "":
         num_ball_content = "N/A"
-    start_pose_content = request.form['start_pose_content']
-    if start_pose_content == "":
-        start_pose_content = "N/A"
+
+    start_pose_content_x = request.form['start_pose_content_x']
+    if start_pose_content_x == "":
+        start_pose_content_x = 0
+    start_pose_content_x = int(start_pose_content_x)
+
+    start_pose_content_y = request.form['start_pose_content_y']
+    if start_pose_content_y == "":
+        start_pose_content_y = 0
+    start_pose_content_y = int(start_pose_content_y)
+
+    start_pose_content_th = request.form['start_pose_content_th']
+    if start_pose_content_th == "":
+        start_pose_content_th = 0
+    start_pose_content_th = int(start_pose_content_th)
+
+    start_pose_content = [start_pose_content_x, start_pose_content_y, start_pose_content_th]
+
     description_content = request.form['description_content']
     if description_content == "":
         description_content = "N/A"

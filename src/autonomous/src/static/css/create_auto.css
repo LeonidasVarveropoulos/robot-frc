@@ -242,8 +242,6 @@ h3
     border: 2px solid rgb(0, 255, 55);
     color: rgb(141, 255, 155);
     background:rgb(1, 39, 0) ;
-    padding: 15px 35px;
-    margin-right: 10px;
     box-shadow: 0 0 10px rgb(0, 255, 55),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
     
 }
@@ -295,7 +293,7 @@ h2
 .description
 {
     position: absolute;
-    top: 530px;
+    top: 625px;
 }
 
 .create_btn
@@ -319,12 +317,11 @@ h2
 
 .create_btn:hover
 {
-    width: 150px;
-    height: 52px;
+    width: 145px;
+    height: 47px;
     border: 2px solid rgb(0, 255, 55);
     color: rgb(141, 255, 155);
     background:rgb(1, 39, 0) ;
-    margin-right: 10px;
     box-shadow: 0 0 10px rgb(0, 255, 55),0 0 40px rgb(0, 255, 55),0 0 80px rgb(0, 255, 55);
 }
 
@@ -337,6 +334,18 @@ input
     top: 120px;
     left: 5px;
     margin-top: 80px;
+}
+
+#start_pose_content_x{
+    margin-top: 80px;
+}
+
+#start_pose_content_y{
+    margin-top: 10px;
+}
+
+#start_pose_content_th{
+    margin-top: 10px;
 }
 
 input:hover
