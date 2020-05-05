@@ -100,6 +100,11 @@ function displayGoalPose(x){
   myGoalContent.appendChild(myDropDown)
   myGoalContent.appendChild(myDiv)
 
+  updateDefaultPose(x)
+  
+}
+
+function updateDefaultPose(x){
   // Set default content for input
   if (autonData.paths[currentSelctedPathIndex].goals[x].position_x == null){
     document.getElementById("PoseGoalDataXInput" + x).placeholder = "Select X Pose";
@@ -115,13 +120,12 @@ function displayGoalPose(x){
     document.getElementById("PoseGoalDataYInput" + x).defaultValue = autonData.paths[currentSelctedPathIndex].goals[x].position_y;
   }
 
-  if (autonData.paths[currentSelctedPathIndex].goals[x].t == null){
+  if (autonData.paths[currentSelctedPathIndex].goals[x].th == null){
     document.getElementById("PoseGoalDataThInput" + x).placeholder = "Select Th Pose";
   }
   else{
     document.getElementById("PoseGoalDataThInput" + x).defaultValue = autonData.paths[currentSelctedPathIndex].goals[x].th;
   }
-  
 }
 
 // This manages the input to changing the goal data

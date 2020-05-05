@@ -45,7 +45,7 @@
                     <div class="table_row">
                         <h5 class="td_title">{{ auton.title }}</h5>
                         <h5 class="td_balls">{{ auton.num_balls }}</h5>
-                        <h5 class="td_position">{{ auton.start_pose }}</h5>
+                        <h5 class="td_position">{{ pose_list[auton.id] }}</h5>
                         <h5 class="td_description">{{ auton.description }}</h5>
                         <h5 class="td_date">{{ auton.date_created }}</h5>
                         <a class="update_btn" href="/select/update/{{auton.id}}">Update</a>

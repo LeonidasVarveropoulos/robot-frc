@@ -5,7 +5,6 @@ var autonData = null
 var currentSelectedPath = null;
 var currentSelctedPathIndex = null
 
-var currentSelctedGoal = null;
 var currentSelctedGoalIndex = null;
 
 // This updates and saves the page data into the server

@@ -173,6 +173,10 @@ function displayGoalLinear(x){
   myGoalContent.appendChild(myDropDown)
   myGoalContent.appendChild(myDiv)
 
+  updateDefaultLinear(x)
+}
+
+function updateDefaultLinear(x){
   // Set default content for input
   //1
   if (autonData.paths[currentSelctedPathIndex].goals[x].max_linear_speed == null){

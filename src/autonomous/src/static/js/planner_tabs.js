@@ -69,7 +69,9 @@ function onHover(){
           myGoal.onclick = function() { 
             openRight(event, this.id + "Content");
             document.getElementById("dropdown-content").style.display = "none";  
-            document.getElementById(this.id).style.background = ''
+            document.getElementById(this.id).style.background = '';
+
+            currentSelctedGoalIndex = this.id.slice(5,this.id.length);
         }
           myContent.insertBefore(myGoal, myContent.firstChild);
   

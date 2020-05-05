@@ -44,7 +44,10 @@ def index():
 @app.route('/select')
 def select():
     rev_data = list(reversed(data))
-    return render_template('select_auto.html', autons=rev_data)
+    pose_list = []
+    for auto in rev_data:
+        pose_list.append([int(auto.start_pose[0]), int(auto.start_pose[1]), int(auto.start_pose[2])])
+    return render_template('select_auto.html', autons=rev_data, pose_list=pose_list)
 
 # Gets the id of the selected auto
 @app.route('/select/auto/<int:id>')

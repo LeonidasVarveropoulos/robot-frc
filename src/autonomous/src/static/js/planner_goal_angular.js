@@ -172,6 +172,10 @@ function displayGoalAngular(x){
   myGoalContent.appendChild(myDropDown)
   myGoalContent.appendChild(myDiv)
 
+  updateDefaultAngular(x);
+}
+
+function updateDefaultAngular(x){
   // Set default content for input
 
   //1

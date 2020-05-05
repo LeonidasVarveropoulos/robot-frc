@@ -9,7 +9,7 @@
                         "constants_kB": -0.8, 
                         "constants_kA": 6, 
                         "max_angular_acceleration": 1000000000, 
-                        "th": 1, 
+                        "th": 4.667150740135823, 
                         "ignore_angular_tolerance": true, 
                         "max_linear_speed": 1.1, 
                         "linear_tolerance_outer": 2, 
@@ -17,8 +17,8 @@
                         "max_linear_acceleration": 1000000000, 
                         "constants_kP": 1, 
                         "linear_tolerance_inner": 1.5, 
-                        "position_x": 2.5, 
-                        "position_y": 2, 
+                        "position_x": 5.45513362492788, 
+                        "position_y": 1.3337193804637497, 
                         "max_angular_speed": 2, 
                         "angular_tolerance_outer": 0.2, 
                         "forward_movement_only": false, 
@@ -186,9 +186,9 @@
         "num_balls": "Demo", 
         "title": "Demo Auton", 
         "start_pose": [
-            3.1543122123718264, 
-            -2.478555525042063, 
-            0.03200372241741967
+            12.385318602506356, 
+            -0.8544856455239905, 
+            0.22950420173652297
         ], 
         "date_created": "2020-05-02", 
         "id": 0

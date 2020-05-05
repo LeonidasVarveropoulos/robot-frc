@@ -40,6 +40,16 @@ function setGoal(e){
     xDistance = (widthRatio * x);
     yDistance = (heightRatio * y);
     theta = 0.0
+
+    // Create Selector
+    if (currentMode != null){
+        var parent = document.getElementById("field_outline");
+        var selector = document.createElement("img")
+        selector.id = "selector_arrow"
+        selector.src = 'static/images/selector.png'
+
+        parent.appendChild(selector)
+    }
 }
 
 // Executes when the pose is being dragged to get theta
@@ -60,8 +70,19 @@ function drag(e){
 
         theta = (Math.PI*2) - th;
 
-        // Creates a visual of the pose being set
-        // 
+        // Animate Selector
+        if (currentMode != null){
+            var width = "width: 200px"
+            var height = "height: auto"
+            var position = "position: absolute"
+            var top = "top:" + ((yDistance/heightRatio) - document.getElementById('selector_arrow').clientHeight/2) + "px";
+            var left = "left:" + ((xDistance/widthRatio) - document.getElementById('selector_arrow').clientWidth/2) + "px";
+            var rotate = "transform: rotate(" + (-theta* 57.2958) + "deg)"
+
+            var style = position + ";" + top + ";" + left + ";" + rotate + ";" + width + ";" + height +";";
+
+            document.getElementById("selector_arrow").setAttribute("style",style);
+        }
     }
 }
 
@@ -69,6 +90,12 @@ function drag(e){
 function getFinalPose(){
     mouse_down = false;
     console.log(xDistance, yDistance, theta)
+
+    // Delete Selector
+    if (currentMode != null){
+        var elem = document.getElementById("selector_arrow");
+        elem.parentNode.removeChild(elem);
+    }
 
     // Delete visual for setting pose
     // 
@@ -99,9 +126,12 @@ function displayRobotPose(){
     var position = "position: absolute"
     var top = "top:" + ((yDistance/heightRatio) - document.getElementById('robot').clientHeight/2) + "px";
     var left = "left:" + ((xDistance/widthRatio) - document.getElementById('robot').clientWidth/2) + "px";
-    var style = position + ";" + top + ";" + left + ";";
+    var rotate = "transform: rotate(" + (-theta* 57.2958) + "deg)"
+
+    var style = position + ";" + top + ";" + left + ";" + rotate + ";";
 
     document.getElementById("robot").setAttribute("style",style);
+
 }
 
 // Set waypoint
@@ -109,6 +139,17 @@ function setWaypoint(){
     console.log("Setting waypoint")
     document.getElementById(currentMode).classList.toggle('active')
     currentMode = null
+
+    console.log(currentSelctedGoalIndex)
+
+    if (currentSelectedPath != null && currentSelctedGoalIndex != null){
+        autonData.paths[currentSelctedPathIndex].goals[currentSelctedGoalIndex].position_x = xDistance;
+        autonData.paths[currentSelctedPathIndex].goals[currentSelctedGoalIndex].position_y = yDistance;
+        autonData.paths[currentSelctedPathIndex].goals[currentSelctedGoalIndex].th = theta;
+    }
+    updateDefaultPose(currentSelctedGoalIndex)
+
+    postJSON()
 }
 
 

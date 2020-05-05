@@ -100,6 +100,11 @@ function displayGoalConstants(x){
   myGoalContent.appendChild(myDropDown)
   myGoalContent.appendChild(myDiv)
 
+  updateDefaultConstants(x);
+
+}
+
+function updateDefaultConstants(x){
   // Set default content for input
   //1
   if (autonData.paths[currentSelctedPathIndex].goals[x].constants_kP == null){
@@ -124,9 +129,7 @@ function displayGoalConstants(x){
   else{
     document.getElementById("ConstantsGoalDataKbInput" + x).defaultValue = autonData.paths[currentSelctedPathIndex].goals[x].constants_kB;
   }
-
 }
-
 // This takes care of the input of the constants which update the main data
 function GoalConstantsInput(x){
   console.log("Constants are working")

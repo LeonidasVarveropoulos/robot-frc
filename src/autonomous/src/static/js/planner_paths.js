@@ -131,12 +131,16 @@ function selectedPath(id){
     currentSelectedPath = null
     currentSelctedPathIndex = null
     console.log(currentSelectedPath)
+
+    currentSelctedGoalIndex = null
   }
   else{
     document.getElementById(id).classList.toggle('active')
     currentSelectedPath = autonData.paths[id.slice(5,id.length)]
     currentSelctedPathIndex = id.slice(5,id.length)
     console.log(currentSelectedPath)
+
+    currentSelctedGoalIndex = null
   }
   displayGoalDropDown()
   
