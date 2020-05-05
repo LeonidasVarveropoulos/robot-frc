@@ -185,7 +185,11 @@
         "description": "This is a demo to showcase the features of autonomous", 
         "num_balls": "Demo", 
         "title": "Demo Auton", 
-        "start_pose": "Demo", 
+        "start_pose": [
+            3.1543122123718264, 
+            -2.478555525042063, 
+            0.03200372241741967
+        ], 
         "date_created": "2020-05-02", 
         "id": 0
     }

@@ -2,18 +2,27 @@ var isBorder = false;
 
 var mouse_down = false;
 
-var widthRatio = 0.0;
-var heightRatio = 0.0;
+var widthRatio = 1;
+var heightRatio = 1;
 
-var xDistance = 0.0;
-var yDistance = 0.0;
+var xDistance = 1;
+var yDistance = 1;
 var theta = 0.0;
 
-var robotX = 0
-var robotY = 0
-var robotTh = 0.0
-
 var currentMode = null;
+
+function setInitialPose(){
+    var myFieldWidth = document.getElementById('field').clientWidth;
+    var myFieldHeight = document.getElementById('field').clientHeight;
+
+    // In meters
+    widthRatio = (16.4846)/myFieldWidth;
+    heightRatio = 8.1026/myFieldHeight;
+
+    xDistance = autonData.start_pose[0]
+    yDistance = -autonData.start_pose[1]
+    theta = autonData.start_pose[2];
+}
 
 function setGoal(e){
     mouse_down = true;
@@ -43,13 +52,13 @@ function drag(e){
         var newX = widthRatio * x;
         var newY = heightRatio * y;
 
-        var th = Math.atan2(newX - xDistance, yDistance - newY);
+        var th = Math.atan2(newX - xDistance, yDistance - newY) - (Math.PI/2);
         
         if (th < 0.0){
             th += (Math.PI * 2);
         }
 
-        theta = th;
+        theta = (Math.PI*2) - th;
 
         // Creates a visual of the pose being set
         // 
@@ -81,14 +90,15 @@ function setRobotPose(){
     robotX = xDistance;
     robotY = yDistance;
     robotTh = theta;
-
+    autonData.start_pose = [xDistance, -yDistance, theta]
+    postJSON()
     displayRobotPose();
 }
 
 function displayRobotPose(){
     var position = "position: absolute"
-    var top = "top:" + ((robotY/heightRatio) - document.getElementById('robot').clientHeight/2) + "px";
-    var left = "left:" + ((robotX/widthRatio) - document.getElementById('robot').clientWidth/2) + "px";
+    var top = "top:" + ((yDistance/heightRatio) - document.getElementById('robot').clientHeight/2) + "px";
+    var left = "left:" + ((xDistance/widthRatio) - document.getElementById('robot').clientWidth/2) + "px";
     var style = position + ";" + top + ";" + left + ";";
 
     document.getElementById("robot").setAttribute("style",style);
@@ -142,6 +152,8 @@ createFieldBorder()
 if (!isBorder){
     setInterval(createFieldBorder, 100);
 }
-
-displayRobotPose()
+setTimeout(function() {
+    setInitialPose()
+    displayRobotPose()
+  }, 1500);
     
