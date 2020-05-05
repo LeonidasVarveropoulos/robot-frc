@@ -1,7 +1,7 @@
 from datetime import datetime
 import json
 import rospy
-from std_msgs.msg import Float32, Float64, Bool, String
+from std_msgs.msg import Float32, Float64, Bool, String, Float32MultiArray
 from geometry_msgs.msg import Pose, PoseWithCovarianceStamped
 from diff_drive.msg import Goal, GoalPath, Constants, Linear, Angular
 from path import AutoGoal, AutoPath, Autons
@@ -13,19 +13,24 @@ data = []
 
 def read_json():
     """ This reads the auton data and saves it to a list to be used """
-    rospack = rospkg.RosPack()
-    file_path = rospack.get_path('autonomous') + "/src/data.txt"
-    with open(file_path) as json_file:
-        json_data = json.load(json_file)
-        
-        new_data = []
-        for d in json_data:
-            a = Autons(len(new_data))
-            a.deserialize_json(d)
-            new_data.append(a)
+    try:
+        rospack = rospkg.RosPack()
+        file_path = rospack.get_path('autonomous') + "/src/data.txt"
+        with open(file_path) as json_file:
+            json_data = json.load(json_file)
+            
+            new_data = []
+            for d in json_data:
+                a = Autons(len(new_data))
+                a.deserialize_json(d)
+                new_data.append(a)
 
-        global data
-        data = new_data
+            global data
+            data = new_data
+    except:
+        read_json()
+        
+read_json()
 
 class State(object):
     """
@@ -87,6 +92,17 @@ class State(object):
             self.execute_action()
             self.action_executed = True
         return self.tick()
+
+class StartIdle(State):
+
+    def setRobotPose(self):
+        global data
+        msg = Float32MultiArray()
+        for auton in data:
+            if auton.title == self.ros_node.auton_title:
+                msg.data = auton.start_pose
+                self.ros_node.publish('/robot_set_pose', Float32MultiArray, msg, latching = True)
+                rospy.loginfo("Reset Robot Pose")
 
 class StartPath(State):
 

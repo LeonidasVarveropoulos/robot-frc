@@ -8,14 +8,14 @@ import time
 from auton_modules.path import AutoPath, AutoGoal
 from diff_drive.msg import Goal, GoalPath, Constants, Linear, Angular, BoolArray
 
-from auton_modules.state import State, StartPath, Intake, Shooter, Turret, Hood, Flywheel
+from auton_modules.state import State, StartIdle, StartPath, Intake, Shooter, Turret, Hood, Flywheel
 
 # The id of the auton, used for picking auton
 auton_id = 1
 auton_title = "Demo Auton"
 
 # Start of our states
-class Idle(State):
+class Idle(StartIdle):
     """
     The state which waits for autonomous to start
     """
@@ -24,7 +24,7 @@ class Idle(State):
         self.log_state()
 
     def execute_action(self):
-        pass
+        self.setRobotPose()
 
     def tick(self):
         return StartFirstPath(self.ros_node)

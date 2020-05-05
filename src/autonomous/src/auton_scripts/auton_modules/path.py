@@ -7,7 +7,7 @@ from datetime import datetime
 import json
 
 class Autons:
-    def __init__(self, auto_id, title="N/A", num_balls="N/A", start_pose="N/A", description="N/A", paths=[], date_created=str(datetime.utcnow())):
+    def __init__(self, auto_id, title="N/A", num_balls="N/A", start_pose=[0,0,0], description="N/A", paths=[], date_created=str(datetime.utcnow())):
         # Header Info
         self.id = auto_id
         self.title = title

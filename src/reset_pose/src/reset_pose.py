@@ -4,7 +4,7 @@ import rospy
 import tf
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import PoseWithCovarianceStamped
-from std_msgs.msg import Float32, Float64, Bool
+from std_msgs.msg import Float32, Float64, Bool, Float32MultiArray
 from geometry_msgs.msg import Twist
 import math
 
@@ -29,6 +29,8 @@ class ResetPose:
         # List of ROS publishers and subscribers to avoid calling one twice
         self._publishers = {}
         self._subscribers = []
+
+        self.robot_reset = False
 
     def subscribe(self, topic_name, data_type):
         """ This sets up the ros subscribers for incoming data """
@@ -56,7 +58,7 @@ class ResetPose:
                 return self._data[topic_name].data
             else:
                 return self._data[topic_name]
-        return None
+        return [0,0,0]
 
     def odom_callback(self, msg):
         new_msg = msg
@@ -66,21 +68,20 @@ class ResetPose:
         th = euler[2]
 
         # If true resets robot pose to 0,0,0
-        if self.get_data("/reset_robot_pose") == True:
+        if self.robot_reset == True:
             rospy.logwarn_throttle(15, "Robot Resetting Pose")
             self.reset_x = new_msg.pose.pose.position.x
             self.reset_y = new_msg.pose.pose.position.y
             self.reset_th = th
-        new_msg.pose.pose.position.x -= self.reset_x
-        new_msg.pose.pose.position.y -= self.reset_y
+
+            self.robot_reset = False
+        new_msg.pose.pose.position.x -= self.reset_x - self.get_data("/robot_set_pose")[0]
+        new_msg.pose.pose.position.y -= self.reset_y - self.get_data("/robot_set_pose")[1]
 
         # Wrapping of the orientation
-        if th - self.reset_th < -math.pi:
-            th = (2 * math.pi) + (th - self.reset_th)
-        elif th - self.reset_th > math.pi:
-            th = (2 * -math.pi) + (th - self.reset_th)
-        else:
-            th -= self.reset_th
+        th -= self.reset_th - self.get_data("/robot_set_pose")[2]
+        if th < 0:
+            th += (math.pi * 2)
 
         quaternion = tf.transformations.quaternion_from_euler(0, 0, th)
         new_msg.pose.pose.orientation.z = quaternion[2] 
@@ -92,13 +93,14 @@ class ResetPose:
     def _on_new_data(self, msg):
         """ This is the callback function for the subscribers """
         self._data[str(msg._connection_header["topic"])] = msg
+        self.robot_reset = True
 
     def main(self):
 
         # Sets up the subscribers
         for odom in self.input_odom:
             self.subscribe(odom["topic"], Odometry)
-        self.subscribe("reset_robot_pose", Bool)
+        self.subscribe("/robot_set_pose", Float32MultiArray)
 
         rate = rospy.Rate(self.rate)
 

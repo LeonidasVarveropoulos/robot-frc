@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 import rospy
-from std_msgs.msg import Float32, Float64, Bool
+from std_msgs.msg import Float32, Float64, Bool, Float32MultiArray
 from geometry_msgs.msg import Twist
 import tf
 from geometry_msgs.msg import PoseWithCovarianceStamped, PoseStamped, Pose
@@ -13,6 +13,7 @@ import os
 from auton_scripts.auton_modules.state_machine import StateMachine
 import rospkg
 import importlib
+import auton_scripts.auton_modules.state as state
 
 # Imports all autons
 rospack = rospkg.RosPack()
@@ -116,6 +117,20 @@ class ROSNode:
 
                         self.auton_title = auton.auton_title
                         break
+            
+            # State machine was not running and auton is disabled (Sets starting pose)
+            elif self.state_machine is None and not self.get_data(self.auto_state_topic):
+                rospy.loginfo_throttle(10, "Waiting for auto mode")
+                for auton in autons:
+                    if (self.get_data(self.auto_select_topic) == auton.auton_id):
+                        msg = Float32MultiArray()
+                        for auto in state.data:
+                            if auto.title == auton.auton_title:
+                                state.read_json()
+                                msg.data = auto.start_pose
+                                self.publish('/robot_set_pose', Float32MultiArray, msg, latching = True)
+                                rospy.loginfo_throttle(10, "Reset Robot Pose")
+                                break
 
             # Ticker state machine if one then sleep until next loop
             if self.state_machine is not None:
