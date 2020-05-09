@@ -6,23 +6,6 @@ The goal for this repository is to provide a working example and framework of an
 
 This will be a video of a demo
 
-## Used Packages
-
-* `diff_drive` -- Provides the nodes and msgs nessesary for moving along a given path of waypoints.
-* `autonomous` -- Provides a state machine for easily creating an autonomous and a path editor for editing.
-* `robot_launch` -- Contains the launch files for running the code in different modes.
-* `reset_pose` -- This provides a way to re-zero the robot's sensors without restarting the robot.
-* `localization` -- This provides the nodes needed for taking in sensor data and getting the robot's pose.
-* `rs_launcher` -- Launches the realsense cameras in their own node.
-* `realsense-ros` -- Contains the code for running the realsense cameras
-* `cmd_vel_to_rpm` -- Converts the ROS cmd_vel msg into an rpm sent to the RoboRio.
-* `proxy` -- Listens to all relavant topics and communicates with the RoboRio through ethernet/networktables.
-* `robot_urdf` -- Sets up the nodes needed for creating the tf tree of the robot.
-* `sim_robot` -- Creates a simulated model of the robot's features and sensors for testing without the physical robot.
-* `turret_rotation` -- This is the PID for the turret's rotation.
-* `vision_targeting` -- Does the vision processing for the 2020 game target.
-* `vision_targeting_tuner` -- Provides a simple UI for changing the hsv values of the color filter.
-
 ## Getting Started
 This was made to run on Ubuntu 16 with ROS Kinetic already installed. If you don't have this set up there are many ways to do this which are outlined within the [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) of this repo.
 
