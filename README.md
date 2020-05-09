@@ -4,7 +4,7 @@ The goal for this repository is to provide a working example and framework of an
 
 ## Demo
 
-This will be a video of a demo
+[![Video](https://i9.ytimg.com/vi/V9NnU-9PFkE/mqdefault.jpg?time=1589047334568&sqp=CKDf2_UF&rs=AOn4CLDyWaLY9m2FdYP9mlALuzRIFnO0Kw)](https://www.youtube.com/watch?v=V9NnU-9PFkE)
 
 ## Getting Started
 This was made to run on Ubuntu 16 with ROS Kinetic already installed. If you don't have this set up there are many ways to do this which are outlined within the [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) of this repo.
