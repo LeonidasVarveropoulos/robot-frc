@@ -16,7 +16,7 @@ Shown below is a diagram of how ROS was configured to work with a FRC robot.
 * #### Proxy
   * The proxy node handles all the communication between the RoboRio and the co-processor. It passes simple data like strings, booleans, and integers through networktables. In our case the proxy recieves data indicating if the robot is in auton and which auton to run, along with data from the different sensors on the robot. The node outputs command velocities for the robot's drivetrain, turret angle, and other subsystem controls.
 
-* #### LabView
+* #### RoboRio
   * The code on the RoboRio takes in data from the ROS proxy as setpoints for PIDs running on the robot while also using joystick input and ROS state data to manage different subsystems throughout the robot during both autonomous and teleop.
 
 ### Robot Pose
