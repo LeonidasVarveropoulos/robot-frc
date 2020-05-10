@@ -90,3 +90,6 @@ This is a modified documentation of the forked [repository](https://github.com/m
   
 ## 2. [autonomous](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/ROS-API:-autonomous)
 This is a ros node that runs the python auton scripts created as a statemachine during autonomous.
+
+## 3. [path_editor](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/ROS-API:-path_editor)
+This is a ros node that runs a web app for creating autonomous paths. All data is stored within a file called data.txt in the package.
