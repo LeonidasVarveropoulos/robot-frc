@@ -188,3 +188,88 @@ direct path.
 
 `Kb` (float: default: -0.8)
   - Proportionality constant for angle to goal pose direction. Larger values make the robot turn faster toward the goal pose direction. This value should be negative. 
+  
+## 1. autonomous
+This is a ros node that runs the python auton scripts created as a statemachine during autonomous.
+
+### Published Topics
+
+`diff_drive/goal_path` (diff_drive/GoalPath)
+  - The wanted path for the robot including the goals and the corresponding parameters
+ 
+`robot_set_pose` (std_msgs/Float32MultiArray)
+  - The array representing the wanted pose to reset the robot to [x, y, th]
+  
+The listed topics below are robot specific and are not needed for every autonomous, but are used throughout our 2020 robot.
+
+`auto/intake/state` (std_msgs/String)
+  - A string representing the state of the intake ("retract", "deploy")
+  
+`auto/shooter/state` (std_msgs/String)
+  - A string representing the state of the shooter. The overall system controlling the below states ("idle", "prime", "shoot")
+  
+`auto/turret/state` (std_msgs/String)
+  - A string representing the state of the turret. Used for fine adjustments of the angle ("idle", "rotate_turret")
+  
+`auto/turret/wanted/angle` (std_msgs/Float32)
+  - The wanted angle to rotate the turret (radians)
+  
+`auto/flywheel/state` (std_msgs/String)
+  - A string representing the state of the flywheel. Used for fine adjustments of the rpm ("idle", "spin_up")
+  
+`auto/flywheel/wanted/rpm` (std_msgs/Float32)
+  - The wanted rpm for the flywheel to spin
+  
+`auto/hood/state` (std_msgs/String)
+  - A string representing the state of the hood. Used for fine adjustments of the angle ("idle", "rotate_hood")
+  
+`auto/hood/wanted/angle` (std_msgs/Float32)
+  - The wanted angle to rotate the hood (radians)
+
+### Subscribed Topics
+
+`auto/state` (std_msgs/Bool)
+  - Contains true if the robot is in autonomous mode
+
+`auto/select` (std_msgs/Float32)
+  - The id of the wanted autonomous to run
+
+The listed topics below are usually the topics used but are not set by default. The topics you wish to subscribe to are defined in the individual auton scripts created.
+
+`diff_drive_go_to_goal/distance_to_goal` (std_msgs/Float32)
+  - The distance to the current goal the robot is moving towards
+  
+`diff_drive/waypoints_achieved` (diff_drive/BoolArray)
+  - An array of booleans representing all the waypoints achieved in a path
+
+`diff_drive/path_achieved` (std_msgs/Bool)
+  - The status of the robot following the overall path 
+  
+The listed topics below are robot specific and are not needed for every autonomous, but are used throughout our 2020 robot.
+
+`auto/turret/current/angle` (std_msgs/Float32)
+  - The current angle of the turret
+  
+`auto/flywheel/current/rpm` (std_msgs/Float32)
+  - The current rpm the flywheel is spinning at
+  
+`auto/hood/current/angle` (std_msgs/Float32)
+  - The current angle of the hood used for adjusting arc of the ball 
+  
+### Parameters
+
+`rate` (float, default: 50)
+
+  - The rate at which to publish desired velocities (Hz)
+  
+`auto_state_topic` (string, default: "/auto/state")
+
+  - The wanted topic to subscribe to in order to check if in autonomous mode
+  
+`auto_selector_topic` (string, default: "/auto/select")
+
+  - The wanted topic to subscribe to in order to check the ID of the autonomous to run
+  
+`file_root` (string, default: "auton_")
+
+  - The wanted root of all autonomous python script names for the node to automatically load and run
