@@ -26,7 +26,7 @@ selected_auto_index = None
 is_alert = False
 
 rospack = rospkg.RosPack()
-file_path = rospack.get_path('autonomous') + "/src/data.txt"
+file_path = rospack.get_path('autonomous') + rospy.get_param('file_path', "/src/data.txt")
 
 # Home Page
 @app.route('/')
