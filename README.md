@@ -8,9 +8,42 @@ This is a quick demo that briefly covers many of the features that our team util
 
 ## Overview
 
-Shown below is a diagram of how ROS was configured to work with a FRC robot 
+Shown below is a diagram of how ROS was configured to work with a FRC robot.
 
 <div style="text-align:center"><img src="https://user-images.githubusercontent.com/55664403/81491807-1082b400-9258-11ea-9c78-776d219f0a99.png" width=600 /></div>
+
+### Communication
+#### Proxy
+* The proxy node handles all the communication between the RoboRio and the co-processor. It passes simple data like strings, booleans, and integers through networktables. In our case the proxy recieves data indicating if the robot is in auton and which auton to run, along with data from the different sensors on the robot. The node outputs command velocities for the robot's drivetrain, turret angle, and other subsystem controls.
+
+#### LabView
+* The code on the RoboRio takes in data from the ROS proxy as setpoints for PIDs running on the robot while also using joystick input and ROS state data to manage different subsystems throughout the robot during both autonomous and teleop.
+
+### Robot Pose
+#### Sensors
+* We used the T265 Realsense Tracking camera as our main sensor source during autonomous. It uses visual odometry combined with a built in IMU to accurately reflect the robot's position. The realsense node shown above is needed to transform the robot pose if the camera was offset from the center of the robot base.
+* We used the D435 Depth Camera to do vision tracking of the target. The choice of camera was probably a mistake for this year on account of cheaper cameras being available or just using a limelight. We hoped to use the pointcloud but did not really find the use in this year's game.
+* We also used encoders as a feedback device for the PIDs in subsystems like the turret and shooter
+
+#### Localization
+* We used the ROS packge robot-pose-ekf to publish the robot's position from the sensor sources. This year we did not use the package's full capablities as a Kalman filter by combining multiple sensor sources, but the use of this package makes it really easy to add other sources in the future. The robot pose is then used by the autonomous node to guide the robot along a path.
+
+### Autonomous
+#### Path Editor
+* The Path Editor node creates a web app to easily create autonomous paths that can be later used in the autonomous script. The edited data is saved in a json file located on the co-processor that the autonomous scripts can then load and use. The web server is started on the robot so, users should be able to connect to the robot's wifi and use the web app.
+
+#### Auton Scripts
+* The autonomous on the robot is managed by a node that loads simple python statemachines that define the wanted actions of the robot. Once recieving data from the proxy indicating that autonomous is enabled it will run the specified auton and send data back to the proxy and RoboRio in order to control the robot.
+
+### Vision
+#### Vision Tracking
+* The node uses opencv to do tracking on the target. It sends pixel values of the y and x offset from the target to be used for shooting.
+
+#### Turret
+* The node uses a PID to output a wanted velocity to the proxy in order to control the turret. The feedback is the x-offset from the vision tracking and the setpoint is the middle of the camera frame.
+
+#### Hood and Flywheel
+* We also used the y-offset as an input to a regression of the needed hood angle and flywheel rpm to make the shot.
 
 ## Getting Started
 NOTE: This repository was made to run on Ubuntu 16 with ROS Kinetic already installed. If you don't have this set up, there are many ways to do this which are outlined within the [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) of this repository. If you want to quickly get set up and run a demo without installing Ubuntu, follow the quick start instructions for [ROS Development Studio](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/Quick-Start:--ROS-Development-Studio).
