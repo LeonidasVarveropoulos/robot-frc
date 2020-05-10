@@ -95,4 +95,4 @@ This is a ROS node that runs the python auton scripts created as a statemachine 
 This is a ROS node that runs a web app with Flask for creating autonomous paths. All data is stored within a file called data.txt in the package.
 
 ## 4. [proxy](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/ROS-API:-proxy)
-This is a ROS node 
+This is a ROS node that manages the transfer of data from the ROS system to the RoboRio. This node uses networktables to communicate with the RoboRio.
