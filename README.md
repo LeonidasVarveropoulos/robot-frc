@@ -1,10 +1,9 @@
-# ROS for FRC
-
+# FRC Robotics with ROS: robot-frc
 The goal of this repository is to provide a working example and framework of an FRC robot using ROS to other teams, so that they too can explore the advantages of ROS. This repository hosts the ROS code from the 2020 FRC season robot created by [FRC Team 624](http://team624.org/) and is configured for the game Infinite Recharge with certain sensors. However, it is **not** difficult to implement your own sensors and game specific content into this framework. When testing on a non-FRC robot, the proxy node can be replaced to interface with your hardware. If you are interested in learning how to get ROS working for yourself with a simulator and the physical robot or looking for a more detailed documentation, check out the [ROS wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) of this repository.
 
 ## Demo (Video)
-//Whenever you clicked on the link, it opens it in the same tab. I looked into it and Markdown doesn't support opening in a new tab so I would suggest using HTML for the video or embedding it within the page.
-This is a quick demo that briefly covers many of the features that our team utilized this season. [![Video](https://i9.ytimg.com/vi/V9NnU-9PFkE/mqdefault.jpg?time=1589047334568&sqp=CKDf2_UF&rs=AOn4CLDyWaLY9m2FdYP9mlALuzRIFnO0Kw)](https://www.youtube.com/watch?v=V9NnU-9PFkE)
+This is a quick demo that briefly covers many of the features that our team utilized this season. 
+[![Video](https://i9.ytimg.com/vi/V9NnU-9PFkE/mqdefault.jpg?time=1589047334568&sqp=CKDf2_UF&rs=AOn4CLDyWaLY9m2FdYP9mlALuzRIFnO0Kw)](https://www.youtube.com/watch?v=V9NnU-9PFkE)
 
 ## Getting Started
 NOTE: This repository was made to run on Ubuntu 16 with ROS Kinetic already installed. If you don't have this set up, there are many ways to do this which are outlined within the [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) of this repository. If you want to quickly get set up and run a demo without installing Ubuntu, follow the quick start instructions for [ROS Development Studio](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/Quick-Start:--ROS-Development-Studio).
