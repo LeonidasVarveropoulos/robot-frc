@@ -86,10 +86,10 @@ For more information on how to configure ROS for your own physical robot and lea
 The parameters effecting many of the nodes existing within this repository are documented below.
 
 ## 1. [diff_drive_go_to_goal](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/ROS-API:-diff_drive_go_to_goal)
-This is a modified documentation of the forked [repository](https://github.com/merose/diff_drive). We only use the `diff_drive_go_to_goal` node in this repo.
+This is a ROS node that publishes cmds to the robot in order to follow the given path. This is a modified documentation of the forked [repository](https://github.com/merose/diff_drive). We only use the `diff_drive_go_to_goal` node in this repo.
   
 ## 2. [autonomous](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/ROS-API:-autonomous)
-This is a ros node that runs the python auton scripts created as a statemachine during autonomous.
+This is a ROS node that runs the python auton scripts created as a statemachine during autonomous.
 
 ## 3. [path_editor](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/ROS-API:-path_editor)
-This is a ros node that runs a web app for creating autonomous paths. All data is stored within a file called data.txt in the package.
+This is a ROS node that runs a web app for creating autonomous paths. All data is stored within a file called data.txt in the package.
