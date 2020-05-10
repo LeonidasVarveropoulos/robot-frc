@@ -4,7 +4,7 @@ The goal of this repository is to provide a working example and framework of an 
 ## Demo (Video)
 This is a quick demo that briefly covers many of the features that our team utilized this season.
 
-[![Video](https://user-images.githubusercontent.com/55664403/81488424-398e4f00-922e-11ea-9c75-16fb061cdf54.jpg)](https://www.youtube.com/watch?v=V9NnU-9PFkE)
+[![Video](https://user-images.githubusercontent.com/55664403/81489736-dfe25080-923e-11ea-8f55-c2d01ca1d112.jpg)](https://www.youtube.com/watch?v=V9NnU-9PFkE)
 
 ## Getting Started
 NOTE: This repository was made to run on Ubuntu 16 with ROS Kinetic already installed. If you don't have this set up, there are many ways to do this which are outlined within the [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) of this repository. If you want to quickly get set up and run a demo without installing Ubuntu, follow the quick start instructions for [ROS Development Studio](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/Quick-Start:--ROS-Development-Studio).
