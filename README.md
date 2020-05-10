@@ -6,6 +6,12 @@ This is a quick demo that briefly covers many of the features that our team util
 
 [![Video](https://user-images.githubusercontent.com/55664403/81489736-dfe25080-923e-11ea-8f55-c2d01ca1d112.jpg)](https://www.youtube.com/watch?v=V9NnU-9PFkE)
 
+## Overview
+
+Shown below is a diagram of how ROS was configured to work with a FRC robot 
+
+<div style="text-align:center"><img src="https://user-images.githubusercontent.com/55664403/81491807-1082b400-9258-11ea-9c78-776d219f0a99.png" width=600 /></div>
+
 ## Getting Started
 NOTE: This repository was made to run on Ubuntu 16 with ROS Kinetic already installed. If you don't have this set up, there are many ways to do this which are outlined within the [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) of this repository. If you want to quickly get set up and run a demo without installing Ubuntu, follow the quick start instructions for [ROS Development Studio](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/Quick-Start:--ROS-Development-Studio).
 
