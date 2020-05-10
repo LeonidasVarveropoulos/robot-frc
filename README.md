@@ -92,4 +92,7 @@ This is a ROS node that publishes cmds to the robot in order to follow the given
 This is a ROS node that runs the python auton scripts created as a statemachine during autonomous.
 
 ## 3. [path_editor](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/ROS-API:-path_editor)
-This is a ROS node that runs a web app for creating autonomous paths. All data is stored within a file called data.txt in the package.
+This is a ROS node that runs a web app with Flask for creating autonomous paths. All data is stored within a file called data.txt in the package.
+
+## 4. [proxy](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/ROS-API:-proxy)
+This is a ROS node 
