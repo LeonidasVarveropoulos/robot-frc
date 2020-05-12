@@ -143,3 +143,6 @@ This is a ROS node that manages the transfer of data from the ROS system to the 
 
 ## 5. [robot_pid](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/ROS-API:-robot_pid)
 This is a ROS node that allows for the quick creation of simple PIDs to be used throughout the robot.
+
+## 6. [reset_pose](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/ROS-API:-reset_pose)
+This is a ROS node that allows for the reseting of the robot pose without restarting all the sensors.
