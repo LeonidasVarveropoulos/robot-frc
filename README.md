@@ -29,6 +29,8 @@ Shown below is a diagram of how ROS was configured to work with a FRC robot.
   * We used the ROS packge robot-pose-ekf to publish the robot's position from the sensor sources. This year we did not use the package's full capablities as a Kalman filter by combining multiple sensor sources, but the use of this package makes it really easy to add other sources in the future. The robot pose is then used by the autonomous node to guide the robot along a path.
 
 ### Autonomous
+We started the 2020 season hoping to achieve full field localization using `move_base` and a variety of sensors including the rplidar. We got an early form of this working but ran into some problems close to the end of build season and were forced to switch over to a simpler solution to planning included in `diff_drive` which proved enough for the sort of autonomous needed in FRC. The nice thing with ROS is that if we ever need to switch to a more complicated solution it won't be too hard to scale up.
+
 * #### Path Editor
   * The Path Editor node creates a web app to easily create autonomous paths that can be later used in the autonomous script. The edited data is saved in a json file located on the co-processor that the autonomous scripts can then load and use. The web server is started on the robot so, users should be able to connect to the robot's wifi and use the web app.
 
