@@ -14,7 +14,7 @@ Shown below is a diagram of how ROS was configured to work with a FRC robot.
 
 ### Communication
 * #### Proxy
-  * The proxy node handles all the communication between the RoboRio and the co-processor. It passes simple data like strings, booleans, and integers through networktables. In our case the proxy recieves data indicating if the robot is in auton and which auton to run, along with data from the different sensors on the robot. The node outputs command velocities for the robot's drivetrain, turret angle, and other subsystem controls.
+  * The proxy node handles all the communication between the RoboRio and the co-processor. It passes simple data like strings, booleans, and integers through networktables. In our case the proxy receives data indicating if the robot is in auton and which auton to run, along with data from the different sensors on the robot. The node outputs command velocities for the robot's drivetrain, turret angle, and other subsystem controls.
 
 * #### RoboRio
   * The code on the RoboRio takes in data from the ROS proxy as setpoints for PIDs running on the robot while also using joystick input and ROS state data to manage different subsystems throughout the robot during both autonomous and teleop.
@@ -22,11 +22,11 @@ Shown below is a diagram of how ROS was configured to work with a FRC robot.
 ### Robot Pose
 * #### Sensors
   * We used the T265 Realsense Tracking camera as our main sensor source during autonomous. It uses visual odometry combined with a built in IMU to accurately reflect the robot's position. The realsense node shown above is needed to transform the robot pose if the camera was offset from the center of the robot base.
-  * We used the D435 Depth Camera to do vision tracking of the target. The choice of camera was probably a mistake for this year on account of cheaper cameras being available or just using a limelight. We hoped to use the pointcloud but did not really find the use in this year's game.
+  * We used the D435 Depth Camera to do vision tracking of the target. The choice of camera was probably a mistake for this year on account of cheaper cameras being available or just using a limelight. We hoped to use the point cloud but did not really find the use in this year's game.
   * We also used encoders as a feedback device for the PIDs in subsystems like the turret and shooter
 
 * #### Localization
-  * We used the ROS packge robot-pose-ekf to publish the robot's position from the sensor sources. This year we did not use the package's full capablities as a Kalman filter by combining multiple sensor sources, but the use of this package makes it really easy to add other sources in the future. The robot pose is then used by the autonomous node to guide the robot along a path.
+  * We used the ROS package robot-pose-ekf to publish the robot's position from the sensor sources. This year we did not use the package's full capabilities as a Kalman filter by combining multiple sensor sources, but the use of this package makes it really easy to add other sources in the future. The robot pose is then used by the autonomous node to guide the robot along a path.
 
 ### Autonomous
 We started the 2020 season hoping to achieve full field localization using `move_base` and a variety of sensors including the rplidar. We got an early form of this working but ran into some problems close to the end of build season and were forced to switch over to a simpler solution to planning included in `diff_drive` which proved enough for the sort of autonomous needed in FRC. The nice thing with ROS is that if we ever need to switch to a more complicated solution it won't be too hard to scale up.
@@ -35,7 +35,7 @@ We started the 2020 season hoping to achieve full field localization using `move
   * The Path Editor node creates a web app to easily create autonomous paths that can be later used in the autonomous script. The edited data is saved in a json file located on the co-processor that the autonomous scripts can then load and use. The web server is started on the robot so, users should be able to connect to the robot's wifi and use the web app.
 
 * #### Auton Scripts
-  * The autonomous on the robot is managed by a node that loads simple python statemachines that define the wanted actions of the robot. Once recieving data from the proxy indicating that autonomous is enabled it will run the specified auton and send data back to the proxy and RoboRio in order to control the robot.
+  * The autonomous on the robot is managed by a node that loads simple python statemachines that define the wanted actions of the robot. Once receiving data from the proxy indicating that autonomous is enabled it will run the specified auton and send data back to the proxy and RoboRio in order to control the robot.
 
 ### Vision
 * #### Vision Tracking
@@ -48,7 +48,7 @@ We started the 2020 season hoping to achieve full field localization using `move
   * We also used the y-offset as an input to a regression of the needed hood angle and flywheel rpm to make the shot.
   
 ### Simulation
-* Simulation of the robot in FRC replaces the proxy node and RoboRio, accepting all the data the robot normally would. It also replaces the sensor sources with ones which are simulated. Otherwise the bulk of the ROS code remains the same.
+* Simulation of the robot in FRC replaces the proxy node and RoboRio, accepting all the data the robot normally would. It also replaces the sensor sources with ones which are simulated. Otherwise the bulk of the ROS code remains the same allowing for effective testing of the robot code. As of now the simulator is a simple node replacing the sensor data and visualizing it through rviz, but in the future we plan to use the ros-sharp library to further expand this with Unity.
 
 ## Getting Started
 NOTE: This repository was made to run on Ubuntu 16 with ROS Kinetic already installed. If you don't have this set up, there are many ways to do this which are outlined within the [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki) of this repository. If you want to quickly get set up and run a demo without installing Ubuntu, follow the quick start instructions for [ROS Development Studio](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/Quick-Start:--ROS-Development-Studio).
@@ -80,7 +80,7 @@ git submodule update
 
 #### realsense-ros
 
-First, **only if you have the physical cameras**, install the necessary dependencies by following the instructions on the [realsense repository](https://github.com/IntelRealSense/realsense-ros). Afterwards, change the directory to the sub-repository. Then initialize and update the repository, instead of cloning it, into the directory as the normal instruction specify.
+First, **only if you have the physical cameras**, install the necessary dependencies by following the instructions on the [realsense repository](https://github.com/IntelRealSense/realsense-ros). Afterwards, change the directory to the sub-repository. Then initialize and update the repository, instead of cloning it, into the directory as the normal instructions specify.
 
 ```
 cd robot-frc/src/realsense-ros
