@@ -49,6 +49,17 @@ function setGoal(e){
         selector.src = 'static/images/selector.png'
 
         parent.appendChild(selector)
+
+        var width = "width: 200px"
+        var height = "height: auto"
+        var position = "position: absolute"
+        var top = "top:" + ((yDistance/heightRatio) - document.getElementById('selector_arrow').clientHeight/2) + "px";
+        var left = "left:" + ((xDistance/widthRatio) - document.getElementById('selector_arrow').clientWidth/2) + "px";
+        var rotate = "transform: rotate(" + (-theta* 57.2958) + "deg)"
+
+        var style = position + ";" + top + ";" + left + ";" + rotate + ";" + width + ";" + height +";";
+
+        document.getElementById("selector_arrow").setAttribute("style",style);
     }
 }
 
@@ -144,7 +155,7 @@ function setWaypoint(){
 
     if (currentSelectedPath != null && currentSelctedGoalIndex != null){
         autonData.paths[currentSelctedPathIndex].goals[currentSelctedGoalIndex].position_x = xDistance;
-        autonData.paths[currentSelctedPathIndex].goals[currentSelctedGoalIndex].position_y = yDistance;
+        autonData.paths[currentSelctedPathIndex].goals[currentSelctedGoalIndex].position_y = -yDistance;
         autonData.paths[currentSelctedPathIndex].goals[currentSelctedGoalIndex].th = theta;
     }
     updateDefaultPose(currentSelctedGoalIndex)

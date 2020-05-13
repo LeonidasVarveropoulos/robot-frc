@@ -45,7 +45,7 @@ def index():
 def select():
     rev_data = list(reversed(data))
     pose_list = []
-    for auto in rev_data:
+    for auto in data:
         pose_list.append([int(auto.start_pose[0]), int(auto.start_pose[1]), int(auto.start_pose[2])])
     return render_template('select_auto.html', autons=rev_data, pose_list=pose_list)
 
@@ -83,17 +83,17 @@ def select_update(id):
         start_pose_content_x = request.form['start_pose_content_x']
         if start_pose_content_x == "":
             start_pose_content_x = 0
-        start_pose_content_x = int(start_pose_content_x)
+        start_pose_content_x = float(start_pose_content_x)
 
         start_pose_content_y = request.form['start_pose_content_y']
         if start_pose_content_y == "":
             start_pose_content_y = 0
-        start_pose_content_y = int(start_pose_content_y)
+        start_pose_content_y = float(start_pose_content_y)
 
         start_pose_content_th = request.form['start_pose_content_th']
         if start_pose_content_th == "":
             start_pose_content_th = 0
-        start_pose_content_th = int(start_pose_content_th)
+        start_pose_content_th = float(start_pose_content_th)
 
         data[id].start_pose = [start_pose_content_x, start_pose_content_y, start_pose_content_th]
 
@@ -126,17 +126,17 @@ def create_submit():
     start_pose_content_x = request.form['start_pose_content_x']
     if start_pose_content_x == "":
         start_pose_content_x = 0
-    start_pose_content_x = int(start_pose_content_x)
+    start_pose_content_x = float(start_pose_content_x)
 
     start_pose_content_y = request.form['start_pose_content_y']
     if start_pose_content_y == "":
         start_pose_content_y = 0
-    start_pose_content_y = int(start_pose_content_y)
+    start_pose_content_y = float(start_pose_content_y)
 
     start_pose_content_th = request.form['start_pose_content_th']
     if start_pose_content_th == "":
         start_pose_content_th = 0
-    start_pose_content_th = int(start_pose_content_th)
+    start_pose_content_th = float(start_pose_content_th)
 
     start_pose_content = [start_pose_content_x, start_pose_content_y, start_pose_content_th]
 

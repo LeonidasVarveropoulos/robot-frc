@@ -52,6 +52,7 @@ class ROSNode:
     def start_timer(self):
         """ Starts the timer, called at the beginning of auton """
         self.start_time = time.time()
+        self.over_time = False
 
     def get_time(self):
         """ Return the amount of time passed since the start of auton """

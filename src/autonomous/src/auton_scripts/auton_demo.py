@@ -12,7 +12,7 @@ from auton_modules.state import State, StartIdle, StartPath, Intake, Shooter, Tu
 
 # The id of the auton, used for picking auton
 auton_id = 1
-auton_title = "Demo Auton"
+auton_title = "Auton Demo"
 
 # Start of our states
 class Idle(StartIdle):
@@ -39,7 +39,7 @@ class StartFirstPath(StartPath):
         self.log_state()
 
     def execute_action(self):
-        self.publish_path("Path1")
+        self.publish_path("Path 1")
 
     def tick(self):
         if self.started_path():
@@ -96,40 +96,7 @@ class StartShoot(Shooter):
 
     def tick(self):
         if self.check_timer(3.0):
-            return StopShoot(self.ros_node)
-        return self
-
-class StopShoot(Shooter):
-    """
-    The state which indicates that there are no limitations on device
-    capabilities.
-    """
-
-    def initialize(self):
-        self.log_state()
-
-    def execute_action(self):
-        self.idle()
-
-    def tick(self):
-        return StartSecondPath(self.ros_node)
-
-class StartSecondPath(StartPath):
-    """
-    The state which indicates that there are no limitations on device
-    capabilities.
-    """
-
-    def initialize(self):
-        self.log_state()
-
-    def execute_action(self):
-        self.publish_path("Path2")
-
-    def tick(self):
-        if self.started_path():
             return Final(self.ros_node)
-
         return self
 
 class Final(State):
@@ -142,7 +109,7 @@ class Final(State):
         self.log_state()
 
     def execute_action(self):
-        pass
+        rospy.loginfo("END OF AUTON")
 
     def tick(self):
         return self
