@@ -110,13 +110,15 @@ Launches the launch file to start all of the nodes in simulation.
 
 Launches a visualization tool for viewing the robots odometry and other information.
 
-`rqt --perspective-file ./config/DefaultDash.perspective`
+`rqt` or `rqt --perspective-file ./config/DefaultDash.perspective`
 
 Launches a tool for managing the ROS system while the simulation is running.
 
 ### Starting Autonomous
 
-In order to start the ROS state machine that manages autonomous, we need to publish two topics: `auto/state` and `auto/select`. While we could do this through the command line with `rostopic pub`, it is much easier to use the tool `rqt` that you launched above. To load the pre-made dashboard, go to the perspectives tab of the app and choose to load in a configuration file with the path of `robot-frc/rqt/Default.perspective`. 
+Before starting make sure to load in the correct view in rviz by going to file/OpenView and then selecting the file with the path `robot-frc/config/defualt_view.rviz`.
+
+In order to start the ROS state machine that manages autonomous, we need to publish two topics: `auto/state` and `auto/select`. While we could do this through the command line with `rostopic pub`, it is much easier to use the tool `rqt` that you launched above. To load the pre-made dashboard, go to the perspectives tab of the app and choose to load in a configuration file with the path of `robot-frc/config/DefaultDash.perspective`. 
 
 Once loaded in, you will see an option to publish to these two topics. Simply check the box with the topic name to have it publish. To start the auton, set `auto/state` to True and `auto/select` to 1. This will start the auton and you should be able to see ROS logging what the state machine is doing on the left side of rqt. If you switch over to rviz you should see the robot following the paths given. 
 
