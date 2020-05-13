@@ -4,7 +4,7 @@ The goal of this repository is to provide a working example and framework of an 
 ## Demo (Video)
 This is a quick demo that briefly covers many of the features that our team utilized this season.
 
-[![Video](https://user-images.githubusercontent.com/55664403/81489736-dfe25080-923e-11ea-8f55-c2d01ca1d112.jpg)](https://www.youtube.com/watch?v=V9NnU-9PFkE)
+[![Video](https://user-images.githubusercontent.com/55664403/81489736-dfe25080-923e-11ea-8f55-c2d01ca1d112.jpg)](https://www.youtube.com/watch?v=gFCLU5iWXp0&t=2s)
 
 ## Overview
 
