@@ -1,0 +1,8 @@
+<launch>
+    <include file="$(find robot_urdf)/launch/unity_model.launch" />
+    <include file="$(find unity_simulation_scene)/launch/unity_simulation_scene.launch" />
+    <include file="$(find sim_robot)/launch/unity_odom_filter.launch" />
+    <include file="$(find localization)/launch/sim_localization.launch" />
+    <include file="$(find diff_drive)/launch/demo.launch" />
+    <include file="$(find autonomous)/launch/autonomous.launch" />
+</launch>

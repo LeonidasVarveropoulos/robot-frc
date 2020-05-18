@@ -1,0 +1,16 @@
+<launch>
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="false"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+  <arg name="rvizconfig" default="$(find robot_urdf)/rviz/urdf.rviz" />
+  <arg name="model" default="$(find robot_urdf)/urdf/robot.urdf.xacro"/>
+
+  <param name="robot_description" command="$(find xacro)/xacro.py $(arg model)" />
+  <param name="use_gui" value="$(arg gui)"/>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+  <node pkg="tf" type="static_transform_publisher" name="foot_to_base" args="0 0 0 0 0 0 /base_footprint /base_link 100" />
+</launch>
