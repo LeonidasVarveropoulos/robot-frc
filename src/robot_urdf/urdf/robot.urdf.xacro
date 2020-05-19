@@ -34,16 +34,15 @@
   <link name="base_link">
     <visual>
       <geometry>
-        <box size="${baseLength} ${baseWidth} ${baseHeight}"/>
+        <mesh filename="package://robot_urdf/meshes/base.stl"/>
       </geometry>
-      <material name="blue"/>
-      <origin rpy="0 0 0" xyz="0 0 0.3"/>
+      <origin rpy="1.57075 0 1.57075" xyz="-0.08 -0.525 0.0"/>
     </visual>
     <collision>
       <geometry>
         <box size="${baseLength} ${baseWidth} ${baseHeight}"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0.3"/>
+      <origin rpy="0 0 0" xyz="0 0 0.0"/>
     </collision>
     <inertial>
       <mass value="${baseMass}"/>
