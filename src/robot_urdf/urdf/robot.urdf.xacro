@@ -2,20 +2,20 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot">
 
   <material name="blue">
-    <color rgba="0 0 0.8 .5"/>
+    <color rgba="0 0 0.8 1.0"/>
   </material>
   <material name="black">
-    <color rgba="0 0 0 0.5"/>
+    <color rgba="0.3 0.3 0.3 0.9"/>
   </material>
   <material name="white">
-    <color rgba="1 1 1 .5"/>
+    <color rgba="1 1 1 0.6"/>
   </material>
   <material name="green">
-    <color rgba="0 1 0 0.5"/>
+    <color rgba="0 1 0"/>
   </material>
 
   <xacro:property name="baseLength" value="1.029" />
-  <xacro:property name="baseWidth" value="0.838" />
+  <xacro:property name="baseWidth" value="0.58" />
   <xacro:property name="baseHeight" value="0.686" />
 
   <xacro:property name="baseMass" value="27" />
@@ -30,6 +30,7 @@
   <xacro:property name="camWidth" value="0.1016" />
   <xacro:property name="camRadius" value="0.0127" />
 
+<!-- Base -->
 
   <link name="base_link">
     <visual>
@@ -37,26 +38,38 @@
         <mesh filename="package://robot_urdf/meshes/base.stl"/>
       </geometry>
       <origin rpy="1.57075 0 1.57075" xyz="-0.08 -0.525 0.0"/>
+      <material name="blue"/>
     </visual>
+
     <collision>
       <geometry>
-        <box size="${baseLength} ${baseWidth} ${baseHeight}"/>
+        <box size="0.68 0.68 0.36"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0.0"/>
+      <origin rpy="0 0 0" xyz="0.1 0 0.221"/>
     </collision>
+
+    <collision>
+      <geometry>
+        <box size="0.3 0.68 0.15"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="-0.32 0 0.08"/>
+    </collision>
+
     <inertial>
       <mass value="${baseMass}"/>
       <inertia ixx="${(1/12) * baseMass * ((baseHeight * baseHeight) + (baseLength * baseLength))}" ixy="0.0" ixz="0.0" iyy="${(1/12) * baseMass * ((baseWidth * baseWidth) + (baseLength * baseLength))}" iyz="0.0" izz="${(1/12) * baseMass * ((baseWidth * baseWidth) + (baseHeight * baseHeight))}"/>
     </inertial>
   </link>
 
+<!-- Right Wheels -->
+
   <link name="front_right_wheel">
     <visual>
       <geometry>
-        <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
+        <mesh filename="package://robot_urdf/meshes/wheel.stl"/>
       </geometry>
       <origin rpy="0 1.57075 1.57075" xyz="0 ${-wheelWidth/2} 0"/>
-      <material name="white"/>
+      <material name="black"/>
     </visual>
     <collision>
       <geometry>
@@ -70,20 +83,74 @@
     </inertial>
   </link>
 
-  <joint name="base_to_front_right_wheel" type="continuous">
+  <joint name="base_to_front_right_wheel" type="fixed">
     <parent link="base_link"/>
     <child link="front_right_wheel"/>
     <axis xyz="0 1 0"/>
-    <origin xyz="${wheelOffset} ${-baseWidth /2} 0"/>
+    <origin xyz="0.315 ${-baseWidth /2} 0.028"/>
+  </joint>
+
+  <link name="front_middle_right_wheel">
+    <visual>
+      <geometry>
+        <mesh filename="package://robot_urdf/meshes/wheel.stl"/>
+      </geometry>
+      <origin rpy="0 1.57075 1.57075" xyz="0 ${-wheelWidth/2} 0"/>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
+      </geometry>
+      <origin rpy="0 1.57075 1.57075" xyz="0 ${-wheelWidth/2} 0"/>
+    </collision>
+    <inertial>
+      <mass value="${wheelMass}"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+
+  <joint name="base_to_front_middle_right_wheel" type="fixed">
+    <parent link="base_link"/>
+    <child link="front_middle_right_wheel"/>
+    <axis xyz="0 1 0"/>
+    <origin xyz="0.104 ${-baseWidth /2} 0.022"/>
+  </joint>
+
+  <link name="back_middle_right_wheel">
+    <visual>
+      <geometry>
+        <mesh filename="package://robot_urdf/meshes/wheel.stl"/>
+      </geometry>
+      <origin rpy="0 1.57075 1.57075" xyz="0 ${-wheelWidth/2} 0"/>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
+      </geometry>
+      <origin rpy="0 1.57075 1.57075" xyz="0 ${-wheelWidth/2} 0"/>
+    </collision>
+    <inertial>
+      <mass value="${wheelMass}"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+
+  <joint name="base_to_back_middle_right_wheel" type="fixed">
+    <parent link="base_link"/>
+    <child link="back_middle_right_wheel"/>
+    <axis xyz="0 1 0"/>
+    <origin xyz="-0.122 ${-baseWidth /2} 0.022"/>
   </joint>
 
   <link name="back_right_wheel">
     <visual>
       <geometry>
-        <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
+        <mesh filename="package://robot_urdf/meshes/wheel.stl"/>
       </geometry>
       <origin rpy="0 1.57075 1.57075" xyz="0 ${-wheelWidth/2} 0"/>
-      <material name="white"/>
+      <material name="black"/>
     </visual>
     <collision>
       <geometry>
@@ -97,20 +164,22 @@
     </inertial>
   </link>
 
-  <joint name="base_to_back_right_wheel" type="continuous">
+  <joint name="base_to_back_right_wheel" type="fixed">
     <parent link="base_link"/>
     <child link="back_right_wheel"/>
     <axis xyz="0 1 0"/>
-    <origin xyz="${-wheelOffset} ${-baseWidth /2} 0"/>
+    <origin xyz="-0.334 ${-baseWidth /2} 0.028"/>
   </joint>
+
+<!-- Left Wheels -->
 
   <link name="front_left_wheel">
     <visual>
       <geometry>
-        <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
+        <mesh filename="package://robot_urdf/meshes/wheel.stl"/>
       </geometry>
       <origin rpy="0 1.57075 1.57075" xyz="0 ${wheelWidth/2} 0"/>
-      <material name="white"/>
+      <material name="black"/>
     </visual>
     <collision>
       <geometry>
@@ -124,26 +193,80 @@
     </inertial>
   </link>
 
-  <joint name="base_to_front_left_wheel" type="continuous">
+  <joint name="base_to_front_left_wheel" type="fixed">
     <parent link="base_link"/>
     <child link="front_left_wheel"/>
     <axis xyz="0 1 0"/>
-    <origin xyz="${wheelOffset} ${baseWidth /2} 0"/>
+    <origin xyz="0.315 ${baseWidth /2} 0.028"/>
+  </joint>
+
+  <link name="front_middle_left_wheel">
+    <visual>
+      <geometry>
+        <mesh filename="package://robot_urdf/meshes/wheel.stl"/>
+      </geometry>
+      <origin rpy="0 1.57075 1.57075" xyz="0 ${wheelWidth/2} 0"/>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
+      </geometry>
+      <origin rpy="0 1.57075 1.57075" xyz="0 ${wheelWidth/2} 0"/>
+    </collision>
+    <inertial>
+      <mass value="${wheelMass}"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+
+  <joint name="base_to_front_middle_left_wheel" type="fixed">
+    <parent link="base_link"/>
+    <child link="front_middle_left_wheel"/>
+    <axis xyz="0 1 0"/>
+    <origin xyz="0.104 ${baseWidth /2} 0.022"/>
+  </joint>
+
+  <link name="back_middle_left_wheel">
+    <visual>
+      <geometry>
+        <mesh filename="package://robot_urdf/meshes/wheel.stl"/>
+      </geometry>
+      <origin rpy="0 1.57075 1.57075" xyz="0 ${wheelWidth/2} 0"/>
+      <material name="black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
+      </geometry>
+      <origin rpy="0 1.57075 1.57075" xyz="0 ${wheelWidth/2} 0"/>
+    </collision>
+    <inertial>
+      <mass value="${wheelMass}"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+
+  <joint name="base_to_back_middle_left_wheel" type="fixed">
+    <parent link="base_link"/>
+    <child link="back_middle_left_wheel"/>
+    <axis xyz="0 1 0"/>
+    <origin xyz="-0.122 ${baseWidth /2} 0.022"/>
   </joint>
 
   <link name="back_left_wheel">
     <visual>
       <geometry>
-        <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
+        <mesh filename="package://robot_urdf/meshes/wheel.stl"/>
       </geometry>
       <origin rpy="0 1.57075 1.57075" xyz="0 ${wheelWidth/2} 0"/>
-      <material name="white"/>
+      <material name="black"/>
     </visual>
     <collision>
       <geometry>
         <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
       </geometry>
-      <origin rpy="0 1.57075 1.57075" xyz="0 ${-wheelWidth/2} 0"/>
+      <origin rpy="0 1.57075 1.57075" xyz="0 ${wheelWidth/2} 0"/>
     </collision>
     <inertial>
       <mass value="${wheelMass}"/>
@@ -151,11 +274,11 @@
     </inertial>
   </link>
 
-  <joint name="base_to_back_left_wheel" type="continuous">
+  <joint name="base_to_back_left_wheel" type="fixed">
     <parent link="base_link"/>
     <child link="back_left_wheel"/>
     <axis xyz="0 1 0"/>
-    <origin xyz="${-wheelOffset} ${baseWidth /2} 0"/>
+    <origin xyz="-0.334 ${baseWidth /2} 0.028"/>
   </joint>
 
   <!-- Intake -->
@@ -163,28 +286,37 @@
   <link name="intake_link">
     <visual>
       <geometry>
-        <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
+        <mesh filename="package://robot_urdf/meshes/intake.stl"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="3.14159265 0 0" xyz="-0.272 0.506 0.288"/>
       <material name="white"/>
     </visual>
+
     <collision>
       <geometry>
-        <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
+        <box size="0.36 0.63 0.09"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="-0.17 0 0.015"/>
     </collision>
+
+    <collision>
+      <geometry>
+        <box size="0.1 0.63 0.13"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="-0.3 0 -0.03"/>
+    </collision>
+
     <inertial>
       <mass value="${wheelMass}"/>
       <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
     </inertial>
   </link>
 
-  <joint name="intake_to_base_link" type="fixed">
+  <joint name="intake_to_base_link" type="continuous">
     <parent link="base_link"/>
     <child link="intake_link"/>
     <axis xyz="0 1 0"/>
-    <origin xyz="${-wheelOffset-0.3} 0 0"/>
+    <origin xyz="-0.296 0 0.2"/>
   </joint>
 
   <!-- Turret -->
@@ -192,16 +324,16 @@
   <link name="turret_link">
     <visual>
       <geometry>
-        <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
+        <mesh filename="package://robot_urdf/meshes/turret.stl"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="1.57075 0 0" xyz="-0.12 0.23 -0.12"/>
       <material name="white"/>
     </visual>
     <collision>
       <geometry>
-        <cylinder length="${wheelWidth}" radius="${wheelRadius}"/>
+        <box size="0.3 0.3 0.2"/>
       </geometry>
-      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <origin rpy="0 0 0" xyz="0 0.05 0.15"/>
     </collision>
     <inertial>
       <mass value="${wheelMass}"/>
@@ -209,11 +341,11 @@
     </inertial>
   </link>
 
-  <joint name="turret_to_base_link" type="fixed">
+  <joint name="turret_to_base_link" type="continuous">
     <parent link="base_link"/>
     <child link="turret_link"/>
-    <axis xyz="0 1 0"/>
-    <origin xyz="${-wheelOffset-0.3} 0 0"/>
+    <axis xyz="0 0 1"/>
+    <origin xyz="0.232 0 0.38"/>
   </joint>
 
   <!-- Sensors -->
@@ -265,11 +397,11 @@
     </inertial>
   </link>
 
-  <joint name="base_to_d435_link" type="fixed">
-    <parent link="base_link"/>
+  <joint name="turret_to_d435_link" type="fixed">
+    <parent link="turret_link"/>
     <child link="d435_link"/>
     <axis xyz="0 1 0"/>
-    <origin xyz="0.381 0 0.6223"/>
+    <origin rpy="0 -0.523599 1.57075" xyz="0.0 0.2 0.15"/>
   </joint>
 
 </robot>
