@@ -187,9 +187,9 @@ class Shooter(State):
 class Turret(Shooter):
 
     # Conditions
-    def reached_angle(self, angle):
+    def reached_angle(self, angle, tol):
         """ Checks if the turret has reached the given angle """
-        if self.ros_node.get_data("/auto/turret/current/angle") == angle:
+        if self.ros_node.get_data("/auto/turret/current/angle") <= angle + tol and self.ros_node.get_data("/auto/turret/current/angle") >= angle - tol:
             return True
         return False
 
