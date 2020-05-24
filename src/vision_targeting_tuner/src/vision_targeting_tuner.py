@@ -9,7 +9,7 @@ import roslib
 import sys
 import rospy
 from std_msgs.msg import String
-from sensor_msgs.msg import Image
+from sensor_msgs.msg import Image, CompressedImage
 from cv_bridge import CvBridge, CvBridgeError
 
 # Setting up the sliders
@@ -35,7 +35,7 @@ class VisionTargetingTuner:
     self.bridge = CvBridge()
     
     # Subscribes to img
-    self.image_sub = rospy.Subscriber("camera/color/image_raw",Image,self.callback)
+    self.image_sub = rospy.Subscriber("d435/color/image_raw",CompressedImage,self.callback)
     
     # Default values
     self.low_h_val = 0
@@ -49,7 +49,7 @@ class VisionTargetingTuner:
   def callback(self,data):
     # Converts to opencv image
     try:
-      cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
+      cv_image = self.bridge.compressed_imgmsg_to_cv2(data)
     except CvBridgeError as e:
       print(e)
     

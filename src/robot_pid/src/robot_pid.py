@@ -64,8 +64,8 @@ class RobotPID:
 
         for pid in self.pid_list:
             pid["PID"] = PID(self.update_rate, pid["control_max"], pid["control_min"])
-            self.subscribe(pid["feedback_topic"], self.get_feedback)
-            self.subscribe(pid["setpoint_topic"], self.get_setpoint)
+            self.subscribe(pid["feedback_topic"], self.feed_callback)
+            self.subscribe(pid["setpoint_topic"], self.set_callback)
 
         r = rospy.Rate(self.update_rate)
 
@@ -79,10 +79,10 @@ class RobotPID:
 
                     # Publishes the rpm to ros for the proxy to send to the roboRio
                     data = Float32()
-                    data.data = control
+                    data.data = control * (math.pi/180.0)
                     self.publish(pid["control_topic"], Float32, data)
                 else:
-                    rospy.logerr("Could not find the specified topics to subscribe to")
+                    rospy.loginfo("Did not recieve topics yet")
 
             r.sleep()
 

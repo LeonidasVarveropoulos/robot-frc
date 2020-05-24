@@ -9,19 +9,23 @@ import sys
 import rospy
 from std_msgs.msg import String
 from std_msgs.msg import Float32, Float64, Bool
-from sensor_msgs.msg import Image
+from sensor_msgs.msg import Image, CompressedImage
 from cv_bridge import CvBridge, CvBridgeError
 
 from color_filter import ColorFilter
 from contour_detector import ContourDetect
 
+rospy.init_node('vision_targeting', anonymous=True)
 class VisionTargeting:
 
   def __init__(self):
     self.bridge = CvBridge()
 
     # ROS img msg
-    self.image_sub = rospy.Subscriber("d435/color/image_raw",Image,self.callback)
+    if (rospy.get_param("image_type", "Image") == "Image"):
+      self.image_sub = rospy.Subscriber("d435/color/image_raw",CompressedImage,self.callback)
+    else:
+      self.image_sub = rospy.Subscriber("d435/color/image_raw",CompressedImage,self.callback)
 
     self.prime_sub = rospy.Subscriber("turret/primed", Bool,self.prime_callback)
     
@@ -45,7 +49,10 @@ class VisionTargeting:
   def callback(self,data):
     """ This runs when a new img frame is detected """
     try:
-      cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
+      if (rospy.get_param("image_type", "Image") == "Image"):
+        cv_image = self.bridge.compressed_imgmsg_to_cv2(data)
+      else:
+        cv_image = self.bridge.compressed_imgmsg_to_cv2(data)
     except CvBridgeError as e:
       print(e)
 
@@ -76,7 +83,6 @@ class VisionTargeting:
 
 def main(args):
   dvt = VisionTargeting()
-  rospy.init_node('vision_targeting', anonymous=True)
   try:
     rospy.spin()
   except KeyboardInterrupt:

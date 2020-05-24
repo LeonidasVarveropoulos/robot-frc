@@ -95,6 +95,7 @@ class ContourDetect:
                 self.target_locked = False
         else:
             self.target_locked = False
+        cv2.imshow("Mask",mask)
 
     def get_center(self, x, y, w, h):
         """ This returns a Point which is the center of the contour """
@@ -106,7 +107,9 @@ class ContourDetect:
 
     def get_y_offset(self, y, height):
         """ Returns the y_offset from the bottom of the frame used in a regression """
-        return y - (height/2)
+        y_offset = y - (height/2)
+
+        return ((263.95) / (1.0 + ( 46.8851 * math.pow(math.e, -0.008061 * y_offset) )) ) + 4.88508
 
     def get_rotation_pid(self):
         """ Returns the x_offset used as feedback in a pid """
