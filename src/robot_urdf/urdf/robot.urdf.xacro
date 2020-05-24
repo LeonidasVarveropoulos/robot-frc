@@ -326,7 +326,7 @@
       <geometry>
         <mesh filename="package://robot_urdf/meshes/turret.stl"/>
       </geometry>
-      <origin rpy="1.57075 0 0" xyz="-0.12 0.23 -0.12"/>
+      <origin rpy="1.57075 0 -1.57075" xyz="0.23 0.12 -0.12"/>
       <material name="white"/>
     </visual>
     <collision>
@@ -345,7 +345,58 @@
     <parent link="base_link"/>
     <child link="turret_link"/>
     <axis xyz="0 0 1"/>
-    <origin xyz="0.232 0 0.38"/>
+    <origin rpy="0 0 1.57075" xyz="0.232 0 0.38"/>
+  </joint>
+
+<!-- Hood -->
+  <link name="hood_link">
+    <visual>
+      <geometry>
+        <mesh filename="package://robot_urdf/meshes/hood.stl"/>
+      </geometry>
+      <origin xyz="0.222 0.12 -0.143" rpy="2.059442 0 -1.57075"/>
+      <material name="white"/>
+    </visual>
+    <inertial>
+      <mass value="${wheelMass}"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+
+  <joint name="hood_to_turret" type="continuous">
+    <parent link="turret_link"/>
+    <child link="hood_link"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0.488692 0" xyz="0.1 0 0.11"/>
+  </joint>
+
+  <link name="shoot_angle_link">
+    <inertial>
+      <mass value="${wheelMass}"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+
+  <joint name="shoot_angle_to_hood" type="fixed">
+    <parent link="hood_link"/>
+    <child link="shoot_angle_link"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 -1.57075 0" xyz="-0.23 0 0.03"/>
+  </joint>
+
+<!-- Flywheel -->
+  <link name="flywheel_link">
+    <inertial>
+      <mass value="${wheelMass}"/>
+      <inertia ixx="0.4" ixy="0.0" ixz="0.0" iyy="0.4" iyz="0.0" izz="0.2"/>
+    </inertial>
+  </link>
+
+  <joint name="flywheel_to_turret" type="fixed">
+    <parent link="turret_link"/>
+    <child link="flywheel_link"/>
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0.0 0" xyz="0.05 0 0.11"/>
   </joint>
 
   <!-- Sensors -->
@@ -401,7 +452,7 @@
     <parent link="turret_link"/>
     <child link="d435_link"/>
     <axis xyz="0 1 0"/>
-    <origin rpy="0 -0.523599 1.57075" xyz="0.0 0.2 0.15"/>
+    <origin rpy="0 -0.523599 0" xyz="0.2 0.0 0.15"/>
   </joint>
 
 </robot>
