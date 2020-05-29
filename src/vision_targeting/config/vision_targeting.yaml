@@ -1,3 +1,3 @@
-rotation_setpoint: 20
+rotation_setpoint: 0
 low_hsv: [2.45192307692, 1.83894230769, 199.21875]
 high_hsv: [103.59375, 255, 255]

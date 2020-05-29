@@ -20,5 +20,9 @@
         <param name="debug" value="false"/>
         <param name="self_diagnose" value="false"/>
     </node>
+
+    <node pkg="localization" type="set_pose.py" name="set_pose"  output="screen">
+        <rosparam command="load" file="$(find localization)/config/rs_set_pose.yaml"/>
+    </node>
     
 </launch>
