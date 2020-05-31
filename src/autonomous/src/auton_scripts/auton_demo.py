@@ -114,7 +114,7 @@ class Final(State):
     def tick(self):
         return self
 
-class Shutdown(State):
+class Shutdown(Shooter):
     """
     The state which indicates that there are no limitations on device
     capabilities.
@@ -124,7 +124,7 @@ class Shutdown(State):
         pass
 
     def execute_action(self):
-        pass
+        self.idle()
 
     def tick(self):
         return self

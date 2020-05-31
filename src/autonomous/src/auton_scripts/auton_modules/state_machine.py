@@ -22,6 +22,8 @@ class StateMachine:
     def shutdown(self):
         """ Changes the current state to the specified shutdown state """
         self.state = self.shutdown_state
+        if (self.state is not None):
+            self.state = self.state.update()
 
     # Main loop
     def tick(self):
