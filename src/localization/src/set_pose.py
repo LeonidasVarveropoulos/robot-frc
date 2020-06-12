@@ -95,6 +95,8 @@ class SetPose:
             th += (math.pi * 2)
 
         quaternion = tf.transformations.quaternion_from_euler(0, 0, th)
+        new_msg.pose.pose.orientation.x = 0.0 
+        new_msg.pose.pose.orientation.y = 0.0
         new_msg.pose.pose.orientation.z = quaternion[2] 
         new_msg.pose.pose.orientation.w = quaternion[3]
         

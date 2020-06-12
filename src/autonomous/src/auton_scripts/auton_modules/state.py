@@ -7,6 +7,7 @@ from diff_drive.msg import Goal, GoalPath, Constants, Linear, Angular
 from path import AutoGoal, AutoPath, Autons
 import time
 import rospkg 
+import math
 
 global data
 data = []
@@ -59,6 +60,15 @@ class State(object):
         if time.time() - self.start_time >= wanted_time:
             return True
         return False
+
+    # Function for working with wrapping angles
+    def wrap_angle(self, angle):
+        if angle < 0.0:
+            return (math.pi * 2) + angle
+        elif angle >= (math.pi * 2):
+            return angle - (math.pi * 2)
+
+        return angle
     
     # Checks if you passed the waypoint
     def passed_waypoint(self, waypoint_num):
@@ -93,7 +103,7 @@ class State(object):
             self.action_executed = True
         return self.tick()
 
-class StartIdle(State):
+class SetIdle(State):
 
     def setRobotPose(self):
         global data
@@ -103,6 +113,39 @@ class StartIdle(State):
                 msg.data = auton.start_pose
                 self.ros_node.publish('/robot_set_pose', Float32MultiArray, msg, latching = True)
                 rospy.loginfo("Reset Robot Pose")
+
+    def setIdle(self):
+        # Retract intake
+        intake_state = String()
+        intake_state.data = "retract"
+        self.ros_node.publish("/auto/intake/state", String, intake_state, latching = True)
+        rospy.loginfo("Retracted Intake")
+
+        # Shooter idle
+        shooter_state = String()
+        shooter_state.data = "idle"
+        self.ros_node.publish("/auto/shooter/state", String, shooter_state, latching = True)
+        rospy.loginfo("Shooter Idle")
+
+        # Turret idle
+        turret_state = String()
+        turret_state.data = "idle"
+        self.ros_node.publish("/auto/turret/state", String, turret_state, latching = True)
+        rospy.loginfo("Turret Idle")
+
+        # Flywheel idle
+        flywheel_state = String()
+        flywheel_state.data = "idle"
+        self.ros_node.publish("/auto/flywheel/state", String, flywheel_state, latching = True)
+        rospy.loginfo("Flywheel Idle")
+
+        # Hood idle
+        hood_state = String()
+        hood_state.data = "idle"
+        self.ros_node.publish("/auto/hood/state", String, hood_state, latching = True)
+        rospy.loginfo("Hood Idle")
+
+
 
 class StartPath(State):
 
@@ -189,8 +232,14 @@ class Turret(Shooter):
     # Conditions
     def reached_angle(self, angle, tol):
         """ Checks if the turret has reached the given angle """
-        if self.ros_node.get_data("/auto/turret/current/angle") <= angle + tol and self.ros_node.get_data("/auto/turret/current/angle") >= angle - tol:
-            return True
+        if self.ros_node.get_data("/auto/turret/current/angle") is None:
+            rospy.logerr("The topic /auto/turret/current/angle has not been published yet")
+        else:
+            neg_angle_diff = self.wrap_angle(self.ros_node.get_data("/auto/turret/current/angle") - angle)
+            pos_angle_diff = self.wrap_angle(angle - self.ros_node.get_data("/auto/turret/current/angle"))
+
+            if pos_angle_diff <= tol or neg_angle_diff <= tol:
+                return True
         return False
 
     # Actions (Only works if Shooter is in idle)
