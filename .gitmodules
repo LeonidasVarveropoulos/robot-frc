@@ -4,3 +4,6 @@
 [submodule "src/realsense-ros"]
 	path = src/realsense-ros
 	url = https://github.com/IntelRealSense/realsense-ros.git
+[submodule "src/swerve_drive"]
+	path = src/swerve_drive
+	url = https://github.com/LeonidasVarveropoulos/swerve_drive.git
