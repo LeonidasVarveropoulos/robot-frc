@@ -26,6 +26,7 @@ class UnityJoy:
     def on_joy_input(self, msg):
         cmd_vel = Twist()
         cmd_vel.linear.x = msg.axes[1] * self.linear_scale
+        cmd_vel.linear.y = -msg.axes[0] * self.linear_scale
         cmd_vel.angular.z = msg.axes[3] * self.angular_scale
 
         self.cmd_vel_pub.publish(cmd_vel)
