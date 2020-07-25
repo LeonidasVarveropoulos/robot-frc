@@ -6,6 +6,7 @@
     <include file="$(find diff_drive)/launch/demo.launch" />
     <include file="$(find autonomous)/launch/autonomous.launch" />
     <include file="$(find robot_pid)/launch/robot_pid.launch" />
+    <include file="$(find swerve_drive)/launch/vel_to_motor.launch" />
     
     <node pkg="vision_targeting" type="vision_targeting.py" name="vision_targeting"  output="screen">
         <rosparam command="load" file="$(find vision_targeting)/config/vision_targeting.yaml"/>
