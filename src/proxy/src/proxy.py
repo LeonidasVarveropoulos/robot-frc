@@ -99,15 +99,15 @@ class Proxy:
             # Input
             for data in self.input_data:
                 if data["type"] == "number":
-                    input_data = self.table.getNumber(data["name"], data["default"])
+                    input_data = self.table.getNumber(data["name"].replace("/", "-"), data["default"])
                     self.publish(data["name"], Float32, input_data)
 
                 elif data["type"] == "boolean":
-                    input_data = self.table.getBoolean(data["name"], data["default"])
+                    input_data = self.table.getBoolean(data["name"].replace("/", "-"), data["default"])
                     self.publish(data["name"], Bool, input_data)
                     
                 elif data["type"] == "string":
-                    input_data = self.table.getString(data["name"], data["default"])
+                    input_data = self.table.getString(data["name"].replace("/", "-"), data["default"])
                     self.publish(data["name"], String, input_data)
 
                 else:
@@ -121,23 +121,24 @@ class Proxy:
                 if data["type"] == "number":
                     self.subscribe(data["name"], Float32)
                     if new_data != None:
-                        self.table.putNumber(data["name"], new_data)
+                        self.table.putNumber(data["name"].replace("/", "-"), new_data)
                     else:
-                        self.table.putNumber(data["name"], data["default"])
+                        self.table.putNumber(data["name"].replace("/", "-"), data["default"])
 
                 elif data["type"] == "boolean":
                     self.subscribe(data["name"], Bool)
                     if new_data != None:
-                        self.table.putBoolean(data["name"], new_data)
+                        self.table.putBoolean(data["name"].replace("/", "-"), new_data)
                     else:
-                        self.table.putBoolean(data["name"], data["default"])
+                        self.table.putBoolean(data["name"].replace("/", "-"), data["default"])
 
                 elif data["type"] == "string":
                     self.subscribe(data["name"], String)
                     if new_data != None:
-                        self.table.putBoolean(data["name"], new_data)
+                        self.table.putString(data["name"].replace("/", "-"), new_data)
+                        print("sent string: " + data["name"] + "    " + new_data)
                     else:
-                        self.table.putBoolean(data["name"], data["default"])
+                        self.table.putString(data["name"].replace("/", "-"), data["default"])
 
                 else:
                     rospy.logerr("Proxy could not find data type of " + data["type"])

@@ -1,11 +1,24 @@
 <launch>
+    <!-- Checked -->
     <include file="$(find rs_launcher)/launch/rs_latte_panda.launch" />
-    <include file="$(find robot_urdf)/launch/rviz_model.launch" />
-    <include file="$(find localization)/launch/localization_sim.launch" />
+    <!-- Checked -->
+    <include file="$(find robot_urdf)/launch/rs_model.launch" />
+    <!-- Checked -->
+    <include file="$(find localization)/launch/rs_localization.launch" />
+    <!-- Checked -->
     <include file="$(find diff_drive)/launch/demo.launch" />
-    <include file="$(find sim_robot)/launch/sim_robot.launch" />
+
+    <include file="$(find diff_drive)/launch/vel_to_motor.launch" />
+    <!-- Checked -->
     <include file="$(find autonomous)/launch/autonomous.launch" />
-</launch>
-    
-    
+    <include file="$(find autonomous)/launch/path_editor.launch" />
+    <!-- Checked -->
+    <include file="$(find robot_pid)/launch/robot_pid.launch" />
+    <!-- Checked -Fix vision targetting file from unity -->
+    <node pkg="vision_targeting" type="vision_targeting.py" name="vision_targeting"  output="screen">
+        <rosparam command="load" file="$(find vision_targeting)/config/vision_targeting.yaml"/>
+        <param name="image_type" value="Image"/>
+    </node>
+    <!-- Proxy -->
+    <include file="$(find proxy)/launch/proxy.launch" />
 </launch>

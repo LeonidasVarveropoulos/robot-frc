@@ -209,4 +209,4 @@ def read_json():
 if __name__ == "__main__":
     threading.Thread(target=lambda: rospy.init_node('path_editor', disable_signals=True)).start()
     read_json()
-    app.run(debug=True)
+    app.run("10.6.24.197")

@@ -24,5 +24,8 @@
     <node pkg="localization" type="set_pose.py" name="set_pose"  output="screen">
         <rosparam command="load" file="$(find localization)/config/rs_set_pose.yaml"/>
     </node>
+
+    <node pkg="localization" type="global_pose.py" name="global_pose"  output="screen">
+    </node>
     
 </launch>

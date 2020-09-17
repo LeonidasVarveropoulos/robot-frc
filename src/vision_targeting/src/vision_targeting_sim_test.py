@@ -22,7 +22,10 @@ class VisionTargeting:
     self.bridge = CvBridge()
 
     # ROS img msg
-    self.image_sub = rospy.Subscriber("d435/color/image_raw",Image,self.callback)
+    if (rospy.get_param("image_type", "Image") == "Image"):
+      self.image_sub = rospy.Subscriber("d435/color/image_raw",CompressedImage,self.callback)
+    else:
+      self.image_sub = rospy.Subscriber("d435/color/image_raw",CompressedImage,self.callback)
 
     self.prime_sub = rospy.Subscriber("turret/primed", Bool,self.prime_callback)
     
@@ -46,7 +49,10 @@ class VisionTargeting:
   def callback(self,data):
     """ This runs when a new img frame is detected """
     try:
-      cv_image = self.bridge.imgmsg_to_cv2(data, "bgr8")
+      if (rospy.get_param("image_type", "Image") == "Image"):
+        cv_image = self.bridge.compressed_imgmsg_to_cv2(data)
+      else:
+        cv_image = self.bridge.compressed_imgmsg_to_cv2(data)
     except CvBridgeError as e:
       print(e)
 

@@ -12,7 +12,7 @@ function postJSON()
 {
   if (autonData != null){
     var xhr = new XMLHttpRequest(); 
-    var url = "http://127.0.0.1:5000/planner/api/auton"; 
+    var url = "http://" + server_ip + ":5000/planner/api/auton"; 
 
     // open a connection 
     xhr.open("POST", url, true); 

@@ -4,4 +4,6 @@
     <include file="$(find diff_drive)/launch/demo.launch" />
     <include file="$(find sim_robot)/launch/sim_robot.launch" />
     <include file="$(find autonomous)/launch/autonomous.launch" />
+    <include file="$(find diff_drive)/launch/vel_to_motor.launch" />
+    <!-- Checked -->
 </launch>

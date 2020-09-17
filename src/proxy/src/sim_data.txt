@@ -1,10 +1,16 @@
 {
-    "/cmd_vel/left": 0.0, 
-    "/turret/cmd_vel": 0.0, 
-    "/auto/intake/state": "", 
+    "-auto-shooter-state": "idle", 
+    "-cmd_vel-right": 0.0, 
+    "-auto-turret-wanted-angle": 0.0, 
+    "-auto-turret-state": "idle", 
+    "-turret-cmd_vel": 0.0, 
+    "-auto-flywheel-state": "idle", 
+    "-auto-flywheel-wanted-rpm": 2000.0, 
     "/auto/state": true, 
-    "/cmd_vel/right": 0.0, 
-    "/turret/distance": 0.0, 
-    "/auto/turret/state": "", 
-    "/auto/select": 0.0
+    "-turret-y_offset": 0.0, 
+    "-cmd_vel-left": 0.0, 
+    "-auto-hood-state": "idle", 
+    "-auto-hood-wanted-angle": 0.0, 
+    "/auto/select": 0.0, 
+    "-auto-intake-state": "retract"
 }

@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="vision_targeting" type="vision_targeting_sim_test.py" name="vision_targeting"  output="screen">
+    <rosparam command="load" file="$(find vision_targeting)/config/vision_targeting.yaml"/>
+  </node>
+</launch>

@@ -95,7 +95,7 @@ class ContourDetect:
                 self.target_locked = False
         else:
             self.target_locked = False
-        cv2.imshow("Mask",mask)
+        # cv2.imshow("Mask",mask)
 
     def get_center(self, x, y, w, h):
         """ This returns a Point which is the center of the contour """

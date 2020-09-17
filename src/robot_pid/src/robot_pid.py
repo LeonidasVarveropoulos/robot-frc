@@ -79,7 +79,7 @@ class RobotPID:
 
                     # Publishes the rpm to ros for the proxy to send to the roboRio
                     data = Float32()
-                    data.data = control * (math.pi/180.0)
+                    data.data = control
                     self.publish(pid["control_topic"], Float32, data)
                 else:
                     rospy.loginfo("Did not recieve topics yet")
