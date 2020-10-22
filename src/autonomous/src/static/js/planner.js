@@ -1,5 +1,5 @@
 //  Runs once at the beginning of the page loading
-server_ip = "10.06.24.28";
+server_ip = "10.0.1.33";
 getAutonJSON('http://' + server_ip + ':5000/planner/api/auton', getCallback)
 
 // Setting the default open tabs
