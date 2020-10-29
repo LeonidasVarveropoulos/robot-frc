@@ -1,5 +1,6 @@
 //  Runs once at the beginning of the page loading
-server_ip = "10.0.1.33";
+var current_url = window.location.href;
+var server_ip = current_url.split(":")[1]
 getAutonJSON('http://' + server_ip + ':5000/planner/api/auton', getCallback)
 
 // Setting the default open tabs
