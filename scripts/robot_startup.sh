@@ -1,5 +1,5 @@
 #! /bin/bash
-source /opt/ros/kinetic/setup.bash
+source /opt/ros/melodic/setup.bash
 source ~/robot-frc/devel/setup.bash
 
 # Start roscore and wait till its finished
