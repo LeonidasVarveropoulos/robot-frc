@@ -6,4 +6,5 @@ source ~/robot-frc/devel/setup.bash
 roscore -p 11311 &
 sleep 5
 
-roslaunch robot_launch robot_startup.launch
+cd
+uvcdynctrl --device=video10 -L testcam.gpfl

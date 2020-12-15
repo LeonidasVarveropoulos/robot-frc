@@ -8,7 +8,8 @@ import numpy as np
 import roslib
 import sys
 import rospy
-from std_msgs.msg import String
+
+from std_msgs.msg import String, Float32
 from sensor_msgs.msg import Image, CompressedImage
 from cv_bridge import CvBridge, CvBridgeError
 
@@ -35,7 +36,7 @@ class VisionTargetingTuner:
     self.bridge = CvBridge()
     
     # Subscribes to img
-    self.image_sub = rospy.Subscriber("d435/color/image_raw",CompressedImage,self.callback)
+    self.image_sub = rospy.Subscriber("/ping",Float32,self.callback)
     
     # Default values
     self.low_h_val = 0
@@ -46,12 +47,13 @@ class VisionTargetingTuner:
     self.high_s_val = 0
     self.high_v_val = 0
 
+    self.cap = cv2.VideoCapture(2)
+
+
   def callback(self,data):
     # Converts to opencv image
-    try:
-      cv_image = self.bridge.compressed_imgmsg_to_cv2(data)
-    except CvBridgeError as e:
-      print(e)
+    ret, cv_image = self.cap.read()
+    cv2.imshow("Image",cv_image)
     
     frame = cv2.GaussianBlur(cv_image, (5,5),0)
 
