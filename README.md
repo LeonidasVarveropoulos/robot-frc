@@ -127,6 +127,8 @@ To stop and reset the auton state machine, set the `auto/state` to false. On a n
 ### More Info
 For more information on how to configure ROS for your own physical robot and learn how to create your own autonomous, visit the repository's [wiki](https://github.com/LeonidasVarveropoulos/robot-frc/wiki).
 
+For information on how to setup the vision processing, including tuning, look here [vision_targeting](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/ROS-API:-vision_targeting)
+
 # ROS API
 
 The parameters effecting many of the nodes existing within this repository are documented below.
