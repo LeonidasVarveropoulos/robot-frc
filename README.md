@@ -148,3 +148,6 @@ This is a ROS node that allows for the quick creation of simple PIDs to be used 
 
 ## 6. [reset_pose](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/ROS-API:-reset_pose)
 This is a ROS node that allows for the resetting of the robot pose without restarting all the sensors.
+
+## 7. [vision_targeting](https://github.com/LeonidasVarveropoulos/robot-frc/wiki/ROS-API:-vision_targeting)
+This is a ROS node that allows for the tracking of the vision target. Tuning and setup will be explained here.
