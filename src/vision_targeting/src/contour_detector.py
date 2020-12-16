@@ -71,7 +71,7 @@ class ContourDetect:
                     selected_contour = None
 
                 # Use filtered contour to get data
-                if (selected_contour != None):
+                if (selected_contour is not None):
                     self.target_locked = True
 
                     # Gets the position and dimensions of the contour
