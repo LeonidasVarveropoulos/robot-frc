@@ -57,7 +57,7 @@ class VisionTargeting:
       cap = cv2.VideoCapture(0)
       while not rospy.is_shutdown():
         ret, cv_image = cap.read()
-        #cv2.imshow("Image",cv_image)
+        cv2.imshow("Image",cv_image)
         # Color Filter the Video Stream (For Green)
         mask = self.cf.color_filter(cv_image, rospy.get_param("~low_hsv", [0,0,0]), rospy.get_param("~high_hsv", [0,0,0]))
 
