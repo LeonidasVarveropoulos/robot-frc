@@ -54,7 +54,7 @@ class VisionTargeting:
     try:
       r = rospy.Rate(20)
 
-      cap = cv2.VideoCapture(10)
+      cap = cv2.VideoCapture(0)
       while not rospy.is_shutdown():
         ret, cv_image = cap.read()
         #cv2.imshow("Image",cv_image)

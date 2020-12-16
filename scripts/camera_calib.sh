@@ -1,3 +1,3 @@
 #! /bin/bash
 cd
-uvcdynctrl --device=video10 -L testcam.gpfl
+uvcdynctrl --device=video0 -L testcam.gpfl
